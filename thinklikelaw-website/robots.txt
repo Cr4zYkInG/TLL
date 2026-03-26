@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /modules.html
+Disallow: /interpret.html
+Disallow: /lecture-notes.html
+Disallow: /flashcards.html
+Disallow: /issue-spotter.html
+Disallow: /essay-marking.html
+Disallow: /onboarding.html
+Allow: /blog/
+
+Sitemap: https://www.thinklikelaw.com/sitemap.xml

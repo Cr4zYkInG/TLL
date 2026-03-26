@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Marking | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "IRAC Essay Marking - ThinkLikeLaw",
+      "description": "AI-powered essay marking tool for law students. Get instant feedback on your IRAC structure and legal analysis.",
+      "url": "https://www.thinklikelaw.com/essay-marking",
+      "educationalLevel": "University / A-Level",
+      "teaches": "Legal Writing",
+      "learningResourceType": "Assessment Tool",
+      "isPartOf": {
+        "@type": "WebApplication",
+        "name": "ThinkLikeLaw",
+        "url": "https://www.thinklikelaw.com"
+      }
+    }
+    </script>
+    
+    <!-- Favicon Variants -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            background: var(--bg-color);
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            width: calc(100% - 260px);
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .positioning-note {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .positioning-note i {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .mode-card {
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--spring);
+        }
+
+        .mode-card:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .mode-card.active {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .mode-card h3 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mode-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Essay Form */
+        .essay-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 500px;
+        }
+
+        .essay-input-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .config-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .config-row select,
+        .config-row input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1em;
+        }
+
+        .config-row input {
+            background-image: none;
+        }
+
+        .essay-textarea {
+            flex: 1;
+            width: 100%;
+            min-height: 350px;
+            padding: 1.25rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .essay-textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .word-count {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .btn-mark {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--spring);
+        }
+
+        .btn-mark:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-mark:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Timer */
+        .timer-bar {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-bar.active {
+            display: flex;
+        }
+
+        .timer-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            min-width: 80px;
+        }
+
+        .timer-bar .timer-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .timer-bar .timer-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 2px;
+            transition: width 1s linear;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timer-controls button {
+            padding: 0.4rem 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .results-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .results-empty i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .result-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .result-section h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grade-band {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feedback-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .feedback-list li i {
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .feedback-positive {
+            color: #4ade80;
+        }
+
+        .feedback-improve {
+            color: #fbbf24;
+        }
+
+        .feedback-critical {
+            color: #f87171;
+        }
+
+        .question-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 1200px) {
+            .essay-workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="serif">Essay Marking</h1>
+            <p>Get structured feedback on your essays — structure, argument quality, and areas for improvement.</p>
+        </div>
+
+        <div class="positioning-note">
+            <i class="fas fa-info-circle"></i>
+            <span>ThinkLikeLaw is your academic assistant for structure, marking, and improvement guidance. We help you
+                understand <strong>what went right</strong>, <strong>what went wrong</strong>, and <strong>how to
+                    improve</strong> — not write your essays for you.</span>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="mode-selector">
+            <div class="mode-card active" id="mode-plain" onclick="selectMode('plain')">
+                <h3><i class="fas fa-pen-fancy"></i> Plain Marking</h3>
+                <p>Paste a completed essay and receive detailed structural feedback, marking criteria analysis, and
+                    improvement areas.</p>
+            </div>
+            <div class="mode-card" id="mode-timed" onclick="selectMode('timed')">
+                <h3><i class="fas fa-clock"></i> Timed Answer & Mark</h3>
+                <p>Set a time limit, write your answer under exam conditions, and receive marking when time is up or you
+                    submit.</p>
+            </div>
+        </div>
+
+        <!-- Workspace -->
+        <div class="essay-workspace">
+            <div class="essay-input-panel">
+                <!-- Question (optional for plain, shown for timed) -->
+                <input type="text" class="question-input" id="essay-question"
+                    placeholder="Essay question (optional — paste the question or prompt here)">
+
+                <div class="config-row">
+                    <select id="essay-module">
+                        <option value="" disabled selected>Select Module</option>
+                        <option value="contract">Contract Law</option>
+                        <option value="tort">Tort Law</option>
+                        <option value="public">Public Law</option>
+                        <option value="equity">Equity & Trusts</option>
+                        <option value="criminal">Criminal Law</option>
+                        <option value="land">Land Law</option>
+                        <option value="eu">EU Law</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <select id="essay-level">
+                        <option value="" disabled selected>Level</option>
+                        <option value="llb-1">LLB Year 1</option>
+                        <option value="llb-2">LLB Year 2</option>
+                        <option value="llb-3">LLB Year 3</option>
+                        <option value="gdl">GDL</option>
+                        <option value="sqe">SQE</option>
+                    </select>
+                </div>
+
+                <!-- Timer bar (timed mode only) -->
+                <div class="timer-bar" id="timer-bar">
+                    <div class="timer-display" id="timer-display">00:00</div>
+                    <div class="timer-progress">
+                        <div class="timer-fill" id="timer-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="timer-controls">
+                        <select id="timer-duration"
+                            style="padding: 0.4rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: white; border-radius: 4px; font-size: 0.8rem;">
+                            <option value="15">15 min</option>
+                            <option value="30" selected>30 min</option>
+                            <option value="45">45 min</option>
+                            <option value="60">60 min</option>
+                            <option value="90">90 min</option>
+                            <option value="120">2 hours</option>
+                        </select>
+                        <button id="timer-start" onclick="startTimer()">Start</button>
+                    </div>
+                </div>
+
+                <textarea class="essay-textarea" id="essay-text"
+                    placeholder="Paste your essay here, or start writing in timed mode..."></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="word-count" id="word-count">0 words</span>
+                    <button id="essay-btn" class="glow-btn hint--top"
+                        aria-label="Submit your essay for AI grading and feedback"
+                        style="position:relative;overflow:hidden">
+                        <i class="fas fa-highlighter"></i> Mark Essay <span
+                            style="font-size:0.8em;opacity:0.8;margin-left:5px">(40 credits)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-panel" id="results-panel">
+                <div class="results-empty" id="results-empty">
+                    <i class="fas fa-pen-to-square"></i>
+                    <h3>Feedback will appear here</h3>
+                    <p>Submit your essay to receive structured marking and improvement guidance.</p>
+                </div>
+                <div id="results-content" style="display: none;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script>
+        // ── Mode Selection ──
+        let currentMode = 'plain';
+
+        function selectMode(mode) {
+            currentMode = mode;
+            document.getElementById('mode-plain').classList.toggle('active', mode === 'plain');
+            document.getElementById('mode-timed').classList.toggle('active', mode === 'timed');
+            document.getElementById('timer-bar').classList.toggle('active', mode === 'timed');
+
+            if (mode === 'timed') {
+                document.getElementById('essay-text').placeholder = 'Start the timer and begin writing your answer under exam conditions...';
+                document.getElementById('btn-mark').innerHTML = '<i class="fas fa-paper-plane"></i> Submit & Mark';
+            } else {
+                document.getElementById('essay-text').placeholder = 'Paste your completed essay here...';
+                document.getElementById('btn-mark').innerHTML = '<i class="fas fa-pen-to-square"></i> Mark Essay';
+            }
+        }
+
+        // ── Word Count ──
+        document.getElementById('essay-text').addEventListener('input', (e) => {
+            const words = e.target.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('word-count').textContent = `${words} word${words !== 1 ? 's' : ''}`;
+        });
+
+        // ── Timer ──
+        let timerInterval = null;
+        let timerSeconds = 0;
+        let totalSeconds = 0;
+
+        function startTimer() {
+            const btn = document.getElementById('timer-start');
+
+            if (timerInterval) {
+                // Stop timer
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btn.textContent = 'Start';
+                return;
+            }
+
+            totalSeconds = parseInt(document.getElementById('timer-duration').value) * 60;
+            timerSeconds = totalSeconds;
+
+            btn.textContent = 'Stop';
+            document.getElementById('essay-text').focus();
+
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+
+                const mins = Math.floor(timerSeconds / 60);
+                const secs = timerSeconds % 60;
+                document.getElementById('timer-display').textContent =
+                    `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                const pct = (timerSeconds / totalSeconds) * 100;
+                document.getElementById('timer-fill').style.width = `${pct}%`;
+
+                if (pct < 20) {
+                    document.getElementById('timer-fill').style.background = '#f87171';
+                } else if (pct < 50) {
+                    document.getElementById('timer-fill').style.background = '#fbbf24';
+                }
+
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    btn.textContent = 'Done';
+                    submitForMarking();
+                }
+            }, 1000);
+        }
+
+        // ── Submit for Marking ──
+        async function submitForMarking() {
+            const text = document.getElementById('essay-text').value.trim();
+            const question = document.getElementById('essay-question').value.trim();
+            const module = document.getElementById('essay-module').value;
+            const level = document.getElementById('essay-level').value;
+
+            if (!text || text.split(/\s+/).length < 20) {
+                // Show inline error
+                document.getElementById('essay-text').style.borderColor = '#ff5555';
+                setTimeout(() => {
+                    document.getElementById('essay-text').style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            // Stop timer if running
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                document.getElementById('timer-start').textContent = 'Done';
+            }
+
+            const btn = document.getElementById('btn-mark');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analysing with AI...';
+
+            try {
+                // Check Credits First
+                if (typeof creditsManager !== 'undefined' && !creditsManager.canAfford('essayMarking')) {
+                    creditsManager.showSubscriptionCTA();
+                    throw new Error("Insufficient credits to mark essay.");
+                }
+                const systemPrompt = `You are ThinkLikeLaw's expert legal essay marker for UK Law. Analyze the submitted essay and provide structured feedback based on UK academic standards.
+Return STRICTLY a JSON object with this structure:
+{
+  "grade": "First / 2:1 / 2:2 / Third / Fail",
+  "structure": [ { "type": "positive/improve", "text": "..." } ],
+  "strengths": [ { "type": "positive", "text": "..." } ],
+  "improvements": [ { "type": "improve/critical", "text": "..." } ],
+  "missing": [ { "type": "improve", "text": "..." } ],
+  "advice": "Short paragraph of constructive guidance."
+}`;
+                const userPrompt = `Module: ${module || 'General Law'}\nLevel: ${level || 'LLB'}\nQuestion: ${question || 'Not provided'}\n\nEssay:\n${text}`;
+
+                const result = await aiService.generateCompletion(userPrompt, systemPrompt);
+
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                let data;
+                try {
+                    const textContent = result.text;
+                    const jsonMatch = textContent.match(/\{[\s\S]*\}/);
+                    if (!jsonMatch) throw new Error("No JSON found");
+                    data = JSON.parse(jsonMatch[0]);
+                } catch (e) {
+                    console.error("Essay Marking Parsing Error:", e);
+                    throw new Error("AI returned invalid format. Please try again.");
+                }
+
+                displayResults(data);
+
+                // Cloud Save
+                if (window.CloudData && window.CloudData.saveEssayResult) {
+                    window.CloudData.saveEssayResult({
+                        question: question,
+                        text: text,
+                        module: module,
+                        grade: data.grade,
+                        feedback: data
+                    });
+                }
+
+                // Deduct credits on success
+                if (typeof creditsManager !== 'undefined') {
+                    creditsManager.deduct('essayMarking');
+                }
+
+            } catch (err) {
+                console.error('Marking error:', err);
+                alert("Marking Failed: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = currentMode === 'timed'
+                    ? '<i class="fas fa-paper-plane"></i> Submit & Mark'
+                    : '<i class="fas fa-pen-to-square"></i> Mark Essay';
+            }
+        }
+
+        function buildMarkingPrompt(text, question, module, level) {
+            let prompt = `You are ThinkLikeLaw's essay marking assistant. Analyse the following law essay and provide structured feedback based on UK academic criteria.\n\n`;
+            if (question) prompt += `ESSAY QUESTION: ${question}\n\n`;
+            if (module) prompt += `MODULE: ${module}\n`;
+            if (level) prompt += `LEVEL: ${level}\n\n`;
+            prompt += `ESSAY:\n${text}\n\n`;
+            prompt += `Provide feedback in these categories:
+1. ESTIMATED GRADE (UK classification: First / 2:1 / 2:2 / Third / Fail)
+2. STRUCTURE: How well organised is the essay? IRAC/ILAC usage?
+3. KEY STRENGTHS: What the student did well (2-4 points)
+4. AREAS FOR IMPROVEMENT: Specific weaknesses to address (2-4 points)
+5. MISSING ELEMENTS: Key cases, statutes, or arguments not discussed
+6. OVERALL ADVICE: One paragraph of constructive guidance`;
+            return prompt;
+        }
+
+        function generateStructuredFeedback(text, question, module) {
+            const wordCount = text.split(/\s+/).length;
+            let grade = '2:2';
+            if (wordCount > 1500) grade = '2:1';
+            if (wordCount > 2500) grade = 'First';
+            if (wordCount < 500) grade = 'Third';
+
+            return {
+                grade: grade,
+                structure: [
+                    { type: 'positive', text: 'Essay follows a clear introduction–body–conclusion format.' },
+                    { type: 'improve', text: 'Consider using the IRAC method (Issue, Rule, Application, Conclusion) for each legal point.' }
+                ],
+                strengths: [
+                    { type: 'positive', text: 'Good use of topic sentences to introduce key arguments.' },
+                    { type: 'positive', text: 'Demonstrates awareness of the relevant area of law.' },
+                    { type: 'positive', text: `Essay length (${wordCount} words) is appropriate for the task.` }
+                ],
+                improvements: [
+                    { type: 'improve', text: 'Strengthen your analysis by applying case law more precisely to the facts.' },
+                    { type: 'improve', text: 'Include counter-arguments to demonstrate critical evaluation.' },
+                    { type: 'critical', text: 'Ensure statutory provisions are cited accurately with section numbers.' }
+                ],
+                missing: [
+                    { type: 'improve', text: 'Consider referencing leading authorities more explicitly.' },
+                    { type: 'improve', text: 'Academic commentary could strengthen your argument.' }
+                ],
+                advice: 'Your essay shows a solid foundation of legal understanding. To move into higher grade bands, focus on deeper analytical engagement with case law — don\'t just state the law, but explain how it applies to the specific facts. Use your conclusion to bring together your arguments and offer a definitive answer to the question posed.'
+            };
+        }
+
+        function displayResults(data) {
+            document.getElementById('results-empty').style.display = 'none';
+            const content = document.getElementById('results-content');
+            content.style.display = 'block';
+
+            content.innerHTML = `
+                <div class="result-section">
+                    <h3><i class="fas fa-star"></i> Estimated Grade Band</h3>
+                    <div class="grade-band">${data.grade}</div>
+                </div>
+
+                <div class="result-section">
+                    <h3><i class="fas fa-sitemap"></i> Structure</h3>
+                    <ul class="feedback-list">
+                        ${data.structure.map(item => `
+                            <li><i class="fas fa-${item.type === 'positive' ? 'check-circle feedback-positive' : 'exclamation-triangle feedback-improve'}"></i> ${item.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="result-section">
+                    <h3><i class="fas fa-thumbs-up"></i> Key Strengths</h3>
+                    <ul class="feedback-list">
+                        ${data.strengths.map(item => `
+                            <li><i class="fas fa-check-circle feedback-positive"></i> ${item.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="result-section">
+                    <h3><i class="fas fa-arrow-up"></i> Areas for Improvement</h3>
+                    <ul class="feedback-list">
+                        ${data.improvements.map(item => `
+                            <li><i class="fas fa-${item.type === 'critical' ? 'times-circle feedback-critical' : 'exclamation-triangle feedback-improve'}"></i> ${item.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="result-section">
+                    <h3><i class="fas fa-search"></i> Missing Elements</h3>
+                    <ul class="feedback-list">
+                        ${data.missing.map(item => `
+                            <li><i class="fas fa-exclamation-triangle feedback-improve"></i> ${item.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="result-section">
+                    <h3><i class="fas fa-lightbulb"></i> Overall Advice</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem;">${data.advice}</p>
+                </div>
+            `;
+        }
+    </script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

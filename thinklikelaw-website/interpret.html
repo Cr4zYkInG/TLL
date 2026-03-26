@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpret AI | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: false });</script>
+    <style>
+        body {
+            display: flex;
+            background: #0A0A0B;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #FFFFFF;
+        }
+
+        .tool-content {
+            margin-left: 260px;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            height: 100vh;
+            width: calc(100% - 260px);
+        }
+
+        .input-panel {
+            padding: 3rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            background: #0A0A0B;
+            overflow-y: auto;
+        }
+
+        .output-panel {
+            padding: 3rem;
+            background: #0F0F11;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .tool-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .tool-header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .tool-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* ─── Upload Area ─── */
+        .upload-container {
+            margin-bottom: 2rem;
+        }
+
+        .drop-zone {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone:hover,
+        .drop-zone.drag-over {
+            border-color: var(--accent-color);
+            background: rgba(18, 18, 18, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .drop-zone i {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            transition: var(--spring);
+        }
+
+        .drop-zone:hover i {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .drop-zone-text {
+            text-align: center;
+        }
+
+        .drop-zone-text p {
+            margin: 0;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .drop-zone-text span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .file-info {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: #0A0A0B;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .file-info.active {
+            display: flex;
+        }
+
+        .remove-file {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #ff5555;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .input-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .input-divider::before,
+        .input-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .input-divider span {
+            padding: 0 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            transition: var(--spring);
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .btn-action {
+            width: 100%;
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--spring);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-action:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.3);
+        }
+
+        .btn-action:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ─── Output Styling ─── */
+        .output-content {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .output-content h1 {
+            font-size: 2.2rem;
+            color: #FFFFFF;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .output-content h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-family: 'Playfair Display', serif;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .output-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .opt-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .opt-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .opt-btn.active {
+            background: rgba(197, 160, 89, 0.1);
+            border-color: #c5a059;
+            color: #c5a059;
+        }
+
+        .mermaid-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            color: #333;
+            min-height: 100px;
+        }
+
+        .analysis-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--card-shadow-hover);
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ratio-box {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.1) 0%, rgba(18, 18, 18, 0.02) 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 2rem;
+            border-radius: 0 16px 16px 0;
+            margin: 2rem 0;
+        }
+
+        .ratio-label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Skeleton Loader Enhancement */
+        .skeleton-loader {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .skeleton-line {
+            height: 14px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        .skeleton-line.short {
+            width: 40%;
+        }
+
+        .skeleton-line.medium {
+            width: 70%;
+        }
+
+        .skeleton-line.large {
+            width: 100%;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="tool-content">
+        <section class="input-panel">
+            <header class="tool-header">
+                <h1 class="serif">Interpret AI</h1>
+                <p>Upload case judgments, bundles, or judgments (PDF) for deep analysis, or paste your text below.</p>
+            </header>
+
+            <div class="upload-container">
+                <div id="pdf-drop-zone" class="drop-zone">
+                    <i class="fas fa-file-pdf"></i>
+                    <div class="drop-zone-text">
+                        <p>Drop PDF judgment here</p>
+                        <span>or click to browse from device</span>
+                    </div>
+                    <input type="file" id="pdf-input" accept=".pdf" style="display: none;">
+
+                    <div id="file-display" class="file-info">
+                        <i class="fas fa-file-pdf" style="color: var(--accent-color); font-size: 3rem;"></i>
+                        <div id="file-name-text" style="font-weight: 600; font-size: 1.1rem; margin-top: 0.5rem;">
+                            filename.pdf</div>
+                        <div id="file-size-text" style="font-size: 0.8rem; opacity: 0.5;">2.4 MB</div>
+                        <span class="remove-file" id="remove-pdf">Remove and use text instead</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-divider">
+                <span>OR PASTE TEXT</span>
+            </div>
+
+            <textarea id="caseInput"
+                placeholder="Enter judicial reasoning, ratio decidendi, or full judgment text here..."></textarea>
+
+            <div class="analysis-options" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <button class="opt-btn active" data-type="analysis"><i class="fas fa-file-lines"></i> IRAC
+                    Analysis</button>
+                <button class="opt-btn" data-type="timeline"><i class="fas fa-clock-rotate-left"></i> Visual
+                    Timeline</button>
+                <button class="opt-btn" data-type="map"><i class="fas fa-diagram-project"></i> Fact Map</button>
+            </div>
+
+            <button id="interpret-btn" class="btn-action glow-btn hint--top"
+                aria-label="Use AI to generate a detailed breakdown of the provided text">
+                <i class="fas fa-magic"></i> Analyze Legal Content <span
+                    style="font-size:0.8em;opacity:0.8;margin-left:5px">(10 credits)</span>
+            </button>
+        </section>
+
+        <section class="output-panel">
+            <div id="outputContainer" class="output-content">
+                <div style="text-align: center; color: rgba(255,255,255,0.2); margin-top: 40%;">
+                    <i class="fas fa-scroll" style="font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.3;"></i>
+                    <h3
+                        style="font-family: 'Playfair Display', serif; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem;">
+                        Analysis Ready</h3>
+                    <p style="font-size: 0.95rem;">Upload a PDF or paste text to begin deep interpretation.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+
+    <script>
+        // PDF.js worker setup
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        // State variables
+        let selectedFile = null;
+        let extractedText = "";
+
+        // UI Elements
+        const dropZone = document.getElementById('pdf-drop-zone');
+        const fileInput = document.getElementById('pdf-input');
+        const fileDisplay = document.getElementById('file-display');
+        const fileNameText = document.getElementById('file-name-text');
+        const fileSizeText = document.getElementById('file-size-text');
+        const removePdfBtn = document.getElementById('remove-pdf');
+        const caseInput = document.getElementById('caseInput');
+        const interpretBtn = document.getElementById('interpret-btn');
+
+        // A-Level Refinement
+        const studentLevel = localStorage.getItem('studentLevel') || 'llb';
+        if (studentLevel === 'alevel') {
+            document.querySelector('.tool-header h1').textContent = "Interpret AI (A-Level)";
+            document.querySelector('.tool-header p').textContent = "Simplified case summaries. Focus on key facts, legal principles, and exam significance.";
+            caseInput.placeholder = "Paste a case snippet or summary here for an A-Level focused breakdown...";
+            document.querySelector('.drop-zone-text p').textContent = "Drop case textbook PDF here";
+        }
+
+        // Drag & Drop Handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, () => dropZone.classList.remove('drag-over'));
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                handleFileSelect(file);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFileSelect(file);
+        });
+
+        removePdfBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetFile();
+        });
+
+        async function handleFileSelect(file) {
+            selectedFile = file;
+            fileNameText.textContent = file.name;
+            fileSizeText.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+            fileDisplay.classList.add('active');
+            caseInput.disabled = true;
+            caseInput.placeholder = "PDF selected. Press 'Analyze' to begin deep-reading.";
+
+            // Start extraction immediately in background to speed up
+            try {
+                extractedText = await extractTextFromPDF(file);
+                console.log("PDF extraction complete", extractedText.length, "chars");
+            } catch (err) {
+                console.error("PDF Extraction Error:", err);
+            }
+        }
+
+        function resetFile() {
+            selectedFile = null;
+            extractedText = "";
+            fileInput.value = '';
+            fileDisplay.classList.remove('active');
+            caseInput.disabled = false;
+            caseInput.placeholder = "Enter judicial reasoning, ratio decidendi, or full judgment text here...";
+        }
+
+        async function extractTextFromPDF(file) {
+            const reader = new FileReader();
+            return new Promise((resolve, reject) => {
+                reader.onload = async function () {
+                    try {
+                        const typedarray = new Uint8Array(this.result);
+                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                        let text = "";
+
+                        // Limit to first 20 pages to avoid context window issues and performance lag
+                        const maxPages = Math.min(pdf.numPages, 20);
+
+                        for (let i = 1; i <= maxPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const content = await page.getTextContent();
+                            const strings = content.items.map(item => item.str);
+                            text += strings.join(" ") + "\n\n";
+                        }
+
+                        resolve(text);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        let selectedOutputType = 'analysis';
+        const optBtns = document.querySelectorAll('.opt-btn');
+        optBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                optBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedOutputType = btn.dataset.type;
+            });
+        });
+
+        async function analyzeCase() {
+            const textInput = caseInput.value.trim();
+            const finalInputText = selectedFile ? extractedText : textInput;
+            const outputContainer = document.getElementById('outputContainer');
+            const btn = interpretBtn;
+
+            if (!finalInputText.trim() && !selectedFile) {
+                outputContainer.innerHTML = '<div style="text-align: center; color: #ff5555; margin-top: 40%;"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i><p>Please enter text or upload a PDF.</p></div>';
+                return;
+            }
+
+            // Show UI loading state
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> deep-reading case file...';
+            btn.disabled = true;
+
+            // Credit Check
+            try {
+                if (typeof creditsManager !== 'undefined' && !creditsManager.canAfford('interpret')) {
+                    creditsManager.showSubscriptionCTA();
+                    throw new Error("Insufficient credits.");
+                }
+            } catch (creditErr) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-magic"></i> Analyze Legal Content';
+                return;
+            }
+
+            outputContainer.innerHTML = `
+                <div class="analysis-block">
+                    <div class="skeleton-loader">
+                        <div class="skeleton-line medium" style="height: 32px; margin-bottom: 2rem;"></div>
+                        <div class="skeleton-line large"></div>
+                        <div class="skeleton-line large"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line short"></div>
+                        <div style="margin: 3rem 0; border-left: 3px solid rgba(255,255,255,0.05); padding-left: 2rem;">
+                            <div class="skeleton-line large"></div>
+                            <div class="skeleton-line medium"></div>
+                        </div>
+                        <div class="skeleton-line large"></div>
+                        <div class="skeleton-line medium"></div>
+                    </div>
+                </div>
+            `;
+
+            // Wait for extraction if not done
+            let sourceText = finalInputText;
+            if (selectedFile && !sourceText) {
+                try {
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting PDF text...';
+                    sourceText = await extractTextFromPDF(selectedFile);
+                } catch (e) {
+                    outputContainer.innerHTML = `<div class="analysis-block"><p style="color: #ff5555;">PDF Reading Error: ${e.message}</p></div>`;
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-magic"></i> Analyze Legal Content';
+                    return;
+                }
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Synthesizing Judgment...';
+            const result = await aiService.generateDeepAnalysis(sourceText, selectedOutputType);
+
+            btn.innerHTML = '<i class="fas fa-magic"></i> Analyze Legal Content';
+            btn.disabled = false;
+
+            if (result.error) {
+                outputContainer.innerHTML = `<div class="analysis-block"><p style="color: #ff5555;">Analysis Error: ${result.error}</p></div>`;
+            } else {
+                let finalHtml = "";
+
+                // Check for Mermaid block
+                const mermaidMatch = result.text.match(/```mermaid([\s\S]*?)```/);
+
+                if (mermaidMatch) {
+                    const mermaidCode = mermaidMatch[1].trim();
+                    const cleanText = result.text.replace(/```mermaid[\s\S]*?```/, '').trim();
+
+                    // Format text parts
+                    let formattedText = cleanText
+                        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n\n/g, '<br><br>')
+                        .replace(/\n/g, '<br>');
+
+                    finalHtml = `
+                        <div class="analysis-block">
+                            ${formattedText}
+                            <div class="mermaid-container">
+                                <pre class="mermaid">${mermaidCode}</pre>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Standard IRAC formatting
+                    let formatted = result.text
+                        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                        .replace(/^## (.*$)/gim, '<h2>$2</h2>')
+                        .replace(/^### (.*$)/gim, '<h3>$3</h3>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/Ratio Decidendi:(.*?)(?=##|$)/si, '<div class="ratio-box"><span class="ratio-label">Ratio Decidendi</span>$1</div>')
+                        .replace(/\n\n/g, '<br><br>')
+                        .replace(/\n/g, '<br>');
+
+                    finalHtml = `<div class="analysis-block">${formatted}</div>`;
+                }
+
+                outputContainer.innerHTML = finalHtml;
+
+                // Initialize Mermaid if needed
+                if (mermaidMatch) {
+                    try {
+                        const mElements = outputContainer.querySelectorAll('.mermaid');
+                        await mermaid.run({
+                            nodes: mElements
+                        });
+                    } catch (e) {
+                        console.error("Mermaid error:", e);
+                    }
+                }
+
+                // Auto-scroll to result
+                outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Cloud Save
+                if (window.CloudData && window.CloudData.saveInterpretResult) {
+                    window.CloudData.saveInterpretResult({
+                        text: sourceText.substring(0, 5000), // Limit storage
+                        interpretation: result.text
+                    });
+                }
+
+                // Deduct credits
+                if (typeof creditsManager !== 'undefined') {
+                    creditsManager.deduct('interpret');
+                }
+            }
+        }
+
+        interpretBtn.addEventListener('click', analyzeCase);
+    </script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

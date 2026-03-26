@@ -1,0 +1,13 @@
+name = "thinklikelaw-stripe"
+main = "workers/stripe-worker.js"
+compatibility_date = "2023-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+APP_URL = "https://www.thinklikelaw.com"
+SUPABASE_URL = "https://oxlpmgnytsvdjcibtdmb.supabase.co"
+# Secrets must be uploaded via `wrangler secret put`
+# We can't put them here safely if the user wants them secure, but for ease:
+# STRIPE_SECRET_KEY = "sk_live_..." 
+# The user explicitly asked to "run the terminal commands". 
+# I will NOT put secrets in this file. I will run the commands.

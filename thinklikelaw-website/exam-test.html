@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Stakes Exam Mode | ThinkLikeLaw</title>
+    <meta name="description"
+        content="Prepare for your university law exams with ThinkLikeLaw's High-Stakes Exam Mode. Anti-cheat protection, IRAC structural feedback, and university marking rubric integration.">
+    <!-- PDF & OCR Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@v4.0.1/dist/tesseract.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ─── Layout Overrides ─── */
+        .main-content {
+            padding: 0 !important;
+            /* Override standard padding for edge-to-edge exam layout */
+        }
+
+        /* ─── Warning / Pre-Exam State ─── */
+        .exam-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, var(--surface-color) 0%, var(--bg-color) 100%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: var(--blur-amount);
+            -webkit-backdrop-filter: var(--blur-amount);
+        }
+
+        .warning-card {
+            max-width: 650px;
+            background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+            backdrop-filter: var(--blur-amount);
+            -webkit-backdrop-filter: var(--blur-amount);
+            border: 1px solid var(--border-color);
+            padding: 3.5rem;
+            border-radius: 32px;
+            text-align: center;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.4);
+            animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .warning-card i.main-icon {
+            font-size: 3.5rem;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 10px 20px rgba(var(--bg-rgb), 0.2));
+            display: block;
+        }
+
+        .warning-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .rules-list {
+            text-align: left;
+            margin: 2.5rem 0;
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .rules-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .rules-list li i {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 2px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .rubric-upload-section {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: rgba(var(--accent-rgb, 18, 18, 18), 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--spring);
+        }
+
+        .rubric-upload-section:hover {
+            border-color: var(--text-primary);
+            background: rgba(var(--accent-rgb, 18, 18, 18), 0.08);
+            transform: translateY(-2px);
+        }
+
+        .rubric-status {
+            display: none;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .credit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--progress-bg);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .btn-start-exam {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--spring);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 1rem;
+        }
+
+        .btn-start-exam:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* ─── Active Exam UI ─── */
+        .exam-header {
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-amount);
+            -webkit-backdrop-filter: var(--blur-amount);
+            z-index: 10;
+        }
+
+        .exam-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1.25rem;
+            background: var(--progress-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .exam-main {
+            flex: 1;
+            padding: 4rem 3rem;
+            overflow-y: auto;
+            background: var(--bg-color);
+        }
+
+        #exam-editor {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            line-height: 1.8;
+            outline: none;
+            min-height: 80vh;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.05);
+            transition: var(--spring);
+        }
+
+        #exam-editor:focus {
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.1);
+            border-color: rgba(var(--bg-rgb), 0.2);
+        }
+
+        .exam-footer {
+            padding: 1.25rem 3rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            background: var(--bg-color);
+            align-items: center;
+        }
+
+        /* ─── Result Section ─── */
+        .exam-result-panel {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 200;
+            padding: 4rem 3rem;
+            overflow-y: auto;
+            display: none;
+        }
+
+        /* Spinner for Analysis */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--border-color);
+            border-top: 5px solid var(--text-primary);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <main class="main-content">
+        <!-- Pre-Exam Warning Info -->
+        <div id="exam-pre-overlay" class="exam-overlay">
+            <div class="warning-card">
+                <i class="fas fa-microchip main-icon"></i>
+                <h2>High-Stakes Examination Mode</h2>
+                <div class="credit-badge"><i class="fas fa-bolt"></i> Cost: 250 AI Credits</div>
+
+                <div class="rules-list">
+                    <li><i class="fas fa-eye"></i>
+                        <div><strong>Anti-Cheat Active:</strong> Switching tabs or windows will be logged and penalized.
+                        </div>
+                    </li>
+                    <li><i class="fas fa-keyboard"></i>
+                        <div><strong>Hand-Typed Only:</strong> Copy-pasting is disabled to ensure authenticity.</div>
+                    </li>
+                    <li><i class="fas fa-clock"></i>
+                        <div><strong>Precision Metrics:</strong> We track timing per paragraph to judge your confidence.
+                        </div>
+                    </li>
+                    <li><i class="fas fa-brain"></i>
+                        <div><strong>Clue-Based Pedagogy:</strong> Feedback provides hints, not direct answers.</div>
+                    </li>
+                </div>
+
+                <div class="rubric-upload-section" onclick="document.getElementById('rubric-file').click()">
+                    <div
+                        style="background: var(--progress-bg); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-file-contract" style="font-size: 1.25rem; color: var(--text-primary);"></i>
+                    </div>
+                    <div style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">University Marking
+                        Rubric (Optional)</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">Upload PDF/Image to
+                        mark against specific university criteria</div>
+                    <input type="file" id="rubric-file" accept=".pdf,.png,.jpg,.jpeg" style="display: none;"
+                        onchange="handleRubricUpload(this)">
+                    <div id="rubric-status" class="rubric-status">
+                        <i class="fas fa-check-circle"></i> Rubric Loaded Successfully
+                    </div>
+                </div>
+
+                <button class="btn-start-exam" id="btn-start-exam">Acknowledge & Begin Exam</button>
+                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">Ensure your environment
+                    is quiet and free from distractions.</p>
+            </div>
+        </div>
+
+        <header class="exam-header">
+            <div class="exam-title-group">
+                <h3 style="margin: 0; font-family: 'Playfair Display', serif;">Timed A-Level Assessment</h3>
+                <span id="board-label" style="font-size: 0.8rem; opacity: 0.5;">Loading Exam Board...</span>
+            </div>
+            <div class="exam-timer" id="exam-timer">
+                <i class="far fa-clock"></i> <span id="time-display">00:00:00</span>
+            </div>
+            <button class="btn-primary" id="btn-finish-early" style="padding: 0.5rem 1.5rem;">Submit Early</button>
+        </header>
+
+        <main class="exam-main">
+            <div id="exam-editor" contenteditable="true" placeholder="Start typing your exam response here..."></div>
+        </main>
+
+        <footer class="exam-footer">
+            <span style="opacity: 0.4; font-size: 0.9rem; margin-right: auto;" id="word-count">0 words</span>
+            <span style="opacity: 0.4; font-size: 0.9rem;" id="tracking-status"><i class="fas fa-shield-halved"></i>
+                Security Active</span>
+        </footer>
+
+        <!-- Progress Overlay for Submission -->
+        <div id="submission-overlay" class="exam-overlay" style="display: none; background: rgba(0,0,0,0.95);">
+            <div style="text-align: center;">
+                <div class="spinner" style="margin: 0 auto 2rem;"></div>
+                <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Generating High-Stakes Verdict...
+                </h2>
+                <p id="submission-step" style="opacity: 0.6; letter-spacing: 1px;">Synthesizing Timing Metrics & Legal
+                    Analysis</p>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="exam-result-view" class="exam-result-panel"
+            style="display:none; padding: 4rem 2rem; background: var(--bg-color); min-height: 100vh; overflow-y: auto;">
+            <div class="result-header"
+                style="max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem;">
+                <h1 class="serif" style="font-size: 3.5rem; margin: 0;">Assessment Verdict</h1>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-primary" id="btn-download-pdf"
+                        style="box-shadow: 0 10px 30px rgba(var(--accent-rgb, 225, 179, 130), 0.3);"><i
+                            class="fas fa-file-pdf"></i> Download Official Report</button>
+                    <button class="btn-outline" onclick="location.href='dashboard'">Back to Chambers</button>
+                </div>
+            </div>
+            <div id="result-content" style="max-width: 900px; margin: 0 auto;">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script src="js/exam-test.js?v=2.6.0"></script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

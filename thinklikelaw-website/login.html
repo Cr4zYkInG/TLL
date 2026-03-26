@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In to Your AI Law Study Account | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <meta name="description"
+        content="Sign in to ThinkLikeLaw to access your AI-powered legal revision tools. Secure login for law students.">
+    <link rel="canonical" href="https://www.thinklikelaw.com/login.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thinklikelaw.com/login.html">
+    <meta property="og:title" content="Sign In | ThinkLikeLaw">
+    <meta property="og:description" content="Access your dashboard, case summaries, and flashcards.">
+    <meta property="og:image" content="https://www.thinklikelaw.com/images/OG_Image_compressed.jpg">
+
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="apple-touch-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+     <!-- Auth Guard -->
+     <script src="js/site-config.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+     <script src="js/supabase-client.js"></script>
+     <script src="js/auth-guard.js"></script>
+    <script>
+        // Sync Theme with Landing Page/System
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
+    <meta property="og:locale" content="en_GB">
+    <meta property="twitter:site" content="@ThinkLikeLaw">
+    <meta property="twitter:creator" content="@ThinkLikeLaw">
+</head>
+
+<body class="auth-page">
+    <script>
+        // Apply theme to body before it fully renders to prevent flash
+        if (document.documentElement.classList.contains('dark-mode')) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.add('light-mode');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+            // Update Logos based on final theme state
+            const isDark = document.body.classList.contains('dark-mode');
+            const logo = document.querySelector('.auth-logo-img');
+            if (logo) {
+                logo.src = isDark ? 'images/logo-text-final.png' : 'images/logo-text-dark.png';
+            }
+        });
+    </script>
+    <div class="split-screen">
+        <div class="login-left">
+            <a href="/" class="logo auth-logo auth-logo-massive"><img src="/images/logo-text-final.png"
+                    alt="ThinkLikeLaw Logo" class="auth-logo-img"></a>
+            <h1 class="serif auth-hero-title">The Briefing Room.</h1>
+            <p class="auth-hero-text">"Success is not final, failure is not fatal: it
+                is the courage to continue that counts." — Churchill</p>
+        </div>
+        <div class="login-right">
+            <div class="login-form">
+                <h2 class="serif auth-page-title">Sign in to your account</h2>
+                <p class="auth-page-subtitle">Enter your details to access the legal toolkit.</p>
+
+                <div id="login-error" class="auth-error"></div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="login-terms" required class="checkbox-input">
+                        <span class="checkbox-label">
+                            I agree to the <a href="terms.html" target="_blank" class="checkbox-link">Terms of
+                                Service</a> and
+                            <a href="privacy-policy.html" target="_blank" class="checkbox-link">Privacy Policy</a>.
+                        </span>
+                    </label>
+                </div>
+
+                <button id="google-signin" class="social-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20"
+                        alt="Google">
+                    Continue with Google
+                </button>
+
+                <button id="apple-signin" class="social-btn" style="background: black; color: white;">
+                    <i class="fab fa-apple"></i>
+                    Continue with Apple
+                </button>
+
+                <div class="divider">OR USE EMAIL</div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                    </div>
+
+                    <!-- Cloudflare Turnstile for DDoS protection -->
+                    <div id="turnstile-container" style="margin-bottom: 1.5rem;"></div>
+
+                    <button type="submit" id="login-submit" class="btn-primary auth-btn-submit">Sign In</button>
+                </form>
+
+                <p class="auth-switch-text">
+                    Don't have an account? <a href="signup.html" class="auth-switch-link">Create one</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cookies.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

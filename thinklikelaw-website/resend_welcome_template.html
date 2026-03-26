@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrapper {
+            width: 100%;
+            background-color: #000000;
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #080808;
+            border-radius: var(--radius-lg);
+            border: 1px solid #1a1a1a;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            background-color: #000000;
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .content {
+            padding: 50px 40px;
+            color: #FFFFFF;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .h1 {
+            color: #FFFFFF;
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .text {
+            margin-bottom: 24px;
+            color: #999999;
+        }
+
+        .highlight {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .feature-box {
+            background: #000000;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 35px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            color: #FFFFFF;
+            font-size: 15px;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .dot {
+            height: 6px;
+            width: 6px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: inline-block;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #FFFFFF;
+            color: #000000 !important;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--spring);
+            letter-spacing: 0.2px;
+        }
+
+        .footer {
+            background-color: #050505;
+            padding: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-link {
+            color: #555;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <img src="https://www.thinklikelaw.com/images/logo-text-dark.png" alt="ThinkLikeLaw" class="logo"
+                    style="display: block; margin: 0 auto; max-height: 32px; border: 0; outline: none; text-decoration: none;">
+            </div>
+            <div class="content">
+                <h1 class="h1">Welcome to the Cohort{{#if firstName}}, {{firstName}}{{/if}}.</h1>
+                <p class="text">Your invitation to master legal reasoning has been accepted. Your digital briefing room
+                    is now ready.</p>
+                <p class="text">ThinkLikeLaw is built for students who demand more than just notes—we build tools for
+                    those who aim for the first class.</p>
+
+                <div class="feature-box">
+                    <div class="feature-item"><span class="dot"></span><strong>Context-Aware Study:</strong> Experience
+                        AI that knows your module.</div>
+                    <div class="feature-item"><span class="dot"></span><strong>Instant Insights:</strong> IRAC summaries
+                        and flashcards in one click.</div>
+                    <div class="feature-item"><span class="dot"></span><strong>Dynamic Feedback:</strong>
+                        Professional-grade marking at your fingertips.</div>
+                </div>
+
+                <div class="btn-container">
+                    <a href="https://www.thinklikelaw.com/login.html" class="btn">Enter The Portal</a>
+                </div>
+            </div>
+            <div class="footer">
+                <p>&copy; 2026 ThinkLikeLaw Ltd. All rights reserved.</p>
+                <p style="margin-top: 15px;">
+                    <a href="https://www.thinklikelaw.com/privacy-policy.html" class="footer-link">Privacy</a>
+                    <span style="color: #333; margin: 0 10px;">|</span>
+                    <a href="https://www.thinklikelaw.com/terms.html" class="footer-link">Terms</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+name = "thinklikelaw-email"
+main = "workers/email-worker.js"
+compatibility_date = "2023-10-01"
+
+[vars]
+# Used for Resend emails (User didn't provide this, keeping existing placeholder or previous value if valid)
+RESEND_API_KEY = "re_ecWq9vE6_8rZuaNmNZHpGqY5o9Hrm84iL"
+RESEND_AUDIENCE_ID = "4205d024-a722-464e-b2e2-e60e9fda2a73"

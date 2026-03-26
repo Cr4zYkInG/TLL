@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.570660098690-2ckekj89n4cbho5mh1iod0pfp5k82ioc</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>com.googleusercontent.apps.570660098690-2ckekj89n4cbho5mh1iod0pfp5k82ioc</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>ThinkLikeLaw needs access to your microphone to record and transcribe lectures.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>ThinkLikeLaw requires speech recognition to transcribe lectures into study notes in real-time.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>ThinkLikeLaw needs access to your calendar to sync your exam deadlines and study schedule.</string>
+	<key>GIDClientID</key>
+	<string>570660098690-2ckekj89n4cbho5mh1iod0pfp5k82ioc.apps.googleusercontent.com</string>
+</dict>
+</plist>

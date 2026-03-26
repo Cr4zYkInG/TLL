@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Auth Guard -->
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        body.light-mode {
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
+        }
+
+        .onboarding-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: var(--blur-amount);
+        }
+
+        .onboarding-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+        }
+
+        .onboarding-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .onboarding-header p {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-select,
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
+            transition: var(--spring);
+            appearance: none;
+        }
+
+        /* Ensure text is visible in light mode too if variable fails */
+        body.light-mode .form-input,
+        body.light-mode .form-select {
+            background: rgba(0, 0, 0, 0.05);
+            color: #1A1A1A;
+            border-color: #DDD;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: white;
+            color: black;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--spring);
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .onboarding-error {
+            display: none;
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            color: #ff5555;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        /* Autocomplete Styles */
+        .uni-dropdown {
+            /* Styles handled by JS/HTML inline or here */
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .uni-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: background 0.15s;
+        }
+
+        .uni-option:hover,
+        .uni-option.highlighted {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        body.light-mode .uni-option:hover,
+        body.light-mode .uni-option.highlighted {
+            background: rgba(0, 0, 0, 0.05);
+            color: #000;
+        }
+
+        .uni-option.disabled {
+            color: var(--text-secondary);
+            cursor: default;
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 600px) {
+            .onboarding-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+    <script src="js/universities.js"></script>
+</head>
+
+<body>
+
+    <div class="onboarding-card">
+        <div class="onboarding-header">
+            <img src="images/logo-text-final.png" alt="ThinkLikeLaw Logo" style="height: 50px; margin-bottom: 1.5rem;">
+            <h1 class="serif">Establish Your Profile</h1>
+            <p>Tailor the ThinkLikeLaw engine to your jurisdiction and course.</p>
+        </div>
+
+        <div id="onboarding-error" class="onboarding-error"></div>
+
+        <form id="onboarding-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="ob-firstname" class="form-input" placeholder="e.g. William" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="ob-lastname" class="form-input" placeholder="e.g. Blackstone" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Leaderboard Username</label>
+                    <div style="position: relative;">
+                        <span
+                            style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); color: var(--text-secondary); font-weight: 600; pointer-events: none;">@</span>
+                        <input type="text" id="ob-leaderboard-name" class="form-input" style="padding-left: 2rem;"
+                            placeholder="e.g. kingoflaw (min 4 chars)" minlength="4" maxlength="20">
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.4rem;">Shown on the
+                        leaderboard. Leave blank to stay off it.</p>
+                </div>
+
+                <div class="form-group full-width" id="ob-school-group">
+                    <label id="ob-school-label">University</label>
+                    <div class="uni-autocomplete-wrapper" style="position:relative">
+                        <input type="text" id="ob-university-input" class="form-input"
+                            placeholder="Search your university..." autocomplete="off">
+                        <input type="hidden" id="ob-university">
+                        <div class="uni-dropdown" id="ob-uni-dropdown" style="
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            right: 0;
+                            max-height: 200px;
+                            overflow-y: auto;
+                            background: var(--surface-color);
+                            border: 1px solid var(--border-color);
+                            border-top: none;
+                            border-radius: 0 0 6px 6px;
+                            z-index: 100;
+                            display: none;
+                            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                        "></div>
+                    </div>
+                    <!-- Custom Uni Input -->
+                    <div id="ob-custom-uni-container" style="display: none; margin-top: 1rem;">
+                        <input type="text" id="ob-custom-uni" class="form-input" placeholder="Enter University Name">
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Target Qualification Year</label>
+                    <select id="ob-year" class="form-select" required>
+                        <option value="" disabled selected>Select year of qualification / completion</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>I am currently studying</label>
+                    <select id="ob-status" class="form-select" required>
+                        <option value="" disabled selected>Select your stage</option>
+                        <option value="llb">LLB (Undergraduate)</option>
+                        <option value="alevel">A-Level Law</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width" id="ob-board-group" style="display: none;">
+                    <label>Exam Board</label>
+                    <select id="ob-board" class="form-select">
+                        <option value="" disabled selected>Select your exam board</option>
+                        <option value="aqa">AQA</option>
+                        <option value="ocr">OCR</option>
+                        <option value="eduqas">Eduqas</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" id="ob-submit" class="btn-submit">Enter Chambers</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const form = document.getElementById('onboarding-form');
+            const errorEl = document.getElementById('onboarding-error');
+            const submitBtn = document.getElementById('ob-submit');
+
+            // Initialize Autocomplete
+            if (typeof initUniversityAutocomplete === 'function') {
+                initUniversityAutocomplete({
+                    inputId: 'ob-university-input',
+                    hiddenId: 'ob-university',
+                    dropdownId: 'ob-uni-dropdown',
+                    customContainerId: 'ob-custom-uni-container',
+                    customInputId: 'ob-custom-uni'
+                });
+            }
+
+            // Toggle Exam Board based on status
+            const statusSelect = document.getElementById('ob-status');
+            const boardGroup = document.getElementById('ob-board-group');
+            const boardSelect = document.getElementById('ob-board');
+
+            statusSelect.addEventListener('change', () => {
+                const isAlevel = statusSelect.value === 'alevel';
+                boardGroup.style.display = isAlevel ? 'block' : 'none';
+                boardSelect.required = isAlevel;
+
+                // Swap university label
+                const schoolLabel = document.getElementById('ob-school-label');
+                if (schoolLabel) {
+                    schoolLabel.textContent = isAlevel ? 'School / Sixth Form' : 'University';
+                }
+                const searchInput = document.getElementById('ob-university-input');
+                if (searchInput) {
+                    searchInput.placeholder = isAlevel ? 'Search your school or sixth form...' : 'Search your university...';
+                }
+            });
+
+            // Pre-fill name from localStorage if available
+            const storedName = localStorage.getItem('userName');
+            if (storedName) {
+                const parts = storedName.split(' ');
+                const firstInput = document.getElementById('ob-firstname');
+                const lastInput = document.getElementById('ob-lastname');
+                if (firstInput && parts[0]) firstInput.value = parts[0];
+                if (lastInput && parts.slice(1).join(' ')) lastInput.value = parts.slice(1).join(' ');
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorEl.style.display = 'none';
+
+                const firstName = document.getElementById('ob-firstname').value.trim();
+                const lastName = document.getElementById('ob-lastname').value.trim();
+                let university = document.getElementById('ob-university').value;
+
+                // Handle Custom University Input
+                const customUniInput = document.getElementById('ob-custom-uni');
+                if (university === 'Other' && customUniInput && customUniInput.value.trim()) {
+                    university = customUniInput.value.trim();
+                }
+
+                const targetYear = document.getElementById('ob-year').value;
+                const currentStatus = document.getElementById('ob-status').value;
+                const examBoard = document.getElementById('ob-board').value;
+                const studentLevel = currentStatus === 'alevel' ? 'alevel' : 'llb';
+                const leaderboardName = document.getElementById('ob-leaderboard-name').value.trim().replace(/^@/, '');
+
+                if (!firstName || !lastName || !university || !targetYear || !currentStatus) {
+                    errorEl.textContent = 'Please fill in all fields.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                // Validate leaderboard username if provided
+                if (leaderboardName && leaderboardName.length < 4) {
+                    errorEl.textContent = 'Leaderboard username must be at least 4 characters.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                if (leaderboardName && !/^[a-zA-Z0-9_]+$/.test(leaderboardName)) {
+                    errorEl.textContent = 'Username can only contain letters, numbers, and underscores.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                if (studentLevel === 'alevel' && !examBoard) {
+                    errorEl.textContent = 'Please select your exam board.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                submitBtn.textContent = 'Saving profile...';
+                submitBtn.disabled = true;
+
+                try {
+                    const user = await getCurrentUser();
+
+                    if (user) {
+                        // Attempt to save to Supabase
+                        const profileData = {
+                            first_name: firstName,
+                            last_name: lastName,
+                            university: university,
+                            target_year: targetYear,
+                            graduation_year: targetYear,
+                            current_status: currentStatus,
+                            student_status: currentStatus,
+                            student_level: studentLevel,
+                            exam_board: studentLevel === 'alevel' ? examBoard : '',
+                            leaderboard_username: leaderboardName || null,
+                            updated_at: new Date().toISOString(),
+                            last_active_at: new Date().toISOString()
+                        };
+                        const { data, error } = await upsertProfile(user.id, profileData);
+
+                        if (error) {
+                            console.error('Supabase Profile Save Error:', error);
+                            // If error is RLS related, we might still want to proceed locally?
+                            // But "infinite loop" implies RLS might be preventing the SAVE, so next time we check, it's empty.
+                            // Let's assume if it fails, we alert user but try to persist locally.
+                            // Actually, let's NOT block the user from entering if Supabase fails (offline mode?)
+                        } else {
+                            console.log('Profile saved to Supabase');
+                        }
+                    }
+
+                    // --- CRITICAL PERSISTENCE ---
+                    const fullName = `${firstName} ${lastName}`;
+                    localStorage.setItem('userName', fullName);
+                    localStorage.setItem('userUniversity', university);
+                    localStorage.setItem('userType', currentStatus.toUpperCase());
+                    localStorage.setItem('leaderboardUsername', leaderboardName || '');
+
+                    // Force this flag!
+                    localStorage.setItem('onboardingCompleted', 'true');
+
+                    // Set Terminology Flag
+                    if (studentLevel === 'alevel') {
+                        localStorage.setItem('studentLevel', 'alevel');
+                        localStorage.setItem('examBoard', examBoard);
+                    } else {
+                        localStorage.setItem('studentLevel', 'llb');
+                        localStorage.setItem('examBoard', '');
+                    }
+
+                    // Dispatch event for Sidebar to update immediately?
+                    window.location.href = 'dashboard.html';
+
+                } catch (err) {
+                    console.error('Onboarding exception:', err);
+                    errorEl.textContent = 'Connection error. Trying to save locally...';
+
+                    // Fallback Save
+                    const fullName = `${firstName} ${lastName}`;
+                    localStorage.setItem('userName', fullName);
+                    localStorage.setItem('onboardingCompleted', 'true');
+
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+    <script>
+        // Visibility Fallback
+        // Forces the page to become visible
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => {
+                document.body.classList.add('loaded');
+                document.body.style.opacity = '1';
+            });
+        });
+
+        // Immediate fallback in case load event already fired
+        if (document.readyState === 'complete') {
+            document.body.classList.add('loaded');
+            document.body.style.opacity = '1';
+        }
+    </script>
+</body>
+
+</html>

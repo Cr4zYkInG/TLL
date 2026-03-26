@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module View | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="main-content">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="dashboard">Home</a>
+            <i class="fas fa-chevron-right separator"></i>
+            <a href="modules">My <span data-term-module>Modules</span></a>
+            <i class="fas fa-chevron-right" id="breadcrumb-separator"></i>
+            <span id="breadcrumb-module-name">Loading...</span>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="module-header">
+            <div class="header-left">
+                <h1 class="header-title" id="module-title">Loading...</h1>
+                <i class="fas fa-pen edit-icon" onclick="switchModuleTab('settings')"></i>
+            </div>
+            <div class="header-actions">
+                <button class="btn-action tab-btn" id="header-btn-lectures" onclick="switchModuleTab('lectures')"><i
+                        class="fas fa-book-open"></i> Lectures</button>
+                <button class="btn-action tab-btn" id="header-btn-sources" onclick="switchModuleTab('sources')"><i
+                        class="fas fa-copy"></i> Sources</button>
+                <button class="btn-action tab-btn" id="header-btn-settings" onclick="switchModuleTab('settings')"><i
+                        class="fas fa-cog"></i> Settings</button>
+                <button class="btn-action" data-action="open-outline"><i class="fas fa-list"></i> Outline
+                    (Beta)</button>
+                <button class="btn-action btn-primary" onclick="window.location.href='modules'"><i
+                        class="fas fa-book-reader"></i> Study Room</button>
+                <button class="btn-action" id="arrange-mode-btn" onclick="toggleArrangeMode()">
+                    <i class="fas fa-arrows-alt"></i> <span>Arrange Mode</span>
+                </button>
+                <button class="btn-action btn-primary" id="create-note-btn"><i class="fas fa-plus"></i> Create
+                    Note</button>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div id="tab-lectures" class="tab-content" style="display: block;">
+            <div class="content-grid" id="lecture-grid">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+
+        <div id="tab-settings" class="tab-content" style="display: none;">
+            <div class="settings-view-container"
+                style="max-width: 650px; margin: 2rem auto; padding: 2rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                    <div id="settings-module-icon-display"
+                        style="width: 50px; height: 50px; background: var(--bg-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-color);">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.5rem;">Module Settings</h2>
+                        <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Manage your study module
+                            and deadlines</p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Module
+                        Name</label>
+                    <input type="text" id="settings-module-name" placeholder="Enter module name"
+                        style="width: 100%; padding: 0.8rem 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem; transition: border-color 0.2s;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Description</label>
+                    <textarea id="settings-module-description" placeholder="What are you studying in this module?"
+                        style="width: 100%; height: 100px; padding: 0.8rem 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem; resize: vertical;"></textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Exam
+                        Deadline</label>
+                    <div style="position: relative;">
+                        <input type="date" id="settings-module-deadline"
+                            style="width: 100%; padding: 0.8rem 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem;">
+                        <p id="deadline-countdown"
+                            style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent-color); font-weight: 500;">
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-color); border-radius: 8px;">
+                    <div>
+                        <label style="display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem;">Share with Friends</label>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">Allow others with the link to view these notes.</p>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="settings-module-shared">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <button class="btn-action btn-primary" id="btn-save-module-settings"
+                        style="flex: 1; padding: 0.8rem;">Save Changes</button>
+                    <button class="btn-action" id="btn-share-module" style="padding: 0.8rem 1.2rem;"><i
+                            class="fas fa-share-alt"></i> Share</button>
+                </div>
+
+                <div
+                    style="margin-top: 3rem; padding: 1.5rem; background: rgba(255, 85, 85, 0.05); border: 1px solid rgba(255, 85, 85, 0.2); border-radius: 12px;">
+                    <h3 style="color: #ff5555; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem;"><i
+                            class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.85rem;">Actions that are
+                        permanent or affect visibility.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-action" id="btn-archive-module"
+                            style="flex: 1; background: transparent; border-color: #ffaa00; color: #ffaa00;">Archive
+                            Module</button>
+                        <button class="btn-action" id="btn-delete-module"
+                            style="flex: 1; background: transparent; border-color: #ff5555; color: #ff5555;">Delete
+                            Module</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-sources" class="tab-content" style="display: none;">
+            <div style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                <i class="fas fa-copy" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                <h2>Sources & Documents</h2>
+                <p>Upload slides, PDFs, or case documents to this module.</p>
+                <button class="btn-action btn-primary" style="margin-top: 1.5rem;"
+                    onclick="showModuleToast('Sources upload coming soon!', 'warning')"><i class="fas fa-upload"></i>
+                    Upload Source</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Outline Modal -->
+    <div class="modal-overlay" id="outline-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Outline <span data-term-lecture>Notes</span></h2>
+                    <p class="modal-subtitle">Choose the <span data-term-lecture>notes</span> you want to work with</p>
+                </div>
+                <button class="modal-close" data-action="close-outline">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-tabs">
+                <button class="tab-btn active">Create</button>
+                <button class="tab-btn">Show Outlines Created</button>
+            </div>
+
+            <div class="modal-subtabs">
+                <button class="subtab-btn active"><span data-term-lecture>Notes</span> (2)</button>
+                <button class="subtab-btn">Interpret (0)</button>
+                <button class="subtab-btn">Syllabus</button>
+            </div>
+
+            <div class="modal-body">
+                <input type="text" class="search-input" placeholder="Search notes...">
+
+                <div class="modal-actions-bar">
+                    <button class="text-btn" data-action="deselect-all">Deselect All</button>
+                    <span class="selected-counter" id="selected-count">0 of 0 selected</span>
+                </div>
+
+                <div class="lecture-list" data-term-lecture-list>
+                    <!-- Will be populated dynamically -->
+                    <div class="lecture-item">
+                        <input type="checkbox" class="lecture-checkbox" data-lecture-id="1" checked>
+                        <div class="lecture-info">
+                            <h4>Lecture 1</h4>
+                            <p class="lecture-meta">Created Feb 17, 2026 at 02:21 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="lecture-item">
+                        <input type="checkbox" class="lecture-checkbox" data-lecture-id="2" checked>
+                        <div class="lecture-info">
+                            <h4>Lecture 2</h4>
+                            <p class="lecture-meta">Created Feb 17, 2026 at 02:22 PM • Updated Invalid Date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-action" data-action="cancel-outline">Cancel</button>
+                <button class="btn-action btn-primary" data-action="generate-outline">
+                    <i class="fas fa-magic"></i> Generate Outline (2)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Module Modal -->
+    <div class="create-modal-overlay" id="create-module-modal">
+        <div class="create-modal">
+            <h2>Create New <span data-term-module-singular>Module</span></h2>
+            <p>Set up a new study <span data-term-module-singular>module</span> to organise your <span
+                    data-term-lecture>topics</span> and notes.</p>
+
+            <label><span data-term-module-singular>Module</span> Name</label>
+            <input type="text" id="new-module-name" placeholder="e.g. Criminal Law, EU Law...">
+
+            <label>Description (Optional)</label>
+            <input type="text" id="new-module-description" placeholder="Short description of the module...">
+
+            <label>Choose an Icon</label>
+            <div class="icon-grid" id="icon-selection-grid">
+                <button class="icon-option selected" data-icon="fa-file-contract"><i
+                        class="fas fa-file-contract"></i></button>
+                <button class="icon-option" data-icon="fa-gavel"><i class="fas fa-gavel"></i></button>
+                <button class="icon-option" data-icon="fa-landmark"><i class="fas fa-landmark"></i></button>
+                <button class="icon-option" data-icon="fa-hand-holding-dollar"><i
+                        class="fas fa-hand-holding-dollar"></i></button>
+                <button class="icon-option" data-icon="fa-scale-unbalanced-flip"><i
+                        class="fas fa-scale-unbalanced-flip"></i></button>
+                <button class="icon-option" data-icon="fa-briefcase"><i class="fas fa-briefcase"></i></button>
+                <button class="icon-option" data-icon="fa-globe-europe"><i class="fas fa-globe-europe"></i></button>
+                <button class="icon-option" data-icon="fa-users"><i class="fas fa-users"></i></button>
+                <button class="icon-option" data-icon="fa-shield-halved"><i class="fas fa-shield-halved"></i></button>
+                <button class="icon-option" data-icon="fa-book"><i class="fas fa-book"></i></button>
+                <button class="icon-option" data-icon="fa-building-columns"><i
+                        class="fas fa-building-columns"></i></button>
+                <button class="icon-option" data-icon="fa-graduation-cap"><i class="fas fa-graduation-cap"></i></button>
+            </div>
+
+            <div class="create-modal-actions">
+                <button class="modal-btn-cancel" id="btn-cancel-create">Cancel</button>
+                <button class="modal-btn-create" id="btn-confirm-create"><i class="fas fa-plus"></i> Create
+                    <span data-term-module-singular>Module</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="module-toast-create">
+        <i class="fas fa-check-circle" style="color: #4CAF50; font-size: 1.2rem;"></i>
+        <span id="toast-message-create">Module created!</span>
+    </div>
+
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/skeleton-loader.js"></script>
+    <script src="js/modules.js"></script>
+    <script src="js/outline-modal.js"></script>
+    <script src="js/payment-modal.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

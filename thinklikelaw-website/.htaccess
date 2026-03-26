@@ -1,0 +1,21 @@
+# ThinkLikeLaw - Clean URLs Logic
+RewriteEngine On
+
+# 1. Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Remove .html extension from URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# 3. Handle subdirectories (blog)
+# Already handled by above general rule for .html files
+
+# 4. Optional: Redirect direct .html access to clean version
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+# 5. Error Pages
+ErrorDocument 404 /404.html

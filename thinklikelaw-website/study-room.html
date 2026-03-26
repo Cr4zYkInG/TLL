@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Room | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <!-- Include the math engine -->
+    <script src="js/retention-engine.js"></script>
+    <style>
+        .study-room-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 5rem;
+        }
+
+        @media (max-width: 900px) {
+            .study-room-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Learning Curve Cards */
+        .retention-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--spring);
+        }
+
+        .retention-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .rc-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .rc-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .rc-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+        }
+
+        /* Circular Progress */
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 50px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 3.8;
+        }
+
+        .circle {
+            fill: none;
+            stroke: #4CAF50;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            transition: stroke-dasharray 1s ease-out;
+        }
+
+        .percentage {
+            fill: var(--text-primary);
+            font-family: sans-serif;
+            font-size: 0.5em;
+            text-anchor: middle;
+            font-weight: bold;
+        }
+
+        /* Module Comparison */
+        .module-retention-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .module-retention-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mri-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .mri-bar-bg {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .mri-bar-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 4px;
+            transition: width 1s ease-out, background-color 0.5s;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem;
+            position: relative;
+        }
+
+        .filter-tab.active {
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .retention-info-card {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        body.dark-mode .retention-info-card {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(46, 204, 113, 0.05));
+            border: 1px solid rgba(52, 152, 219, 0.15);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="main-content">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="dashboard">Home</a>
+            <i class="fas fa-chevron-right separator"></i>
+            <a href="study-room">Study Room</a>
+            <i class="fas fa-chevron-right" id="breadcrumb-separator"></i>
+            <span id="breadcrumb-title">Select Module</span>
+        </div>
+
+        <div class="module-header">
+            <div class="header-left">
+                <h1 class="header-title">Retention Tracker</h1>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                    Optimize your memory. We track how often you review notes to plot your personal Learning Curve!
+                </p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-action btn-primary" onclick="window.location.href='modules'"><i
+                        class="fas fa-arrow-left"></i> Back to Modules</button>
+            </div>
+        </div>
+
+        <div class="study-room-layout">
+            <!-- Left: Notes Queue -->
+            <div class="retention-queue">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterQueue('urgent')">Needs Review 🔥</button>
+                    <button class="filter-tab" onclick="filterQueue('all')">All <span
+                            data-term-lecture>Notes</span></button>
+                </div>
+
+                <div id="queue-container">
+                    <!-- Cards populated via JS -->
+                    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p style="margin-top: 1rem;">Analyzing your learning curves...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Aggregates & History -->
+            <div class="retention-sidebar">
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-chart-bar" style="color: var(--accent-color);"></i>
+                        Module Retention Averages
+                    </h3>
+                    <div class="module-retention-list" id="module-averages-list">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <div class="card retention-info-card">
+                    <h3 style="margin-bottom: 1rem;">How it works</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                        We use a modified <strong>Ebbinghaus Forgetting Curve</strong> to predict when you're likely to
+                        forget information.
+                        Revisiting your notes clicks the "Knowledge Strength" up—and the curve decays much slower next
+                        time!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof requireAuth === 'function') {
+                const session = await requireAuth();
+                if (!session) return;
+            }
+
+            if (typeof AudioManager !== 'undefined') {
+                AudioManager.playSFX('swell', false, { volume: 0.6 });
+            }
+
+            loadRetentionData();
+        });
+
+        let allLecturesData = [];
+        let allModulesData = [];
+
+        async function loadRetentionData() {
+            try {
+                // 1. Fetch Modules (for naming)
+                allModulesData = await CloudData.getModules();
+                const uid = await CloudData._userId();
+
+                // 2. Fetch all lectures owned by the user
+                allLecturesData = await CloudData.getLectures();
+
+                // Attach module names & ensure user focus
+                allLecturesData = allLecturesData.filter(l => l.user_id === uid || !l.user_id).map(l => {
+                    const mod = allModulesData.find(m => m.id === l.module);
+
+                    // Improved module naming logic
+                    let moduleName = 'Uncategorized';
+                    if (mod) {
+                        moduleName = mod.name;
+                    } else if (l.module) {
+                        // If it's a module ID that's not in our list, it might be a public/system module
+                        // or one that hasn't been fetched.
+                        moduleName = 'Other Module';
+                    }
+
+                    // Parse retention (safe defaults)
+                    l.review_count = l.review_count || 0;
+                    l.last_reviewed_at = l.last_reviewed_at || l.created_at || l.created;
+                    l.retention_score = l.retention_score || 100;
+
+                    return {
+                        ...l,
+                        module_name: moduleName
+                    };
+                });
+
+                renderQueue('urgent');
+                renderModuleAverages();
+
+            } catch (e) {
+                console.error("Failed to load retention data:", e);
+                const container = document.getElementById('queue-container');
+                if (container) {
+                    container.innerHTML = `<p style="color:var(--text-secondary); text-align:center; padding: 2rem;">Error loading study room data. Are you signed in?</p>`;
+                }
+            }
+        }
+
+        function createCircularSVG(score, color) {
+            return `
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg"
+                    d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path class="circle" style="stroke: ${color};"
+                    stroke-dasharray="${score}, 100"
+                    d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text x="18" y="20.35" class="percentage">${score}%</text>
+                </svg>
+            `;
+        }
+
+        function renderQueue(filterType) {
+            const container = document.getElementById('queue-container');
+            container.innerHTML = '';
+
+            // Update Tabs UI
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.filter-tab[onclick="filterQueue('${filterType}')"]`).classList.add('active');
+
+            let sorted = [];
+            if (filterType === 'urgent') {
+                sorted = RetentionEngine.getLecturesNeedingReview(allLecturesData);
+                if (sorted.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-brain" style="font-size: 3rem; color: #4CAF50; margin-bottom: 1rem;"></i>
+                            <h3>All Caught Up!</h3>
+                            <p>Your retention curves are looking strong. Master level memory!</p>
+                        </div>
+                    `;
+                    return;
+                }
+            } else {
+                sorted = allLecturesData
+                    .map(l => ({ ...l, current_retention: RetentionEngine.calculateRetention(l) }))
+                    .sort((a, b) => a.current_retention - b.current_retention);
+            }
+
+            sorted.forEach(l => {
+                const color = RetentionEngine.getCurveColor(l.current_retention);
+                const advice = RetentionEngine.getNextReviewSuggestion(l.current_retention);
+                const reviews = l.review_count || 0;
+
+                const card = document.createElement('div');
+                card.className = 'retention-card';
+                card.innerHTML = `
+                    <div class="rc-info">
+                        <h3>${l.title || 'Untitled'}</h3>
+                        <div class="rc-meta">
+                            <span><i class="fas fa-folder"></i> ${l.module_name}</span>
+                            <span><i class="fas fa-sync-alt"></i> ${reviews} reviews</span>
+                            <span style="color: ${color};"><i class="fas fa-info-circle"></i> ${advice}</span>
+                        </div>
+                    </div>
+                    <div class="rc-score">
+                        ${createCircularSVG(l.current_retention, color)}
+                        <button class="btn-action" style="padding: 0.5rem 1rem;" onclick="window.location.href='note-editor?id=${l.id}'">Study</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.filterQueue = renderQueue;
+
+        function renderModuleAverages() {
+            const container = document.getElementById('module-averages-list');
+            container.innerHTML = '';
+
+            const modsMap = {};
+            allLecturesData.forEach(l => {
+                if (!modsMap[l.module]) modsMap[l.module] = [];
+                modsMap[l.module].push(l);
+            });
+
+            // Calculate averages and sort high to low
+            const averages = Object.keys(modsMap).map(modId => {
+                const modName = modsMap[modId][0].module_name;
+                const avg = RetentionEngine.getModuleAverage(modsMap[modId]);
+                return { name: modName, avg: avg };
+            }).sort((a, b) => b.avg - a.avg);
+
+            if (averages.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-secondary);font-size:0.9rem;">Create notes to measure module retention.</p>`;
+                return;
+            }
+
+            averages.forEach(m => {
+                const color = RetentionEngine.getCurveColor(m.avg);
+                const div = document.createElement('div');
+                div.className = 'module-retention-item';
+                div.innerHTML = `
+                    <div class="mri-header">
+                        <span>${m.name}</span>
+                        <span style="color: ${color}; font-weight: bold;">${m.avg}%</span>
+                    </div>
+                    <div class="mri-bar-bg">
+                        <div class="mri-bar-fill" style="width: ${m.avg}%; background-color: ${color};"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+
+</html>

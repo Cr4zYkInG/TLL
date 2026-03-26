@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Student Hub & Resources | ThinkLikeLaw</title>
+    <meta name="description" content="60+ guides, comparisons and tips to get a First Class in your LLB and ace your SQE/LPC.">
+    <link rel="icon" type="image/x-icon" href="../images/logo-icon-final.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=3.0.0">
+    <link rel="stylesheet" href="../landing.css?v=3.0.0">
+    <style>
+        .hub-header { padding: 12rem 2rem 6rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hub-title { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .hub-sub { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; padding: 2rem 5%; max-width: 1400px; margin: 0 auto 8rem; }
+        .blog-card { background: var(--glass-bg); backdrop-filter: var(--blur-amount); -webkit-backdrop-filter: var(--blur-amount); border: var(--glass-border); border-radius: var(--radius-lg); padding: 2rem; text-decoration: none; display: flex; flex-direction: column; transition: var(--spring); box-shadow: var(--card-shadow); }
+        .blog-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); border-color: var(--text-primary); background: var(--surface-solid, var(--surface-color)); }
+        .bc-cat { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 1rem; }
+        .bc-title { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.4; }
+        .bc-excerpt { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; flex: 1; }
+        .bc-meta { font-size: 0.8rem; color: var(--text-secondary); opacity: 0.7; font-weight: 500; }
+    </style>
+    <meta property="og:locale" content="en_GB">
+    <meta property="twitter:site" content="@ThinkLikeLaw">
+    <meta property="twitter:creator" content="@ThinkLikeLaw">
+</head>
+<body class="lp-body">
+    <div class="scroll-progress" id="progress-bar"></div>
+    <div class="early-access-banner">
+        <span><i class="fas fa-gift"></i> Early Access: Credits are currently inflated to help you explore. Found a bug or have a feature wish? <a href="mailto:feedback@thinklikelaw.com">Let us know!</a></span>
+    </div>
+    <nav class="lp-nav" id="navbar">
+        <div class="lp-nav-logo">
+            <a href="../"><img src="../images/logo-text-final.png" alt="ThinkLikeLaw"></a>
+        </div>
+        <ul class="lp-nav-links">
+            <li><a href="../#features"><i class="fas fa-globe-europe"></i> Features</a></li>
+            <li><a href="./"><i class="fas fa-folder-open"></i> Resources</a></li>
+            <li><a href="../#pricing"><i class="fas fa-tag"></i> Pricing</a></li>
+            <li><a href="../support"><i class="fas fa-comment-dots"></i> Support</a></li>
+            <li class="nav-control-group">
+                <i class="fas fa-cat nav-mascot-icon" id="nav-mascot-trigger" title="Meet Ben"></i>
+                <button class="nav-icon-btn" id="lp-theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </li>
+            <li><a href="/login"" class="nav-btn-outline">Sign In</a></li>
+            <li><a href="/signup"" class="nav-btn-primary">Join Free</a></li>
+        </ul>
+    </nav>
+    <header class="hub-header">
+        <h1 class="hub-title">The Legal Study Hub</h1>
+        <p class="hub-sub">60+ in-depth guides, competitor comparisons, and study strategies to master your law degree. Find out exactly why modern law students are switching to specialized AI.</p>
+    </header>
+    <div class="blog-grid">
+
+        <a href="thinklikelaw-vs-notion-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Notion: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Notion to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 2, 2026</div>
+        </a>
+    
+        <a href="why-notion-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Notion is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Notion carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 3, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-evernote-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Evernote: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Evernote to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 4, 2026</div>
+        </a>
+    
+        <a href="why-evernote-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Evernote is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Evernote carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 5, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-onenote-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs OneNote: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from OneNote to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 6, 2026</div>
+        </a>
+    
+        <a href="why-onenote-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why OneNote is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like OneNote carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 7, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-google-docs-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Google Docs: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Google Docs to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 8, 2026</div>
+        </a>
+    
+        <a href="why-google-docs-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Google Docs is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Google Docs carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 9, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-roam-research-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Roam Research: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Roam Research to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 10, 2026</div>
+        </a>
+    
+        <a href="why-roam-research-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Roam Research is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Roam Research carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 11, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-obsidian-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Obsidian: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Obsidian to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 12, 2026</div>
+        </a>
+    
+        <a href="why-obsidian-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Obsidian is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Obsidian carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 13, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-quizlet-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Quizlet: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Quizlet to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 14, 2026</div>
+        </a>
+    
+        <a href="why-quizlet-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Quizlet is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Quizlet carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 15, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-anki-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs Anki: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from Anki to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 16, 2026</div>
+        </a>
+    
+        <a href="why-anki-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why Anki is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like Anki carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 17, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-marginnote-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs MarginNote: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from MarginNote to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 18, 2026</div>
+        </a>
+    
+        <a href="why-marginnote-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why MarginNote is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like MarginNote carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 19, 2026</div>
+        </a>
+    
+        <a href="thinklikelaw-vs-notebookllm-for-law-students" class="blog-card">
+            <span class="bc-cat">Comparisons</span>
+            <h3 class="bc-title">ThinkLikeLaw vs NotebookLLM: The Ultimate AI Tool for Law Students</h3>
+            <p class="bc-excerpt">Stop using generic tools for a specific degree. See why thousands of LLB students are migrating from NotebookLLM to our purpose-built legal AI ecosystem.</p>
+            <div class="bc-meta">12 min read &bull; Oct 20, 2026</div>
+        </a>
+    
+        <a href="why-notebookllm-is-bad-for-law-students" class="blog-card">
+            <span class="bc-cat">Workflow Guide</span>
+            <h3 class="bc-title">Why NotebookLLM is Holding Back Your Law Degree in 2027</h3>
+            <p class="bc-excerpt">Generic productivity apps like NotebookLLM carry a hidden "Setup Tax." Learn how to reclaim 10+ hours a week by switching to a pre-structured Law environment.</p>
+            <div class="bc-meta">10 min read &bull; Nov 21, 2026</div>
+        </a>
+    
+        <a href="revolutionizing-contract-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Revolutionizing Contract Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Contract Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 22, 2026</div>
+        </a>
+    
+        <a href="conquering-criminal-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Conquering Criminal Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Criminal Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 23, 2026</div>
+        </a>
+    
+        <a href="demystifying-tort-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Demystifying Tort Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Tort Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 24, 2026</div>
+        </a>
+    
+        <a href="mastering-public-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Mastering Public Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Public Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 25, 2026</div>
+        </a>
+    
+        <a href="dominating-land-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Dominating Land Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Land Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 26, 2026</div>
+        </a>
+    
+        <a href="understanding-equity-and-trusts-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Understanding Equity & Trusts in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Equity & Trusts without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 27, 2026</div>
+        </a>
+    
+        <a href="acing-eu-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Acing EU Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in EU Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 28, 2026</div>
+        </a>
+    
+        <a href="surviving-jurisprudence-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Surviving Jurisprudence in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Jurisprudence without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 1, 2026</div>
+        </a>
+    
+        <a href="revolutionizing-company-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Revolutionizing Company Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Company Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 2, 2026</div>
+        </a>
+    
+        <a href="conquering-evidence-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Conquering Evidence Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Evidence Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 3, 2026</div>
+        </a>
+    
+        <a href="demystifying-commercial-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Demystifying Commercial Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Commercial Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 4, 2026</div>
+        </a>
+    
+        <a href="mastering-family-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Mastering Family Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Family Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 5, 2026</div>
+        </a>
+    
+        <a href="dominating-intellectual-property-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Dominating Intellectual Property Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Intellectual Property Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 6, 2026</div>
+        </a>
+    
+        <a href="understanding-human-rights-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Understanding Human Rights Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Human Rights Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 7, 2026</div>
+        </a>
+    
+        <a href="acing-medical-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Acing Medical Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Medical Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 8, 2026</div>
+        </a>
+    
+        <a href="surviving-employment-law-guide" class="blog-card">
+            <span class="bc-cat">Study Strategies</span>
+            <h3 class="bc-title">Surviving Employment Law in First Class: The Definitive AI Framework</h3>
+            <p class="bc-excerpt">How to get a First in Employment Law without burning out. A comprehensive deep-dive into IRAC application, critical commentary, and AI-driven case mapping.</p>
+            <div class="bc-meta">15 min read &bull; Dec 9, 2026</div>
+        </a>
+    
+        <a href="how-chatgpt-is-changing-law-school-forever" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How ChatGPT is Changing Law School Forever</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 10, 2027</div>
+        </a>
+    
+        <a href="the-future-of-legal-tech-in-education" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">The Future of Legal Tech in Education</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 11, 2027</div>
+        </a>
+    
+        <a href="why-traditional-note-taking-is-dead-in-2027" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Why Traditional Note-Taking is Dead in 2027</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 12, 2027</div>
+        </a>
+    
+        <a href="best-ai-flashcard-makers-for-law-students" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Best AI Flashcard Makers for Law Students</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 13, 2027</div>
+        </a>
+    
+        <a href="how-to-write-an-oscola-essay-in-half-the-time" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How to Write an OSCOLA Essay in Half the Time</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 14, 2027</div>
+        </a>
+    
+        <a href="understanding-the-sqe-with-ai-tools" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Understanding the SQE with AI Tools</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 15, 2027</div>
+        </a>
+    
+        <a href="law-school-burnout-how-ai-reduces-stress" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Law School Burnout: How AI Reduces Stress</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 16, 2027</div>
+        </a>
+    
+        <a href="first-year-llb-survival-guide-2026" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">First Year LLB Survival Guide 2026</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 17, 2027</div>
+        </a>
+    
+        <a href="a-level-law-vs-llb-what-to-expect" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">A-Level Law vs LLB: What to expect</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 18, 2027</div>
+        </a>
+    
+        <a href="how-to-prepare-for-a-training-contract-interview-with-ai" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How to prepare for a Training Contract Interview with AI</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 19, 2027</div>
+        </a>
+    
+        <a href="the-ethics-of-ai-in-legal-studies" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">The Ethics of AI in Legal Studies</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 20, 2027</div>
+        </a>
+    
+        <a href="can-ai-write-my-law-essay-a-warning" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Can AI Write My Law Essay? (A Warning)</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 21, 2027</div>
+        </a>
+    
+        <a href="how-to-use-notebookllm-for-legal-cases" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How to Use NotebookLLM for Legal Cases</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 22, 2027</div>
+        </a>
+    
+        <a href="thinklikelaw-features-that-will-blow-your-mind" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">ThinkLikeLaw Features That Will blow your mind</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 23, 2027</div>
+        </a>
+    
+        <a href="top-5-ai-chrome-extensions-for-law-students" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Top 5 AI Chrome Extensions for Law Students</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 24, 2027</div>
+        </a>
+    
+        <a href="how-to-summarize-100-pages-of-readings-in-10-minutes" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How to summarize 100 pages of readings in 10 minutes</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 25, 2027</div>
+        </a>
+    
+        <a href="why-you-still-need-textbooks-in-the-ai-era" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Why You Still Need Textbooks in the AI Era</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 26, 2027</div>
+        </a>
+    
+        <a href="irac-vs-cleo-best-answering-methods" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">IRAC vs CLEO: Best answering methods</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 27, 2027</div>
+        </a>
+    
+        <a href="how-magic-circle-firms-view-ai-experience" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How Magic Circle Firms View AI Experience</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 28, 2027</div>
+        </a>
+    
+        <a href="the-ultimate-pre-read-guide-for-lnat-2027" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">The Ultimate Pre-Read Guide for LNAT 2027</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 1, 2027</div>
+        </a>
+    
+        <a href="top-ai-tools-for-legal-research-in-2026" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Top AI Tools for Legal Research in 2026</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 2, 2027</div>
+        </a>
+    
+        <a href="does-ai-plagiarism-detection-work-for-law-essay" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Does AI Plagiarism Detection Work for Law Essay?</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 3, 2027</div>
+        </a>
+    
+        <a href="sqe1-prep-using-ai-to-master-multiple-choice" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">SQE1 Prep: Using AI to Master Multiple Choice</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 4, 2027</div>
+        </a>
+    
+        <a href="how-to-create-an-automated-legal-dictionary" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How to Create an Automated Legal Dictionary</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 5, 2027</div>
+        </a>
+    
+        <a href="from-llb-to-trainee-the-ultimate-toolkit" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">From LLB to Trainee: The Ultimate Toolkit</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 6, 2027</div>
+        </a>
+    
+        <a href="best-ipad-apps-for-law-students-in-2026" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Best iPad Apps for Law Students in 2026</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 7, 2027</div>
+        </a>
+    
+        <a href="how-ai-is-revolutionising-commercial-awareness" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">How AI is Revolutionising Commercial Awareness</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 8, 2027</div>
+        </a>
+    
+        <a href="surviving-law-school-exams-with-thinklikelaw" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Surviving Law School Exams with ThinkLikeLaw</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 9, 2027</div>
+        </a>
+    
+        <a href="the-definitive-guide-to-oscola-referencing" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">The Definitive Guide to OSCOLA Referencing</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 10, 2027</div>
+        </a>
+    
+        <a href="note-taking-strategies-for-core-law-modules" class="blog-card">
+            <span class="bc-cat">Legal AI Trends</span>
+            <h3 class="bc-title">Note-Taking Strategies for Core Law Modules</h3>
+            <p class="bc-excerpt">Explore the cutting edge of legal education. From prompt engineering to AI-driven issue spotting, here is how the next generation of lawyers is being trained.</p>
+            <div class="bc-meta">10 min read &bull; Jan 11, 2027</div>
+        </a>
+    
+    </div>
+    <script src="../main.js?v=3.0.0"></script>
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.lp-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            const scrolled = window.scrollY;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / height) * 100;
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>

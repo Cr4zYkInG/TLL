@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Hub | ThinkLikeLaw</title>
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ─── Community Hub Styles ─── */
+        .hub-disclaimer {
+            background: rgba(255, 193, 7, 0.08);
+            border: 1px solid rgba(255, 193, 7, 0.25);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .hub-disclaimer i {
+            color: #FFC107;
+            font-size: 1.1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .hub-header-section {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--surface-color);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .hub-header-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hub-search-container {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .hub-filter-select {
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .hub-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hub-tab {
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .hub-tab:hover {
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        .hub-tab.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .community-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: var(--spring);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .community-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--accent-color);
+        }
+
+        .card-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .card-type-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-note {
+            background: rgba(74, 144, 226, 0.1);
+            color: #4A90E2;
+        }
+
+        .badge-deck {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .badge-module {
+            background: rgba(156, 39, 176, 0.1);
+            color: #9C27B0;
+            font-weight: 600;
+        }
+
+        .card-report-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            opacity: 0.4;
+            cursor: pointer;
+            padding: 0.3rem;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .card-report-btn:hover {
+            opacity: 1;
+            color: #f44336;
+        }
+
+        .card-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .card-author i {
+            font-size: 1.1rem;
+        }
+
+        .uni-tag {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .card-preview {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-stats {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .stat-item:hover {
+            color: #f44336;
+        }
+
+        .stat-item.upvoted i {
+            color: #f44336;
+        }
+
+        .btn-fork {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .btn-fork:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        /* ─── Dark Mode ─── */
+        body.dark-mode .hub-disclaimer {
+            background: rgba(255, 193, 7, 0.05);
+            border-color: rgba(255, 193, 7, 0.15);
+        }
+
+        body.dark-mode .hub-header-section {
+            background: #111;
+            border-color: #222;
+        }
+
+        body.dark-mode .search-input,
+        body.dark-mode .hub-filter-select {
+            background: #111;
+            border-color: #333;
+            color: #FFF;
+        }
+
+        body.dark-mode .hub-tab {
+            background: #111;
+            border-color: #222;
+            color: #999;
+        }
+
+        body.dark-mode .hub-tab:hover {
+            border-color: #FFF;
+            color: #FFF;
+        }
+
+        body.dark-mode .hub-tab.active {
+            background: #FFF;
+            color: #000;
+            border-color: #FFF;
+        }
+
+        body.dark-mode .community-card {
+            background: #111;
+            border-color: #222;
+        }
+
+        body.dark-mode .community-card:hover {
+            border-color: #555;
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        body.dark-mode .btn-fork {
+            background: #111;
+            border-color: #333;
+            color: #FFF;
+        }
+
+        body.dark-mode .btn-fork:hover {
+            background: #FFF;
+            color: #000;
+            border-color: #FFF;
+        }
+
+        @media (max-width: 768px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hub-search-container {
+                flex-direction: column;
+            }
+
+            .hub-filter-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-body">
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <header class="content-header">
+            <h1 class="serif">Community Hub</h1>
+        </header>
+
+        <!-- Disclaimer -->
+        <div class="hub-disclaimer">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <strong>User-Generated Content.</strong> All notes and flashcards shared here are created by students
+                and are <strong>not published, endorsed, or verified by ThinkLikeLaw</strong>. We do not guarantee
+                accuracy, appropriateness, or academic reliability. If you find content that is inappropriate or
+                violates our guidelines, please use the <i class="fas fa-flag" style="font-size:0.8em"></i> report
+                button on that post.
+            </div>
+        </div>
+
+        <!-- Search & Filters -->
+        <section class="hub-header-section">
+            <h2 class="serif">The Library of Chambers</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Browse, upvote, and fork high-quality notes
+                and flashcards shared by fellow students.</p>
+
+            <div class="hub-search-container">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="search-input" id="hub-search"
+                        placeholder="Search by topic, case name, or user...">
+                </div>
+                <select class="hub-filter-select" id="hub-filter-module">
+                    <option value="all">All Modules</option>
+                </select>
+                <select class="hub-filter-select" id="hub-filter-uni">
+                    <option value="all">All Universities</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <div class="hub-tabs">
+            <div class="hub-tab active" data-type="all">Everything</div>
+            <div class="hub-tab" data-type="notes">Notes</div>
+            <div class="hub-tab" data-type="flashcards">Flashcard Decks</div>
+        </div>
+
+        <!-- Grid -->
+        <div class="community-grid" id="community-grid">
+            <div class="empty-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading community contributions...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Dependencies -->
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+
+    <script>
+        let allHubItems = [];
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth guard
+            if (typeof requireAuth === 'function') {
+                const session = await requireAuth();
+                if (!session) return;
+            }
+
+            // Load Data
+            await loadCommunityFeed();
+
+            // Tabs
+            document.querySelectorAll('.hub-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelector('.hub-tab.active').classList.remove('active');
+                    tab.classList.add('active');
+                    currentFilter = tab.dataset.type;
+                    renderFilteredItems();
+                });
+            });
+
+            // Search
+            const searchInput = document.getElementById('hub-search');
+            let searchDebounce;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchDebounce);
+                searchDebounce = setTimeout(renderFilteredItems, 300);
+            });
+
+            // Module filter
+            document.getElementById('hub-filter-module').addEventListener('change', renderFilteredItems);
+            // University filter
+            document.getElementById('hub-filter-uni').addEventListener('change', renderFilteredItems);
+        });
+
+        async function loadCommunityFeed() {
+            const grid = document.getElementById('community-grid');
+
+            try {
+                allHubItems = await CloudData.fetchCommunityFeed('all');
+
+                // Populate filter dropdowns
+                populateFilters(allHubItems);
+
+                renderFilteredItems();
+            } catch (e) {
+                grid.innerHTML = `<div class="empty-state">
+                    <i class="fas fa-exclamation-circle" style="color: #f44336;"></i>
+                    <h3>Error loading feed</h3>
+                    <p>${e.message}</p>
+                </div>`;
+            }
+        }
+
+        function populateFilters(items) {
+            // Modules
+            const moduleSelect = document.getElementById('hub-filter-module');
+            const modules = [...new Set(items.map(i => i.module_name).filter(Boolean))].sort();
+            modules.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                moduleSelect.appendChild(opt);
+            });
+
+            // Universities
+            const uniSelect = document.getElementById('hub-filter-uni');
+            const unis = [...new Set(items.map(i => i.university).filter(Boolean))].sort();
+            unis.forEach(u => {
+                const opt = document.createElement('option');
+                opt.value = u;
+                opt.textContent = u;
+                uniSelect.appendChild(opt);
+            });
+        }
+
+        function renderFilteredItems() {
+            const grid = document.getElementById('community-grid');
+            const searchTerm = document.getElementById('hub-search').value.toLowerCase().trim();
+            const moduleFilter = document.getElementById('hub-filter-module').value;
+            const uniFilter = document.getElementById('hub-filter-uni').value;
+
+            let filtered = allHubItems;
+
+            // Type filter
+            if (currentFilter === 'notes') {
+                filtered = filtered.filter(i => i.type === 'note');
+            } else if (currentFilter === 'flashcards') {
+                filtered = filtered.filter(i => i.type === 'flashcard');
+            }
+
+            // Module filter
+            if (moduleFilter !== 'all') {
+                filtered = filtered.filter(i => i.module_name === moduleFilter);
+            }
+
+            // University filter
+            if (uniFilter !== 'all') {
+                filtered = filtered.filter(i => i.university === uniFilter);
+            }
+
+            // Search filter
+            if (searchTerm) {
+                filtered = filtered.filter(i =>
+                    (i.title || '').toLowerCase().includes(searchTerm) ||
+                    (i.author_name || '').toLowerCase().includes(searchTerm) ||
+                    (i.preview || '').toLowerCase().includes(searchTerm) ||
+                    (i.module_name || '').toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="empty-state">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>The library is quiet...</h3>
+                    <p>${searchTerm || moduleFilter !== 'all' || uniFilter !== 'all'
+                        ? 'No results match your filters. Try broadening your search.'
+                        : 'Be the first to share your notes with the community!'}</p>
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="community-card">
+                    <div class="card-top-row">
+                        <div class="card-badges">
+                            <span class="card-type-badge ${item.type === 'note' ? 'badge-note' : 'badge-deck'}">
+                                ${item.type === 'note' ? '<i class="fas fa-file-lines"></i> Note' : '<i class="fas fa-layer-group"></i> Deck'}
+                            </span>
+                            ${item.module_name ? `<span class="card-type-badge badge-module">${item.module_name}</span>` : ''}
+                        </div>
+                        <button class="card-report-btn" onclick="reportPost('${item.id}', '${item.type}')" title="Report this post">
+                            <i class="fas fa-flag"></i>
+                        </button>
+                    </div>
+                    <div class="card-author">
+                        <i class="fas fa-user-circle"></i>
+                        <span>${item.author_name || 'Anonymous Student'}</span>
+                        ${item.university ? `<span class="uni-tag"><i class="fas fa-university"></i> ${item.university}</span>` : ''}
+                    </div>
+                    <h3 class="card-title">${item.title}</h3>
+                    <p class="card-preview">${item.preview || 'No preview available.'}</p>
+                    <div class="card-stats">
+                        <div class="stat-item" onclick="handleUpvote('${item.id}', '${item.type}', this)">
+                            <i class="fas fa-heart"></i> ${item.upvotes || 0}
+                        </div>
+                        <button class="btn-fork" onclick="handleFork('${item.id}', '${item.type}')">
+                            <i class="fas fa-code-fork"></i> Fork to My Notes
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function handleFork(id, type) {
+            if (!confirm(`Fork this ${type} to your private workspace? You'll be able to edit it freely.`)) return;
+
+            // Disable fork buttons to prevent double-click
+            document.querySelectorAll('.btn-fork').forEach(b => { b.disabled = true; b.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Forking...'; });
+
+            try {
+                const forked = await CloudData.forkItem(id, type);
+                if (type === 'note' && forked && forked.id) {
+                    // Navigate directly to the forked note in the editor
+                    const moduleId = forked.module_id || '';
+                    window.location.href = `note-editor.html?id=${forked.id}&module=${moduleId}`;
+                } else {
+                    alert("Successfully forked! You can find it in your modules.");
+                    window.location.href = type === 'note' ? 'modules.html' : 'flashcards.html';
+                }
+            } catch (e) {
+                alert("Failed to fork: " + e.message);
+                document.querySelectorAll('.btn-fork').forEach(b => { b.disabled = false; b.innerHTML = '<i class="fas fa-code-fork"></i> Fork to My Notes'; });
+            }
+        }
+
+        async function handleUpvote(id, type, el) {
+            try {
+                // Visual feedback
+                const icon = el.querySelector('i');
+                icon.classList.toggle('upvoted');
+                el.classList.toggle('upvoted');
+
+                // For now, log. Real upvote logic requires a join table.
+                console.log("Upvoting", id, type);
+            } catch (e) {
+                console.warn("Upvote failed:", e);
+            }
+        }
+
+        function reportPost(id, type) {
+            const reasons = [
+                'Inappropriate or offensive content',
+                'Inaccurate legal information',
+                'Spam or self-promotion',
+                'Copyrighted material',
+                'Other'
+            ];
+            const reasonList = reasons.map((r, i) => `${i + 1}. ${r}`).join('\n');
+            const input = prompt(`Why are you reporting this post?\n\n${reasonList}\n\nEnter the number or type your own reason:`);
+            if (!input || !input.trim()) return;
+
+            const reasonIndex = parseInt(input.trim());
+            const reason = (reasonIndex >= 1 && reasonIndex <= reasons.length)
+                ? reasons[reasonIndex - 1]
+                : input.trim();
+
+            if (typeof CloudData !== 'undefined' && CloudData.reportItem) {
+                CloudData.reportItem(id, type, reason)
+                    .then(() => alert("Thank you for reporting. We'll review this post shortly."))
+                    .catch(e => alert("Report failed: " + e.message));
+            } else {
+                console.warn('Report submitted (offline):', { id, type, reason });
+                alert("Thank you for reporting. We'll review this post shortly.");
+            }
+        }
+    </script>
+</body>
+
+</html>

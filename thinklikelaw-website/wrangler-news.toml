@@ -1,0 +1,10 @@
+name = "thinklikelaw-news"
+main = "workers/news-worker.js"
+compatibility_date = "2023-10-01"
+
+[triggers]
+crons = ["0 * * * *"] # Run at minute 0 past every hour
+
+[vars]
+SUPABASE_URL = "https://oxlpmgnytsvdjcibtdmb.supabase.co"
+SUPABASE_SERVICE_ROLE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94bHBtZ255dHN2ZGpjaWJ0ZG1iIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTMwMzMzMiwiZXhwIjoyMDg2ODc5MzMyfQ.hAiV9ElRhv-5LrveYryS1Za-MAATSrvQ5fNcLuyJCwU"

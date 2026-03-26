@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Free — AI Law Notes & Exam Tools for LLB & A-Level | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <meta name="description"
+        content="Create your ThinkLikeLaw account. Join thousands of law students using AI to master their law degree.">
+    <link rel="canonical" href="https://www.thinklikelaw.com/signup.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thinklikelaw.com/signup.html">
+    <meta property="og:title" content="Sign Up | ThinkLikeLaw">
+    <meta property="og:description" content="Start your journey to legal mastery. Free and premium accounts available.">
+    <meta property="og:image" content="https://www.thinklikelaw.com/images/OG_Image_compressed.jpg">
+
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="apple-touch-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+     <!-- Auth Guard -->
+     <script src="js/site-config.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+     <script src="js/supabase-client.js"></script>
+     <script src="js/auth-guard.js"></script>
+    <style>
+        .split-screen {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        .login-left {
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10%;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .login-right {
+            background: var(--surface-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6% 10%;
+            overflow-y: auto;
+        }
+
+        .login-form {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 4px;
+            outline: none;
+            transition: var(--spring);
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+
+
+        .social-btn {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: var(--spring);
+            font-size: 1rem;
+        }
+
+        .social-btn:hover {
+            background: #e5e5e5;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: 1rem;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: 1rem;
+        }
+
+        .auth-error {
+            display: none;
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            color: #ff5555;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .password-hint {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* University Autocomplete */
+        .uni-autocomplete-wrapper {
+            position: relative;
+        }
+
+        .uni-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .uni-dropdown.show {
+            display: block;
+        }
+
+        .uni-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: background 0.15s;
+        }
+
+        .uni-option:hover,
+        .uni-option.highlighted {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        body.light-mode .uni-option:hover,
+        body.light-mode .uni-option.highlighted {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .uni-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .uni-dropdown::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .uni-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        body.light-mode .uni-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 992px) {
+            .split-screen {
+                grid-template-columns: 1fr;
+            }
+
+            .login-left {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        // Sync Theme with Landing Page/System
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
+    <meta property="og:locale" content="en_GB">
+    <meta property="twitter:site" content="@ThinkLikeLaw">
+    <meta property="twitter:creator" content="@ThinkLikeLaw">
+</head>
+
+<body class="auth-page">
+    <script>
+        // Apply theme to body before it fully renders to prevent flash
+        if (document.documentElement.classList.contains('dark-mode')) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.add('light-mode');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+            // Update Logos based on final theme state
+            const isDark = document.body.classList.contains('dark-mode');
+            const logo = document.querySelector('.auth-logo-img');
+            if (logo) {
+                logo.src = isDark ? 'images/logo-text-final.png' : 'images/logo-text-dark.png';
+            }
+        });
+    </script>
+    <div class="split-screen">
+        <div class="login-left">
+            <div class="login-header">
+                <a href="/" class="logo auth-logo auth-logo-massive"><img src="/images/logo-text-final.png"
+                    alt="ThinkLikeLaw Logo" class="auth-logo-img"></a>
+            </div>
+            <h1 class="serif auth-hero-title">Join the Cohort.</h1>
+            <p class="auth-hero-text">Your academic assistant for legal structure,
+                marking, and improvement. Think like a lawyer — not write like one.</p>
+        </div>
+        <div class="login-right">
+            <div class="login-form">
+                <h2 class="serif auth-page-title">Create your account</h2>
+                <p class="auth-page-subtitle">Start mastering legal reasoning today.</p>
+
+                <div id="signup-error" class="auth-error"></div>
+
+                <button id="google-signup" class="social-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20"
+                        alt="Google">
+                    Continue with Google
+                </button>
+
+                <button id="apple-signup" class="social-btn" style="background: black; color: white;">
+                    <i class="fab fa-apple"></i>
+                    Continue with Apple
+                </button>
+
+                <div class="divider">OR USE EMAIL</div>
+
+                <form id="signup-form">
+                    <div class="name-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" id="signup-firstname" class="form-input" placeholder="William" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" id="signup-lastname" class="form-input" placeholder="Blackstone"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="name-row">
+                        <div class="form-group">
+                            <label class="form-label">Student Level</label>
+                            <select id="signup-level" class="form-input" style="appearance: none;" required>
+                                <option value="" disabled selected>Select level...</option>
+                                <option value="alevel">A-Level</option>
+                                <option value="llb">Undergraduate (LLB)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Qualification Year</label>
+                            <select id="signup-year" class="form-input" style="appearance: none;" required>
+                                <option value="" disabled selected>Select year...</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="name-row" id="llb-extras" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Internal Course Year</label>
+                            <select id="signup-llb-year" class="form-input" style="appearance: none;">
+                                <option value="" disabled selected>Select year...</option>
+                                <option value="yr1">Year 1</option>
+                                <option value="yr2">Year 2</option>
+                                <option value="yr3">Year 3</option>
+                                <option value="llm">Post-grad (LLM/SQE)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <!-- Placeholder to keep grid layout -->
+                        </div>
+                    </div>
+
+                    <div class="name-row" id="alevel-extras" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Exam Board</label>
+                            <select id="signup-board" class="form-input" style="appearance: none;">
+                                <option value="" disabled selected>Select board...</option>
+                                <option value="aqa">AQA</option>
+                                <option value="ocr">OCR</option>
+                                <option value="eduqas">Eduqas</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+
+                    <!-- Institution Searchable Selector -->
+                    <div class="form-group">
+                        <label class="form-label" id="institution-label">University</label>
+                        <div class="uni-autocomplete-wrapper">
+                            <input type="text" id="signup-university" class="form-input"
+                                placeholder="Select your university..." autocomplete="off">
+                            <input type="hidden" id="signup-university-value">
+                            <div class="uni-dropdown" id="uni-dropdown"></div>
+                        </div>
+                        <!-- Other: Custom Input (Hidden by default) -->
+                        <div id="custom-university-container" style="display: none; margin-top: 1rem;">
+                            <label class="form-label" id="custom-institution-label">University Name</label>
+                            <input type="text" id="signup-university-custom" class="form-input"
+                                placeholder="e.g. Harvard University">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="signup-password" class="form-input" placeholder="••••••••" required
+                            minlength="6">
+                        <p class="password-hint">Must be at least 6 characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" id="signup-confirm" class="form-input" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="signup-newsletter" checked class="checkbox-input">
+                            <span class="checkbox-label">
+                                Join our newsletter (we strictly promise no spam)
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="signup-terms" required class="checkbox-input">
+                            <span class="checkbox-label">
+                                I agree to the <a href="terms.html" target="_blank" class="checkbox-link">Terms of Service</a> and
+                            <a href="privacy-policy.html" target="_blank" class="checkbox-link">Privacy Policy</a>.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Cloudflare Turnstile for DDoS protection -->
+                    <div id="turnstile-container" style="margin-bottom: 1.5rem;"></div>
+
+                    <button type="submit" id="signup-submit" class="btn-primary auth-btn-submit">Create Account</button>
+                </form>
+
+                <p class="auth-switch-text">
+                    Already have an account? <a href="login.html" class="auth-switch-link">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="auth-footer">
+        <p>&copy; 2026 ThinkLikeLaw. Designed for the next generation of Solicitors and Barristers.</p>
+        <div class="auth-footer-links">
+            <a href="privacy-policy.html" class="auth-footer-link">Privacy</a>
+            <a href="terms.html" class="auth-footer-link">Terms</a>
+            <a href="support.html" class="auth-footer-link">Support</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/cookies.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+    <script>
+        window.onloadTurnstileCallback = function () {
+            turnstile.render('#turnstile-container', {
+                sitekey: '0x4AAAAAAAV3P_O8Wz8_Vz-v', // Placeholder Sitekey
+                theme: document.body.classList.contains('light-mode') ? 'light' : 'dark',
+                callback: function (token) {
+                    window._turnstileToken = token;
+                },
+            });
+        };
+    </script>
+    <script src="js/universities.js"></script>
+    <script src="js/school-data-service.js"></script>
+    <script>
+        // University Autocomplete Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('signup-university');
+            const hiddenInput = document.getElementById('signup-university-value');
+            const customContainer = document.getElementById('custom-university-container');
+            const customInput = document.getElementById('signup-university-custom');
+            const dropdown = document.getElementById('uni-dropdown');
+            let highlightedIndex = -1;
+
+            if (!input || !dropdown) return;
+
+            // Use the global UK_UNIVERSITIES array from js/universities.js
+            const universities = (typeof UK_UNIVERSITIES !== 'undefined') ? UK_UNIVERSITIES : ["Other"];
+
+            async function renderOptions(filter) {
+                const level = levelSelect?.value || 'llb';
+
+                if (level === 'alevel') {
+                    // Fetch schools from DfE data
+                    dropdown.innerHTML = '<div class="uni-option disabled">Searching schools...</div>';
+                    dropdown.classList.add('show');
+
+                    const schools = await SchoolDataService.searchSchools(filter);
+                    if (schools.length === 0) {
+                        dropdown.innerHTML = '<div class="uni-option disabled">No schools found. Choose "Other" below.</div>';
+                    } else {
+                        dropdown.innerHTML = schools.map((s, i) =>
+                            `<div class="uni-option" data-value="${s.name}" data-urn="${s.urn}" data-index="${i}">${s.name}</div>`
+                        ).join('');
+                        // Add "Other" at the bottom
+                        dropdown.innerHTML += `<div class="divider"></div><div class="uni-option" data-value="Other" data-index="other">Other School...</div>`;
+                    }
+                    highlightedIndex = -1;
+                    return;
+                }
+
+                const filtered = filter
+                    ? universities.filter(u => u.toLowerCase().includes(filter.toLowerCase()))
+                    : universities;
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div class="uni-option disabled" style="color: var(--text-secondary); cursor: default;">No matches found</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+
+                dropdown.innerHTML = filtered.map((u, i) =>
+                    `<div class="uni-option" data-value="${u}" data-index="${i}">${u}</div>`
+                ).join('');
+
+                highlightedIndex = -1;
+                dropdown.classList.add('show');
+            }
+
+            function selectUniversity(value) {
+                input.value = value;
+                hiddenInput.value = value;
+                dropdown.classList.remove('show');
+
+                if (value === 'Other') {
+                    customContainer.style.display = 'block';
+                    customInput.required = true;
+                    customInput.focus();
+                } else {
+                    customContainer.style.display = 'none';
+                    customInput.required = false;
+                    customInput.value = ''; // Clear custom input
+                }
+            }
+
+            // Show full list on focus
+            input.addEventListener('focus', () => {
+                renderOptions('');
+            });
+
+            // Filter on typing
+            input.addEventListener('input', () => {
+                const val = input.value;
+                // If user clears input, reset
+                if (!val) {
+                    hiddenInput.value = '';
+                    customContainer.style.display = 'none';
+                }
+                renderOptions(val);
+            });
+
+            // Handle selection
+            dropdown.addEventListener('click', (e) => {
+                const option = e.target.closest('.uni-option');
+                if (option && !option.classList.contains('disabled')) {
+                    const value = option.dataset.value;
+                    const urn = option.dataset.urn || '';
+                    if (urn) {
+                        // Store URN for accuracy metrics later
+                        input.dataset.urn = urn;
+                    }
+                    selectUniversity(value);
+                }
+            });
+
+            // Keyboard navigation
+            input.addEventListener('keydown', (e) => {
+                const options = dropdown.querySelectorAll('.uni-option:not(.disabled)');
+                if (!dropdown.classList.contains('show')) {
+                    if (e.key === 'ArrowDown') renderOptions(input.value);
+                    return;
+                }
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (options.length > 0) {
+                        highlightedIndex = (highlightedIndex + 1) % options.length;
+                        updateHighlight(options);
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (options.length > 0) {
+                        highlightedIndex = (highlightedIndex - 1 + options.length) % options.length;
+                        updateHighlight(options);
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (highlightedIndex >= 0 && options[highlightedIndex]) {
+                        selectUniversity(options[highlightedIndex].dataset.value);
+                    }
+                } else if (e.key === 'Escape') {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            function updateHighlight(options) {
+                options.forEach(o => o.classList.remove('highlighted'));
+                if (options[highlightedIndex]) {
+                    options[highlightedIndex].classList.add('highlighted');
+                    options[highlightedIndex].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            // Strict Mode: On blur, check if value matches a valid option
+            input.addEventListener('blur', () => {
+                // Delay to allow click event on dropdown to fire first
+                setTimeout(() => {
+                    const val = input.value;
+                    const match = universities.find(u => u === val);
+
+                    if (!match) {
+                        // Invalid selection
+                        if (val.trim() === '') {
+                            hiddenInput.value = ''; // Just empty
+                        } else {
+                            // User typed something but didn't select. 
+                            // Either force 'Other' or clear it.
+                            // Let's force them to select. 
+                            input.value = '';
+                            hiddenInput.value = '';
+                            // Optionally show a "Please select from list" toast or red border
+                            input.placeholder = "Please select from the list...";
+                        }
+                    }
+                    dropdown.classList.remove('show');
+                }, 200);
+            });
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.uni-autocomplete-wrapper')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Ensure custom input value is passed to hidden input on submit?
+            // Actually auth.js reads hiddenInput OR customInput?
+            // auth.js currently reads: 
+            // const university = document.getElementById('signup-university-value')?.value || '';
+
+            // We need to update auth.js to prioritize customInput if visible?
+            // OR update hiddenInput when customInput changes.
+            customInput.addEventListener('input', () => {
+                if (input.value === 'Other') {
+                    hiddenInput.value = customInput.value;
+                }
+            });
+
+            // Student Level Conditional Logic
+            const levelSelect = document.getElementById('signup-level');
+            const llbExtras = document.getElementById('llb-extras');
+            const alevelExtras = document.getElementById('alevel-extras');
+            const llbYearSelect = document.getElementById('signup-llb-year');
+            const boardSelect = document.getElementById('signup-board');
+
+            if (levelSelect) {
+                levelSelect.addEventListener('change', () => {
+                    const instLabel = document.getElementById('institution-label');
+                    const instPlaceholder = document.getElementById('signup-university');
+                    const customInstLabel = document.getElementById('custom-institution-label');
+
+                    if (levelSelect.value === 'llb') {
+                        llbExtras.style.display = 'flex';
+                        alevelExtras.style.display = 'none';
+                        llbYearSelect.required = true;
+                        boardSelect.required = false;
+
+                        // UI labels
+                        instLabel.textContent = "University";
+                        instPlaceholder.placeholder = "Select your university...";
+                        customInstLabel.textContent = "University Name";
+                    } else if (levelSelect.value === 'alevel') {
+                        llbExtras.style.display = 'none';
+                        alevelExtras.style.display = 'flex';
+                        llbYearSelect.required = false;
+                        boardSelect.required = true;
+
+                        // UI labels
+                        instLabel.textContent = "School / College";
+                        instPlaceholder.placeholder = "Search schools (e.g. Eton)...";
+                        customInstLabel.textContent = "School Name";
+                    }
+
+                    // Clear any custom container if level changes
+                    const customContainer = document.getElementById('custom-university-container');
+                    if (customContainer) customContainer.style.display = 'none';
+                    document.getElementById('signup-university-custom').value = "";
+                    document.getElementById('signup-university-value').value = "";
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // Visibility Fallback
+        // Forces the page to become visible if sidebar.js or transitions fail
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => {
+                document.body.classList.add('loaded');
+                document.body.style.opacity = '1';
+            });
+        });
+
+        // Immediate fallback in case load event already fired
+        if (document.readyState === 'complete') {
+            document.body.classList.add('loaded');
+            document.body.style.opacity = '1';
+        }
+    </script>
+</body>
+
+</html>

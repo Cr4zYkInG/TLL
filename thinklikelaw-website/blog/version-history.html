@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of ThinkLikeLaw: Version 1 to 2.5 and Beyond | Changelog</title>
+
+    <meta name="description"
+        content="Explore the journey of ThinkLikeLaw. From our MVP for LLB students to the introduction of Ben the AI Mascot and full A-Level integration.">
+    <link rel="canonical" href="https://www.thinklikelaw.com/blog/version-history.html">
+
+    <link rel="icon" type="image/x-icon" href="../images/logo-icon-final.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=3.0.0">
+    <link rel="stylesheet" href="../mascot.css?v=3.0.0">
+
+    <style>
+        :root {
+            --accent-glow: rgba(200, 160, 100, 0.1);
+            --timeline-line: rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-hero {
+            padding: 220px 10% 100px;
+            background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, var(--bg-color) 80%);
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -0.04em;
+        }
+
+        .version-timeline {
+            max-width: 1000px;
+            margin: 100px auto;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        .version-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--timeline-line) 10%, var(--timeline-line) 90%, transparent);
+            transform: translateX(-50%);
+        }
+
+        .version-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 120px;
+            position: relative;
+        }
+
+        .version-block.left {
+            flex-direction: row-reverse;
+        }
+
+        .version-content {
+            width: 42%;
+            position: relative;
+        }
+
+        .version-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: var(--bg-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        .version-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .version-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .version-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .version-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .version-card p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .version-card ul {
+            margin-top: 25px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .version-card li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .version-card li i {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        .future-glow {
+            text-align: center;
+            padding: 100px 10%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 800px) {
+            .version-timeline::before {
+                left: 30px;
+            }
+
+            .version-dot {
+                left: 30px;
+            }
+
+            .version-block {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 80px;
+            }
+
+            .version-content {
+                width: 100%;
+                text-align: left !important;
+            }
+        }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"The Evolution of ThinkLikeLaw: Version History","author":{"@type":"Organization","name":"ThinkLikeLaw Editorial"},"publisher":{"@type":"Organization","name":"ThinkLikeLaw","url":"https://www.thinklikelaw.com"},"datePublished":"2026-02-19","dateModified":"2026-02-24","mainEntityOfPage":"https://www.thinklikelaw.com/blog/version-history.html"}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.thinklikelaw.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources & Blog",
+          "item": "https://www.thinklikelaw.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "The Evolution of ThinkLikeLaw: Version 1 to 2.5 and Beyond",
+          "item": "https://www.thinklikelaw.com/blog/version-history.html"
+        }
+      ]
+    }
+    </script>
+    <meta property="og:locale" content="en_GB">
+    <meta property="twitter:site" content="@ThinkLikeLaw">
+    <meta property="twitter:creator" content="@ThinkLikeLaw">
+</head>
+
+<body class="dark-mode">
+    <!-- Navbar (Synced with Landing Page) -->
+    <nav class="lp-nav" id="navbar">
+        <div class="lp-nav-logo">
+            <a href="/""><img src="../images/logo-text-final.png" alt="ThinkLikeLaw"></a>
+        </div>
+        <ul class="lp-nav-links">
+            <li>
+                <i class="fas fa-cat nav-mascot-icon" id="nav-mascot-trigger" title="Meet Ben"></i>
+                <a href="/"#features">Features</a>
+            </li>
+            <li><a href="/blog/"">Resources</a></li>
+            <li><a href="/"#pricing">Pricing</a></li>
+            <li><a href="/support"">Support</a></li>
+            <li><a href="/signup"" class="nav-btn-primary">Join Free</a></li>
+        </ul>
+    </nav>
+
+    <header class="blog-hero">
+        <span class="version-tag">THE CHANGELOG</span>
+        <h1 class="serif">The Evolution of ThinkLikeLaw</h1>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Documenting our
+            journey from an LLB niche tool to a comprehensive A-Level & University legal ecosystem.</p>
+    </header>
+
+    <main class="version-timeline">
+        <!-- V4.0 -->
+        <div class="version-block right">
+            <div class="version-dot" style="background: var(--accent-color);"></div>
+            <div class="version-content">
+                <div class="version-card" style="border-width: 2px; border-color: var(--accent-color);">
+                    <span class="version-tag" style="background: var(--accent-color); color: #000; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 15px;">CURRENT: v3.1 (PRESTIGE)</span>
+                    <h3>The Precision & Discoverability Update</h3>
+                    <p>A transformative leap in technical authority and user experience. We transitioned to a **neutral dark grey (#121212)** palette to match our iOS ecosystem, achieved a **100/100 SEO score**, and slashed load times through advanced asset minification.
+                    </p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> **SEO 100**: Full rich result eligibility (Article, FAQ, Breadcrumbs)</li>
+                        <li><i class="fas fa-check"></i> **Palette Standardization**: Neutral dark grey across all law tools</li>
+                        <li><i class="fas fa-check"></i> **Performance Core**: Script deferring & CSS/JS asset minification</li>
+                        <li><i class="fas fa-check"></i> **LCP Optimization**: 80% compression on all visual assets</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- V3.0 -->
+        <div class="version-block left">
+            <div class="version-dot"></div>
+            <div class="version-content">
+                <div class="version-card">
+                    <span class="version-tag">PREVIOUS: v3.0</span>
+                    <h3>The Intelligence & Grounding Update</h3>
+                    <p>Our most significant upgrade yet. We introduced **AI Plus** (Mistral Large) for elite reasoning and **Deep Thinking Mode** for live, transparent research. Most importantly, all AI assistants are now grounded in official **TNA Case Law** for 100% accuracy.
+                    </p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Launched AI Plus (Smarter & More Detailed)</li>
+                        <li><i class="fas fa-check"></i> Deep Thinking Mode (Liquid Glass Research UI)</li>
+                        <li><i class="fas fa-check"></i> 100% Accurate Case Law Grounding (National Archives API)</li>
+                        <li><i class="fas fa-check"></i> OSCOLA Assistant: Official database cross-referencing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- V2.5 -->
+        <div class="version-block left">
+            <div class="version-dot"></div>
+            <div class="version-content">
+                <div class="version-card">
+                    <span class="version-tag">PREVIOUS: v2.5</span>
+                    <h3>The Mascot & Accessibility Update</h3>
+                    <p>Our transition into a truly interactive platform. We successfully integrated
+                        <strong>Ben</strong>, our AI companion, while expanding our high-precision tools to support
+                        <strong>A-Level Law students</strong> with dedicated terminology alignment.
+                    </p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Introduced "Ben" the AI Mascot (Manual Summoning)</li>
+                        <li><i class="fas fa-check"></i> Dynamic Terminology (Modules → Classes)</li>
+                        <li><i class="fas fa-check"></i> Interactive Spellcheck & Legal Thesaurus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- V2.0 -->
+        <div class="version-block left">
+            <div class="version-dot"></div>
+            <div class="version-content">
+                <div class="version-card" style="opacity: 0.9;">
+                    <span class="version-tag">PREVIOUS: v2.0</span>
+                    <h3>The Cloud Migration</h3>
+                    <p>A fundamental shift in architecture. We moved from local-only storage to a robust <strong>Cloud
+                            Ecosystem</strong>, enabling users to sync their LLB notes, case briefs, and essay reviews
+                        across all devices.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Supabase Database Integration</li>
+                        <li><i class="fas fa-check"></i> PRO Features: AI Essay Marking (AO alignment)</li>
+                        <li><i class="fas fa-check"></i> Global Search & Module Organization</li>
+                        <li><i class="fas fa-check"></i> Dark Mode (The "Oxford" Aesthetic)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- V1.0 -->
+        <div class="version-block right">
+            <div class="version-dot"></div>
+            <div class="version-content">
+                <div class="version-card" style="opacity: 0.7;">
+                    <span class="version-tag">ORIGIN: v1.0</span>
+                    <h3>LLB Core Launch</h3>
+                    <p>ThinkLikeLaw was born with a singular focus: helping <strong>LLB students</strong> master Case
+                        Law. Our MVP (Minimum Viable Product) focused on one-click legal summarization and OSCOLA
+                        formatting.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> One-Click Case Briefs</li>
+                        <li><i class="fas fa-check"></i> OSCOLA Citation Assistant</li>
+                        <li><i class="fas fa-check"></i> Structured PDF Exporting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    <!-- Internal Link CTA — injected for SEO link equity -->
+    <div class="thinklikelaw-internal-cta" style="margin: 2.5rem 0; padding: 1.5rem 2rem; background: rgba(0,0,0,0.04); border-left: 4px solid #000; border-radius: 0 12px 12px 0;">
+        <p style="margin: 0 0 0.75rem; font-weight: 600; font-size: 1rem;">🎓 Try ThinkLikeLaw Free</p>
+        <p style="margin: 0 0 1rem; font-size: 0.9rem; color: #555;">Use our AI tools to turn your notes into first-class outcomes:</p>
+        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem;">
+            <li><a href="https://www.thinklikelaw.com/lecture-notes.html">📝 AI Lecture Notes Generator</a> — turn 100-page slides into IRAC summaries</li>
+            <li><a href="https://www.thinklikelaw.com/essay-marking.html">✅ AI Essay Marker</a> — get instant IRAC feedback on your drafts</li>
+            <li><a href="https://www.thinklikelaw.com/interpret.html">⚖️ Case Interpreter</a> — extract ratio decidendi from any judgment</li>
+            <li><a href="https://www.thinklikelaw.com/flashcards.html">🃏 Spaced Repetition Flashcards</a> — memorise case law effortlessly</li>
+        </ul>
+    </div>
+
+    </main>
+
+    <section class="future-glow">
+        <h2 class="serif" style="font-size: 3rem; margin-bottom: 30px;">Looking Ahead</h2>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto 50px;">
+            The journey to v3.1 was about precision, prestige, and speed. Our next phase focuses on **Mascot Intelligence** (Ben learning your specific exam board patterns) and **Mobile Parity**, ensuring the iOS app and web ecosystem feel like a single, seamless legal brain.
+            <br><br>
+            Our mission is unchanged: To make the transition from student to barrister feel inevitable.
+        </p>
+        <a href="/signup" class="nav-btn-primary" style="padding: 18px 40px; font-size: 1rem;">Experience v3.1
+            Today</a>
+    </section>
+
+    <footer class="lp-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThinkLikeLaw. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mascot & Scripts -->
+        <script src="../js/site-config.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/audio-manager.js"></script>
+    <script src="../js/mascot-brain.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait slightly for MascotBrain.init() to complete
+            setTimeout(() => {
+                if (typeof MascotBrain !== 'undefined') {
+                    MascotBrain.summon();
+                    MascotBrain.speak("I'm officially part of the v2.5 history! I'll be here if you want to explore the past with me. 🐾");
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>

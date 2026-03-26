@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSCOLA Assistant | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            transition: background 0.3s ease;
+        }
+
+        .oscola-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin-left: 260px;
+            transition: margin-left 0.3s ease;
+        }
+
+        body.sidebar-minimized .oscola-container {
+            margin-left: 80px;
+        }
+
+        /* Header */
+        .oscola-header {
+            background: var(--surface-color);
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .oscola-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .oscola-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+
+        .oscola-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Main Workspace */
+        .oscola-workspace {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+
+        /* A4 Page Layout */
+        .document-view {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3rem;
+            display: flex;
+            justify-content: center;
+            background: var(--bg-color);
+        }
+
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: #fff;
+            /* Always white for A4 feel */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 25mm;
+            box-sizing: border-box;
+            outline: none;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #000 !important;
+            /* Dark text on white page */
+            cursor: text;
+        }
+
+        body.light-mode .a4-page {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .a4-page h1,
+        .a4-page h2,
+        .a4-page h3,
+        .a4-page p,
+        .a4-page div,
+        .a4-page span {
+            color: #000 !important;
+        }
+
+        /* Side Controls */
+        .oscola-sidebar {
+            width: 340px;
+            background: var(--surface-color);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .rating-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        body.light-mode .rating-card {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .rating-gauge {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .rating-gauge svg {
+            position: absolute;
+            transform: rotate(-90deg);
+        }
+
+        #circle-bg {
+            stroke: var(--border-color);
+        }
+
+        #rating-progress {
+            stroke: var(--accent-color);
+        }
+
+        .rating-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .tool-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .tool-btn {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: var(--spring);
+        }
+
+        .tool-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .tool-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .tool-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .subscriber-feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-mode .subscriber-feature {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .subscriber-tag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: gold;
+            color: #000;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.6rem;
+            border-bottom-left-radius: 8px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .hallucination-warning {
+            display: flex;
+            gap: 0.75rem;
+            background: rgba(214, 48, 49, 0.1);
+            border: 1px solid rgba(214, 48, 49, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            color: #ff7675;
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+
+        body.light-mode .hallucination-warning {
+            color: #d63031;
+            background: #fff4f4;
+            border-color: #ffcccc;
+        }
+
+        /* Detailed Analysis Section (Subscriber Only) */
+        .analysis-details {
+            display: none;
+            margin-top: 1rem;
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .analysis-details.active {
+            display: block;
+        }
+
+        .rule-flag {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .rule-name {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .rule-desc {
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .hallucination-warning i {
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .oscola-sidebar {
+                display: none;
+            }
+        }
+    </style>
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <div class="oscola-container">
+        <!-- Header -->
+        <header class="oscola-header">
+            <div class="oscola-title">
+                <div class="oscola-logo">OS</div>
+                <h2 style="font-size: 1.1rem; font-weight: 700; margin: 0;">OSCOLA Assistant</h2>
+            </div>
+
+            <div class="oscola-actions">
+                <button class="tool-btn secondary" style="width: auto; padding: 0.5rem 1rem;">
+                    <i class="fas fa-file-import"></i> Paste Essay
+                </button>
+                <button class="tool-btn checkmark" style="width: auto; padding: 0.5rem 1rem; background: #000;">
+                    <i class="fas fa-magic"></i> Auto-Correct
+                </button>
+            </div>
+        </header>
+
+        <!-- Workspace -->
+        <main class="oscola-workspace">
+            <!-- Document Area -->
+            <section class="document-view">
+                <div class="a4-page" id="oscola-editor" contenteditable="true">
+                    <h1 style="text-align: center; margin-bottom: 2rem;">Title of Your Essay</h1>
+                    <p>Paste your legal essay here to begin OSCOLA citation checking...</p>
+                </div>
+            </section>
+
+            <!-- Sidebar Panel -->
+            <aside class="oscola-sidebar">
+                <!-- Rating Gauge -->
+                <div class="rating-card">
+                    <div class="rating-gauge">
+                        <svg width="120" height="120">
+                            <circle id="circle-bg" cx="60" cy="60" r="54" stroke="#eee" stroke-width="8" fill="none" />
+                            <circle id="rating-progress" cx="60" cy="60" r="54" stroke="#000" stroke-width="8"
+                                fill="none" stroke-dasharray="339.29" stroke-dashoffset="339.29"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span id="oscola-score">0</span>
+                    </div>
+                    <div class="rating-label">OSCOLA Proficiency Score</div>
+
+                    <!-- Detailed Analysis (Subscriber Only) -->
+                    <div class="analysis-details" id="grading-analysis">
+                        <div class="rule-flag">
+                            <span class="rule-name">Analyzing rules...</span>
+                            <span class="rule-desc">Loading detailed OSCOLA feedback.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="tool-section">
+                    <button class="tool-btn hint--top" aria-label="Use AI to check your document's OSCOLA citations"
+                        id="btn-grade-oscola">
+                        <i class="fas fa-chart-line"></i> Grade Citations <span
+                            style="font-size:0.8em;opacity:0.8;margin-left:5px">(25 credits)</span>
+                    </button>
+                    <button class="tool-btn secondary" id="btn-quick-fix">
+                        <i class="fas fa-bolt"></i> Fast Fix (All)
+                    </button>
+                </div>
+
+                <!-- Subscriber Only: Source Verification -->
+                <div class="subscriber-feature">
+                    <div class="subscriber-tag">Subscriber</div>
+                    <h3 style="font-size: 0.95rem; margin-top: 0.5rem;">Deep Source Validator</h3>
+                    <p style="font-size: 0.85rem; color: #666;">Scan databases for real-world case and statute
+                        verification.</p>
+
+                    <button class="tool-btn" style="background: #2d3436;" id="btn-verify-sources">
+                        <i class="fas fa-search"></i> Verify Sources
+                    </button>
+
+                    <div class="hallucination-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Important Warning:</strong> While our AI scans legal databases, always verify
+                            citations manually against official sources. Hallucinations can occur in complex legal
+                            queries.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-panel" style="font-size: 0.85rem; color: #666; margin-top: auto;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Citations Found:</span>
+                        <strong id="stat-citations" style="color: #000;">0</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Errors Flagged:</span>
+                        <strong id="stat-errors" style="color: #000;">0</strong>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/oscola-assistant.js"></script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

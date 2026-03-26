@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture Notes | ThinkLikeLaw</title>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Editor Styles imported from note-editor.html -->
+    <style>
+        body {
+            display: flex;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tool-content {
+            margin-left: 260px;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 40% 60%;
+            height: 100vh;
+            width: calc(100% - 260px);
+        }
+
+        .input-panel {
+            padding: 3rem;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            overflow-y: auto;
+        }
+
+        .output-panel {
+            padding: 3rem 4rem;
+            background: var(--surface-color);
+            overflow-y: auto;
+        }
+
+        .tool-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .tool-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+
+        .tool-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--spring);
+            margin-bottom: 2rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-zone i {
+            font-size: 3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            transition: var(--spring);
+        }
+
+        .upload-zone:hover i {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            position: relative;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .or-divider::before {
+            left: 0;
+        }
+
+        .or-divider::after {
+            right: 0;
+        }
+
+        textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            transition: var(--spring);
+        }
+
+        textarea:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-action {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--spring);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Save to Module Section */
+        .save-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .save-section label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .save-section select,
+        .save-section input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            outline: none;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--spring);
+        }
+
+        .save-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-primary);
+        }
+
+        .output-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Premium Markdown Styles */
+        .output-content h1 {
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-top: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .output-content h2 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .output-content h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .output-content h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-top: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .output-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        .output-content em {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .output-content hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 2.5rem 0;
+        }
+
+        /* Special Block for Exam Application & LLB Standards */
+        .output-content strong:contains("EXAM APPLICATION"),
+        .output-content strong:contains("Ratio Decidendi"),
+        .output-content strong:contains("RELEVANT RATIO"),
+        .output-content strong:contains("OBITER"),
+        .output-content strong:contains("IRAC"),
+        .output-content strong:contains("CRITICAL EVALUATION"),
+        .output-content strong:contains("EXAM STRATEGY") {
+            display: block;
+            margin: 1.5rem 0 0.5rem 0;
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.5rem 0 0.5rem 15px;
+            background: rgba(255, 255, 255, 0.03);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+        }
+
+        .output-content strong:contains("RELEVANT RATIO") {
+            border-left-color: #22C55E;
+            /* Green for Ratio */
+            color: #22C55E;
+        }
+
+        .output-content strong:contains("OBITER") {
+            border-left-color: #EAB308;
+            /* Yellow/Amber for Obiter */
+            color: #EAB308;
+        }
+
+        .output-content li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+
+        .ai-warning-alert {
+            margin-top: 2.5rem;
+            padding: 1.25rem;
+            background: rgba(255, 193, 7, 0.08);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            border-left: 4px solid #FFC107;
+        }
+
+        .ai-warning-alert i {
+            color: #FFC107;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .ai-warning-alert strong {
+            color: #FFC107;
+            display: block;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@v5.0.2/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/skeleton-loader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="tool-content">
+        <!-- LEFT: Input Panel -->
+        <section class="input-panel">
+            <header class="tool-header">
+                <h1 class="serif" data-term-lecture><span data-term-lecture-singular>Lecture</span> Notes Generator</h1>
+                <p>Upload slides or paste notes. We'll structure them with academic rigor.</p>
+            </header>
+
+            <div class="upload-zone" id="dropZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p><strong>Upload PPT or PDF</strong><br><span style="font-size: 0.8rem; color: #888;">Drag & drop or
+                        click to browse</span></p>
+                <input type="file" class="file-input" id="fileInput" accept=".pdf,.ppt,.pptx,.txt">
+            </div>
+
+            <div class="or-divider">OR PASTE TEXT</div>
+            <textarea id="noteInput"
+                placeholder="Paste raw lecture content, transcript, or rough notes here..."></textarea>
+
+            <button id="notes-btn" class="glow-btn hint--top"
+                aria-label="Use AI to generate structured academic notes from your input"
+                style="position:relative;overflow:hidden" onclick="generateNotes()">
+                <i class="fas fa-book-reader"></i> Generate Academic Notes <span
+                    style="font-size:0.8em;opacity:0.8;margin-left:5px">(50 credits)</span>
+            </button>
+
+            <!-- Refine Section (Aesthetically fitting above save) -->
+            <div id="refine-section" class="refine-section"
+                style="display: none; margin-top: 2rem; padding: 1.5rem; background: rgba(18, 18, 18, 0.05); border: 1px solid var(--border-color); border-radius: 12px; border-left: 4px solid var(--accent-color);">
+                <label
+                    style="display: block; margin-bottom: 0.8rem; font-weight: 600; font-size: 0.9rem; color: var(--accent-color); letter-spacing: 0.05em; text-transform: uppercase;">
+                    <i class="fas fa-magic"></i> Refine Notes with AI
+                </label>
+                <textarea id="refineInput"
+                    placeholder="e.g. 'Use IRAC structure for cases', 'Add more detail on statutes', 'Make it more academic'..."
+                    style="width: 100%; min-height: 80px; margin-bottom: 1rem; padding: 0.8rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: 0.9rem; resize: vertical;"></textarea>
+                <button id="refine-btn" class="glow-btn"
+                    style="width: 100%; border-radius: 8px; padding: 0.8rem; font-size: 0.9rem; background: linear-gradient(135deg, var(--accent-color), #22C55E);"
+                    onclick="refineNotes()">
+                    <i class="fas fa-sparkles"></i> Apply Refinement <span
+                        style="font-size:0.8em;opacity:0.8;margin-left:5px">(10 credits)</span>
+                </button>
+            </div>
+
+            <!-- Save to Module (Preserved) -->
+            <div class="save-section" id="save-section" style="display: none;">
+                <label>Save to <span data-term-module-singular>Module</span></label>
+                <select id="save-module">
+                    <option value="">Choose <span data-term-module-singular>Module</span>...</option>
+                    <option value="contract">Contract Law</option>
+                    <option value="tort">Tort Law</option>
+                    <option value="public-law">Public Law</option>
+                    <option value="equity">Equity & Trusts</option>
+                </select>
+                <label><span data-term-lecture-singular>Lecture</span> Title</label>
+                <input type="text" id="save-title" placeholder="e.g. Lecture 4: Consideration">
+                <button class="save-btn" onclick="saveToModule()">
+                    <i class="fas fa-save"></i> Save to <span data-term-module-singular>Module</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- RIGHT: Output Panel -->
+        <section class="output-panel">
+            <div id="outputContainer" class="output-content">
+                <div style="text-align: center; color: var(--text-secondary); margin-top: 40%;">
+                    <i class="fas fa-university" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p>Detailed notes will appear here.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const noteInput = document.getElementById('noteInput');
+        const dropZone = document.getElementById('dropZone');
+
+        // --- Core Logic ---
+        document.addEventListener('DOMContentLoaded', loadModules);
+
+        async function loadModules() {
+            const select = document.getElementById('save-module');
+            if (!select) return;
+
+            try {
+                const modules = await CloudData.getModules();
+                if (modules && modules.length > 0) {
+                    select.innerHTML = '<option value="">Choose Module...</option>' +
+                        modules.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+                }
+            } catch (e) {
+                console.warn('Failed to load cloud modules, using defaults.');
+            }
+        }
+
+        // Initialize PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        fileInput.addEventListener('change', handleFileSelect);
+
+        async function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            dropZone.innerHTML = `<i class="fas fa-spinner fa-spin"></i><p><strong>Extracting content...</strong><br>Parsing ${file.name}</p>`;
+
+            try {
+                const text = await extractTextFromFile(file);
+                if (text) {
+                    noteInput.value = text;
+                    dropZone.innerHTML = `<i class="fas fa-check-circle" style="color:var(--accent-color)"></i><p><strong>${file.name}</strong><br>Successfully scanned</p>`;
+                } else {
+                    throw new Error("No text found in file.");
+                }
+            } catch (error) {
+                console.error("Extraction error:", error);
+                dropZone.innerHTML = `<i class="fas fa-exclamation-triangle" style="color:#ff5555"></i><p><strong>Extraction Failed</strong><br>${error.message}</p>`;
+            }
+        }
+
+        async function extractTextFromFile(file) {
+            const extension = file.name.split('.').pop().toLowerCase();
+
+            if (extension === 'pdf') {
+                return await extractPDFText(file);
+            } else if (['doc', 'docx'].includes(extension)) {
+                return await extractDocxText(file);
+            } else if (['ppt', 'pptx'].includes(extension)) {
+                return await extractPptxText(file);
+            } else if (['png', 'jpg', 'jpeg'].includes(extension)) {
+                return await performOCR(file);
+            } else if (extension === 'txt') {
+                return await file.text();
+            } else {
+                throw new Error("Unsupported file format.");
+            }
+        }
+
+        async function extractPDFText(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let fullText = "";
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + "\n\n";
+            }
+
+            // Fallback to OCR if PDF is empty (scanned image)
+            if (fullText.trim().length < 50) {
+                return await performOCR(file);
+            }
+
+            return fullText;
+        }
+
+        async function extractDocxText(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.extractRawText({ arrayBuffer });
+            return result.value;
+        }
+
+        async function extractPptxText(file) {
+            const zip = await JSZip.loadAsync(file);
+            let fullText = "";
+            const slideFiles = Object.keys(zip.files).filter(name => name.startsWith('ppt/slides/slide') && name.endsWith('.xml'));
+
+            // Sort slides numerically
+            slideFiles.sort((a, b) => {
+                const numA = parseInt(a.match(/\d+/)[0]);
+                const numB = parseInt(b.match(/\d+/)[0]);
+                return numA - numB;
+            });
+
+            for (const slideFile of slideFiles) {
+                const content = await zip.file(slideFile).async("text");
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(content, "text/xml");
+                const textNodes = xmlDoc.getElementsByTagName("a:t");
+                for (let i = 0; i < textNodes.length; i++) {
+                    fullText += textNodes[i].textContent + " ";
+                }
+                fullText += "\n\n";
+            }
+            return fullText;
+        }
+
+        async function performOCR(file) {
+            const result = await Tesseract.recognize(file, 'eng', {
+                logger: m => console.log(m)
+            });
+            return result.data.text;
+        }
+
+        // Parse Markdown Helper (Bold, Italic, Headers, HR)
+        function parseMarkdownToHTML(text) {
+            if (!text) return '';
+            return text
+                // Horizontal Rule (---)
+                .replace(/^---$/gm, '<hr>')
+                // Headers (H6 down to H1 to avoid overlapping matches)
+                .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
+                .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
+                .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                // Bold (**text**)
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                // Italic (*text*)
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                // Lists (- item)
+                .replace(/^\- (.*$)/gim, '<li>$1</li>')
+                .replace(/\n/g, '<br>');
+        }
+
+        async function generateNotes() {
+            const input = noteInput.value;
+            const outputContainer = document.getElementById('outputContainer');
+            const btn = document.getElementById('notes-btn');
+
+            if (!input.trim()) {
+                outputContainer.innerHTML = '<div style="text-align: center; color: #ff5555; margin-top: 40%;"><p>Please enter text or upload a file.</p></div>';
+                return;
+            }
+
+            // Check Credits First
+            if (typeof creditsManager !== 'undefined' && !creditsManager.canAfford('lectureNotes')) {
+                creditsManager.showSubscriptionCTA();
+                // Reset UI if needed, though we haven't started loading yet
+                return;
+            }
+
+            // Inject Skeleton Styles
+            if (!document.getElementById('skeleton-styles')) {
+                const styleTag = document.createElement('div');
+                styleTag.id = 'skeleton-styles';
+                styleTag.innerHTML = skeletonStyles;
+                document.head.appendChild(styleTag);
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating Notes...';
+            btn.disabled = true;
+
+            // Show Skeleton Loader
+            showSkeletonLoader('outputContainer', 'textGeneration');
+
+            const result = await aiService.generateLectureNotes(input);
+
+            btn.innerHTML = '<i class="fas fa-book-reader"></i> Generate Academic Notes <span style="font-size:0.8em;opacity:0.8;margin-left:5px">(50 credits)</span>';
+            btn.disabled = false;
+
+            if (result.error) {
+                outputContainer.innerHTML = `<p style="color: #ff5555;">Error: ${result.error}</p>`;
+            } else {
+                // Deduct credits on success
+                if (typeof creditsManager !== 'undefined') {
+                    creditsManager.deduct('lectureNotes');
+                }
+
+                // Apply Markdown Parsing
+                const htmlContent = parseMarkdownToHTML(result.text);
+                outputContainer.innerHTML = `
+                    ${htmlContent}
+                    <div class="ai-warning-alert">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        <div>
+                            <strong>Always Double-Check AI</strong>
+                            AI-generated notes can occasionally hallucinate case names, facts, or citations. Please verify all key legal points against your official university textbooks or lecture slides.
+                        </div>
+                    </div>
+                `;
+                document.getElementById('save-section').style.display = 'block';
+            }
+        }
+
+        async function saveToModule() {
+            const moduleId = document.getElementById('save-module').value;
+            const title = document.getElementById('save-title').value || 'Untitled Lecture';
+            const content = document.getElementById('outputContainer').innerHTML;
+
+            if (!moduleId) {
+                document.getElementById('save-module').style.borderColor = '#ff5555';
+                return;
+            }
+
+            const saveBtn = document.querySelector('.save-btn');
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            saveBtn.disabled = true;
+
+            try {
+                // Optimistic Local Save
+                const savedNotes = JSON.parse(localStorage.getItem('savedLectureNotes') || '[]');
+                const newNote = {
+                    id: `note-${Date.now()}`,
+                    module: moduleId,
+                    title: title,
+                    date: new Date().toISOString().split('T')[0],
+                    content: content,
+                    created: new Date().toISOString()
+                };
+
+                // Cloud Save
+                if (window.CloudData) {
+                    const result = await CloudData.saveLecture(newNote);
+                    if (result && result.id) newNote.id = result.id;
+                }
+
+                savedNotes.push(newNote);
+                localStorage.setItem('savedLectureNotes', JSON.stringify(savedNotes));
+
+                saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved to Cloud!';
+                saveBtn.style.color = '#4CAF50';
+                saveBtn.style.borderColor = '#4CAF50';
+            } catch (error) {
+                console.error('Save failed:', error);
+                saveBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Local Only';
+                saveBtn.style.color = '#ffaa00';
+            } finally {
+                setTimeout(() => {
+                    saveBtn.innerHTML = '<i class="fas fa-save"></i> Save to Module';
+                    saveBtn.style.color = '';
+                    saveBtn.style.borderColor = '';
+                    saveBtn.disabled = false;
+                }, 3000);
+            }
+        }
+    </script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

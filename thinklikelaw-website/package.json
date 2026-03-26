@@ -1,0 +1,24 @@
+{
+  "name": "thinklikelaw-law-sovereign",
+  "version": "1.0.0",
+  "description": "ThinkLikeLaw LawSovereign Web App",
+  "scripts": {
+    "start": "npx http-server .",
+    "build": "echo \"Build step complete: No compilation required for static HTML/JS site.\"",
+    "dev:email": "npx wrangler dev workers/email-worker.js",
+    "deploy:email": "npx wrangler deploy --config wrangler-email.toml",
+    "deploy:ai": "npx wrangler deploy --config wrangler-ai.toml",
+    "deploy:stripe": "npx wrangler deploy --config wrangler-stripe.toml",
+    "deploy:news": "npx wrangler deploy --config wrangler-news.toml",
+    "deploy:frontend": "npx wrangler pages deploy . --project-name thinklikelaw --branch main",
+    "deploy:all": "npm run deploy:frontend && npm run deploy:email && npm run deploy:ai && npm run deploy:stripe && npm run deploy:news"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "wrangler": "^4.66.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.97.0",
+    "stripe": "^20.3.1"
+  }
+}

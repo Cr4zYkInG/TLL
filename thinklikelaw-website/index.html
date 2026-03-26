@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkLikeLaw | #1 Study Tool for Law Students</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <!-- Favicon Variants -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="images/favicon-128.png">
+    
+    <!-- PWA & Mobile Optimization -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ThinkLikeLaw">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+    <!-- SEO -->
+    <meta name="description"
+        content="Engage with the Law. Master the Mark Scheme. The premier AI-powered revision platform for LLB and A-Level law students.">
+    <link rel="canonical" href="https://www.thinklikelaw.com/">
+    <link rel="alternate" hreflang="en-GB" href="https://www.thinklikelaw.com/">
+    <meta name="keywords"
+        content="Think Like Law, ThinkLikeLaw, Law Study Tool, LLB AI, A-Level Law AI, UK Law Revision, AI Law Mascot, Ben AI Assistant, Exam Assessment AI, Legal Issue Spotter, OSCOLA Assistant">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thinklikelaw.com/">
+    <meta property="og:title" content="ThinkLikeLaw | #1 Study Tool for Law Students">
+    <meta property="og:description"
+        content="Master your LLB or A-Level Law degree with ThinkLikeLaw. High-Stakes Exam Mode, AI Case Summaries, and Ben, your 24/7 AI Law school companion.">
+    <meta property="og:image" content="https://www.thinklikelaw.com/images/OG_Image_compressed.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.thinklikelaw.com/">
+    <meta property="twitter:title" content="ThinkLikeLaw | #1 Study Tool for Law Students">
+    <meta property="twitter:description"
+        content="Turn lecture slides into first-class revision notes in seconds. The premier AI tool for UK law students.">
+    <meta property="twitter:image" content="https://www.thinklikelaw.com/images/OG_Image_compressed.jpg">
+
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ThinkLikeLaw",
+      "alternateName": "Think Like Law",
+      "url": "https://www.thinklikelaw.com",
+      "description": "Premium AI Law School Assistant and revision platform for LLB and A-Level law students. Featuring Ben the AI Mascot and High-Stakes Exam Mode.",
+      "applicationCategory": "EducationalApplication",
+      "browserRequirements": "Requires JavaScript",
+      "softwareVersion": "3.0.0",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "312",
+        "bestRating": "5"
+      },
+      "operatingSystem": "All",
+      "educationalAudience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "Student"
+      },
+      "featureList": "AI Case Interpretation, High-Stakes Exam Mode, IRAC Essay Marking, Spaced Repetition Flashcards, Ben AI Mascot Assistant, Legal Issue Spotter, OSCOLA Referencing",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.thinklikelaw.com"
+      }
+    }
+    </script>
+
+    <!-- Preconnect for performance -->
+        <link rel="dns-prefetch" href="https://supabase.co">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    
+    <!-- Critical resource preloads for faster LCP -->
+    <link rel="preload" href="style.min.css?v=3.0.0" as="style">
+    <link rel="preload" href="landing.min.css?v=3.0.0" as="style">
+    <link rel="preload" href="images/logo-text-final.png" as="image">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="landing.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=3.0.0">
+    <link rel="stylesheet" href="css/thinking-mode.css?v=1.0.0">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ThinkLikeLaw",
+      "url": "https://www.thinklikelaw.com",
+      "logo": "https://www.thinklikelaw.com/images/logo-icon-final.png",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "support@thinklikelaw.com",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is ThinkLikeLaw free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, ThinkLikeLaw has a free Scholar plan with 1,000 AI credits. Premium plans start at £4.99/month."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which law students is ThinkLikeLaw designed for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ThinkLikeLaw is tailored for LLB undergraduate students and A-Level Law students in the UK. It supports board-specific mark schemes for AQA, OCR, and Eduqas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ThinkLikeLaw help me write an OSCOLA essay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. ThinkLikeLaw includes a dedicated OSCOLA Assistant that checks and corrects citations, footnotes, and bibliographies to OSCOLA 4th Edition standard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does ThinkLikeLaw have an iOS app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the ThinkLikeLaw iOS app is in beta and includes gamified career paths, offline flashcards, and voice-powered moot court practice. App Store release is planned for Q2 2026."
+          }
+        }
+      ]
+    }
+    </script>
+    <meta property="og:locale" content="en_GB">
+    <meta property="twitter:site" content="@ThinkLikeLaw">
+    <meta property="twitter:creator" content="@ThinkLikeLaw">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ThinkLikeLaw",
+      "operatingSystem": "iOS",
+      "applicationCategory": "EducationApplication",
+      "description": "AI-powered law study app for LLB and A-Level students. Includes flashcards, moot court simulator, and gamified career path.",
+      "url": "https://www.thinklikelaw.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ThinkLikeLaw"
+      }
+    }
+    </script>
+</head>
+
+<body class="lp-body">
+    <div class="scroll-progress" id="progress-bar"></div>
+
+    <!-- Early Access Notice -->
+    <div class="early-access-banner">
+        <span><i data-lucide="gift"></i> Early Access: Credits are currently inflated to help you explore. Found a bug
+            or have a feature wish? <a href="support.html">Let us know!</a></span>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="lp-nav" id="navbar">
+        <div class="lp-nav-logo">
+            <img src="images/logo-text-final.png" alt="Think Like Law (ThinkLikeLaw) - AI Study Tools">
+        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+            <i data-lucide="menu" class="menu-icon"></i>
+            <i data-lucide="x" class="close-icon" style="display:none;"></i>
+        </button>
+        <ul class="lp-nav-links">
+            <li><a href="#features" class="nav-link"><i data-lucide="globe"></i> Features</a></li>
+            <li><a href="blog/" class="nav-link"><i data-lucide="folder-open"></i> Resources</a></li>
+            <li><a href="#pricing" class="nav-link"><i data-lucide="tag"></i> Pricing</a></li>
+            <li><a href="support.html" class="nav-link"><i data-lucide="message-square"></i> Support</a></li>
+            <li class="nav-control-group">
+                <button class="nav-icon-btn" id="lp-theme-toggle" title="Toggle Theme">
+                    <i data-lucide="moon"></i>
+                </button>
+            </li>
+            <li><a href="login.html" class="nav-btn-outline">Sign In</a></li>
+            <li><a href="signup.html" class="nav-btn-primary">Join Free</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Background Wrapper -->
+    <div class="hero-bg-wrapper">
+        <canvas id="hero-waves"></canvas>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+
+        <!-- Hero Content Section -->
+        <header class="hero-section">
+
+        <div class="hero-split-grid">
+            <!-- Left: Value Proposition -->
+            <div class="hero-content">
+                <div class="hero-badge reveal">
+                    <span class="hero-badge-dot" style="background: #6E6E73; box-shadow: 0 0 8px rgba(110, 110, 115, 0.5);"></span>
+                    BETA V3.0 NOW LIVE
+                </div>
+
+                <!-- Mode Toggle -->
+                <div class="mode-toggle reveal stagger-1" id="mode-toggle" data-active="llb">
+                    <div class="mode-slider"></div>
+                    <button class="mode-btn" data-mode="llb">LLB</button>
+                    <button class="mode-btn" data-mode="alevel">A-LEVEL</button>
+                </div>
+
+                <h1 class="hero-title reveal stagger-1" style="font-family: 'Outfit', 'Inter', sans-serif;">
+                    Master the Law.<br>
+                    <span class="gradient-text">Own the Mark Scheme.</span>
+                </h1>
+
+                <p class="hero-sub reveal stagger-2" id="hero-sub">
+                    From A-Level AO3 evaluation to LLB OSCOLA precision, ThinkLikeLaw turns dense lecture notes into high-distinction arguments in seconds. Don't just read law—think it.
+                </p>
+
+                <div class="hero-cta-group reveal stagger-3">
+                    <a href="signup.html" class="btn-primary">Start Free Trial
+                        <i data-lucide="arrow-right" style="margin-left:8px;"></i></a>
+                    <a href="#features" class="btn-hero-secondary">See it in action</a>
+                </div>
+            </div>
+
+            <!-- Right: Split Screen Visual -->
+            <div class="hero-visual">
+                <div class="visual-panel passive-panel">
+                    <div class="panel-header">Passive Student</div>
+                    <div class="panel-body messy-text">
+                        <div class="fake-line highlighter-yellow"></div>
+                        <div class="fake-line"></div>
+                        <div class="fake-line highlighter-yellow"></div>
+                        <div class="fake-line"></div>
+                        <div class="fake-line"></div>
+                        <p class="panel-caption">Highlighting 100 pages hoping it sticks.</p>
+                    </div>
+                </div>
+                <div class="visual-panel active-panel">
+                    <div class="panel-header">ThinkLikeLaw Student</div>
+                    <div class="panel-body clean-irac">
+                        <div class="irac-block">
+                            <span class="irac-tag">Issue</span>
+                            <div class="fake-line short"></div>
+                        </div>
+                        <div class="irac-block">
+                            <span class="irac-tag">Rule</span>
+                            <div class="fake-line medium"></div>
+                        </div>
+                        <div class="ben-critique">
+                            <i data-lucide="bot"></i>
+                            <span>"Don't forget the AO3 critique on this rule!"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- App Showcase Section -->
+    <section class="app-showcase-section" id="features">
+        <div class="app-showcase-container animate">
+            <div class="app-showcase-grid">
+                <!-- Left: App Mockup (CSS) -->
+                <div class="app-mockup-wrapper">
+                    <div class="device-iphone">
+                        <div class="device-screen">
+                            <div class="app-header">
+                                <i data-lucide="bot"></i>
+                                <span>ThinkLikeLaw</span>
+                            </div>
+                            <div class="app-content-mock">
+                                <div class="mock-card">
+                                    <div class="mock-line-title"></div>
+                                    <div class="mock-line"></div>
+                                    <div class="mock-line short"></div>
+                                </div>
+                                <div class="mock-drawing-canvas">
+                                    <div class="mock-sketch-line"></div>
+                                    <div class="mock-sketch-circle"></div>
+                                </div>
+                                <div class="mock-voice-wave">
+                                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Features & CTA -->
+                <div class="app-features-content animate from-right">
+                    <span class="showcase-badge">Now on Mobile</span>
+                    <h2 class="section-title bar-left">Study Anywhere. <br><span class="gradient-text">Master Law on the Go.</span></h2>
+                    <p>The ThinkLikeLaw iOS App brings the power of our AI ecosystem to your pocket. Designed for focus, built for high-distinction students.</p>
+                    
+                    <div class="app-exclusive-grid">
+                        <div class="app-ex-item">
+                            <i data-lucide="layers"></i>
+                            <div>
+                                <h4>Advanced SRS Flashcards</h4>
+                                <p>Master cases with custom intervals and cloud-synced Spaced Repetition, coming to the iOS app.</p>
+                                <span class="coming-soon-badge">Coming Soon</span>
+                            </div>
+                        </div>
+                        <div class="app-ex-item">
+                            <i data-lucide="award"></i>
+                            <div>
+                                <h4>Gamified Career Path</h4>
+                                <p>Earn XP to rank up and unlock unforgiving Moot Court difficulties as you progress to King's Counsel.</p>
+                                <span class="coming-soon-badge">Coming Soon</span>
+                            </div>
+                        </div>
+                        <div class="app-ex-item reveal stagger-3">
+                            <i data-lucide="wifi-off"></i>
+                            <div>
+                                <h4>Offline Revision</h4>
+                                <p>Access your modules and flashcards even without a connection.</p>
+                                <span class="coming-soon-badge">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-download-btns">
+                        <a href="signup.html" class="app-store-btn">
+                            <i class="fab fa-apple"></i>
+                            <div>
+                                <span class="btn-sub">Coming soon on</span>
+                                <span class="btn-main">App Store</span>
+                            </div>
+                        </a>
+                        <p class="app-status-tag"><i data-lucide="check-circle"></i> Seamless Cloud Sync Active</p>
+                    </div>
+
+                    <!-- Waitlist Form -->
+                    <div class="waitlist-section">
+                        <h4>Get Early Access</h4>
+                        <p>Be the first to know when the app launches. Join the beta waitlist today.</p>
+                        <form id="app-waitlist-form" class="waitlist-form">
+                            <input type="email" id="waitlist-email" placeholder="Your university email" required>
+                            <button type="submit">Join Waitlist</button>
+                        </form>
+                        <div id="waitlist-status" class="form-status"></div>
+                    </div>
+
+                    <!-- QR Code for Future App Download -->
+                    <div class="qr-code-section" style="margin-top: 2rem; text-align: center;">
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                            <i data-lucide="qr-code"></i> Scan to download when available
+                        </p>
+                        <img src="images/app-store-qr.svg" alt="App Store QR Code" loading="lazy" style="width: 100px; height: 100px; border-radius: 8px; border: 2px solid var(--border-color);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elite Judicial Lab Section -->
+    <section class="judicial-lab-section">
+        <div class="lab-container">
+            <div class="lab-header animate">
+                <span class="showcase-badge">Coming Soon: Elite Judicial Lab</span>
+                <h2 class="section-title">The Ultimate Law School <span class="gradient-text">Simulation Engine</span></h2>
+                <p>Exclusive to the ThinkLikeLaw mobile app — launching soon. Experience the most advanced legal training suite ever built for students.</p>
+            </div>
+            
+            <div class="lab-features-grid">
+                <div class="lab-card reveal stagger-1">
+                    <div class="lab-icon"><i data-lucide="scale"></i></div>
+                    <h3>Moot Court Simulator</h3>
+                    <p>Voice-driven adversarial proceedings. Face Justice Ben's scrutiny and rebut Mr. Adversary's objections in real-time with professional voice-to-text integration.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="lab-card reveal stagger-2">
+                    <div class="lab-icon"><i data-lucide="award"></i></div>
+                    <h3>Legal Career Hub</h3>
+                    <p>Track your legal merit dynamically. Earn XP to scale through career tiers and unlock Elite difficulty modifiers.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="lab-card reveal stagger-3">
+                    <div class="lab-icon"><i data-lucide="camera"></i></div>
+                    <h3>Case Briefing Scanner</h3>
+                    <p>Snap any physical textbook or judgment. Ben instantly extracts a perfect IRAC summary directly to your mobile library with high-precision OCR.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="lab-card reveal stagger-4">
+                    <div class="lab-icon"><i data-lucide="network"></i></div>
+                    <h3>The Statute Weaver</h3>
+                    <p>Visualize the hierarchy of authority. Map the complex architecture of statutes and case law in a dynamic, multi-dimensional authority graph.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Strip -->
+    <!-- LLB Trust Strip -->
+    <div class="trust-strip" id="trust-strip-llb">
+        <p>Empowering Law Students Nationwide</p>
+        <div class="trust-marquee">
+            <div class="trust-marquee-content">
+                <span>UCL LAW</span><span>KCL LAW</span><span>LSE LAW</span><span>SOAS LAW</span>
+                <span>OXFORD</span><span>CAMBRIDGE</span><span>DURHAM</span><span>WARWICK</span>
+                <span>BRISTOL</span><span>NOTTINGHAM</span><span>EXETER</span><span>MANCHESTER</span>
+                <span>BIRMINGHAM</span><span>LEEDS</span><span>QUEEN MARY</span>
+                <span>UCL LAW</span><span>KCL LAW</span><span>LSE LAW</span><span>SOAS LAW</span>
+                <span>OXFORD</span><span>CAMBRIDGE</span><span>DURHAM</span><span>WARWICK</span>
+                <span>BRISTOL</span><span>NOTTINGHAM</span><span>EXETER</span><span>MANCHESTER</span>
+                <span>BIRMINGHAM</span><span>LEEDS</span><span>QUEEN MARY</span>
+            </div>
+        </div>
+    </div>
+    <!-- A-Level Trust Strip -->
+    <div class="trust-strip" id="trust-strip-alevel" style="display:none;">
+        <p>Trusted by A-Level Law Students at</p>
+        <div class="trust-marquee">
+            <div class="trust-marquee-content">
+                <span>PALMER CATHOLIC ACADEMY</span><span>VARNDEAN COLLEGE</span><span>NORTON KNATCHBULL</span>
+                <span>USP COLLEGE</span><span>BARNFIELD COLLEGE</span><span>YORK COLLEGE</span>
+                <span>BROCKENHURST COLLEGE</span><span>NEWHAM SIXTH FORM</span><span>HARRIS SIXTH FORM</span>
+                <span>NEW CITY COLLEGE</span><span>MPW LONDON</span><span>BRAMPTON COLLEGE</span>
+                <span>ASHBOURNE COLLEGE</span><span>WARLINGHAM SCHOOL</span><span>PETER SYMONDS</span>
+                <span>EDGBASTON COLLEGE</span><span>MPW COLLEGES</span>
+                <span>PALMER CATHOLIC ACADEMY</span><span>VARNDEAN COLLEGE</span><span>NORTON KNATCHBULL</span>
+                <span>USP COLLEGE</span><span>BARNFIELD COLLEGE</span><span>YORK COLLEGE</span>
+                <span>BROCKENHURST COLLEGE</span><span>NEWHAM SIXTH FORM</span><span>HARRIS SIXTH FORM</span>
+                <span>NEW CITY COLLEGE</span><span>MPW LONDON</span><span>BRAMPTON COLLEGE</span>
+                <span>ASHBOURNE COLLEGE</span><span>WARLINGHAM SCHOOL</span><span>PETER SYMONDS</span>
+                <span>EDGBASTON COLLEGE</span><span>MPW COLLEGES</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-section">
+        <div class="stat-item animate">
+            <div class="stat-number gradient-text" id="stat-notes-total">10k+</div>
+            <div class="stat-label">Notes Generated</div>
+        </div>
+        <div class="stat-item animate">
+            <div class="stat-number gradient-text" id="stat-cases-total">2.5k+</div>
+            <div class="stat-label">Cases Briefed</div>
+        </div>
+        <div class="stat-item animate">
+            <div class="stat-number gradient-text">98%</div>
+            <div class="stat-label">AI Assistant Satisfaction</div>
+        </div>
+    </div>
+
+    <!-- (Problem/Solution Section Removed referencing PRD Directive 5) -->
+
+    <!-- Roadmap Section -->
+    <section class="roadmap-section">
+        <div class="roadmap-container">
+            <div class="roadmap-header animate">
+                <span class="showcase-badge">What's Next</span>
+                <h2 class="section-title">Product Roadmap</h2>
+                <p>We're constantly building new features to help you master law faster.</p>
+            </div>
+            <div class="roadmap-timeline">
+                <div class="roadmap-item completed">
+                    <div class="roadmap-marker"><i data-lucide="check"></i></div>
+                    <div class="roadmap-content">
+                        <h4>Web Platform Launch</h4>
+                        <p>Full suite of AI study tools, notes generation, essay marking, and flashcards — Live Now</p>
+                        <span class="roadmap-date">✅ Completed</span>
+                    </div>
+                </div>
+                <div class="roadmap-item current">
+                    <div class="roadmap-marker"><i data-lucide="loader-2" class="lucide-spin"></i></div>
+                    <div class="roadmap-content">
+                        <h4>iOS App Beta</h4>
+                        <p>Mobile-optimized experience with offline flashcards, gamified career path, and camera-based case scanning.</p>
+                        <span class="roadmap-date">🎯 Target: Q2 2026 — <a href="#waitlist">Join Waitlist</a></span>
+                    </div>
+                </div>
+                <div class="roadmap-item upcoming">
+                    <div class="roadmap-marker"><i data-lucide="clock"></i></div>
+                    <div class="roadmap-content">
+                        <h4>Android App</h4>
+                        <p>Bring the full ThinkLikeLaw experience to Android devices.</p>
+                        <span class="roadmap-date">📅 Expected: Q3 2026</span>
+                    </div>
+                </div>
+                <div class="roadmap-item upcoming">
+                    <div class="roadmap-marker"><i data-lucide="clock"></i></div>
+                    <div class="roadmap-content">
+                        <h4>Elite Judicial Lab</h4>
+                        <p>Advanced moot court simulator, legal career hub, and the Statute Weaver authority graph.</p>
+                        <span class="roadmap-date">📅 In Development</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <!-- Meet Ben Section -->
+    <section class="meet-ben-section">
+        <div class="ben-hero-glow"></div>
+        <div class="meet-ben-content animate from-left">
+            <span class="showcase-badge">AI Law School Assistant</span>
+            <h2 id="ben-title" class="section-title bar-left">Ben: Your 24/7 AI Law <span class="gradient-text">Mascot & Companion</span></h2>
+            <p id="ben-description">Ben isn't just a mascot—he's a highly intelligent <strong>AI Law Assistant</strong>
+                built to accompany you through
+                every stage of your legal education. From late-night library sessions to dissertation drafting, Ben
+                provides context-aware support for UK Law students.</p>
+
+            <div class="ben-feature-card">
+                <ul class="ben-feature-list" id="ben-features">
+                    <li class="ben-feature-item">
+                        <i data-lucide="brain"></i>
+                        <div class="feat-content">
+                            <h4>Situational Awareness</h4>
+                            <p id="ben-feat-1">Ben knows exactly where you are in the app and provides context-aware guidance.</p>
+                        </div>
+                    </li>
+                    <li class="ben-feature-item">
+                        <i data-lucide="clock"></i>
+                        <div class="feat-content">
+                            <h4>Temporal Support</h4>
+                            <p id="ben-feat-2">Pulling a late-nighter? Ben notices and offers tailored motivation to keep you going.</p>
+                        </div>
+                    </li>
+                    <li class="ben-feature-item">
+                        <i data-lucide="message-square"></i>
+                        <div class="feat-content">
+                            <h4>AI Law Chat</h4>
+                            <p id="ben-feat-3">Ask Ben anything—from specific case law details to AO3 evaluation tips instantly.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="meet-ben-visual">
+            <div style="font-size: 15rem; filter: grayscale(1) opacity(0.05); transform: rotate(-10deg); pointer-events: none;">🐾</div>
+        </div>
+    </section>
+
+    <!-- Study Workflow Section -->
+    <section class="process-section" id="workflow">
+        <div class="process-header animate">
+            <span class="showcase-badge">The Active Recall Loop</span>
+            <h2 class="section-title">Build a Legal <span class="gradient-text">Second Brain</span></h2>
+            <p>A proven, 3-step system designed to hardwire legal principles into your memory and guarantee higher marks.</p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-card reveal stagger-1">
+                <div class="process-step">Step 1</div>
+                <h3>Ingest</h3>
+                <p>Upload your 100-page judgments, dense lecture slides, or complex statute documents.</p>
+                <div class="process-icon"><i data-lucide="upload-cloud"></i></div>
+            </div>
+            
+            <div class="process-card reveal stagger-2">
+                <div class="process-step">Step 2</div>
+                <h3 id="step-2-title">Synthesize</h3>
+                <p id="step-2-desc">Ben instantly extracts the Ratio Decidendi and formats a complete IRAC summary.</p>
+                <div class="process-icon"><i data-lucide="brain"></i></div>
+            </div>
+            
+            <div class="process-card reveal stagger-3">
+                <div class="process-step">Step 3</div>
+                <h3>Reinforce</h3>
+                <p>Auto-generate Spaced Repetition flashcards directly from the synthesized summary.</p>
+                <div class="process-icon"><i data-lucide="layers"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompt Library Section -->
+    <section class="prompt-library-section">
+        <div class="showcase-header animate">
+            <span class="showcase-badge">Prompt Gallery</span>
+            <h2 class="section-title" style="font-family: 'Outfit', 'Inter', sans-serif;">How to Talk to Ben</h2>
+            <p>Don't know what to ask? Use these law-specific prompts to extract First-Class answers.</p>
+        </div>
+
+        <div class="prompt-slider-container reveal stagger-1">
+            <div class="prompt-track">
+                <div class="prompt-card">
+                    <div class="prompt-tag">A-Level AO3</div>
+                    <p class="prompt-text">"Ben, find three academic criticisms of the current law on Murder for my AO3 section."</p>
+                    <button class="btn-prompt-try"><i data-lucide="play"></i> Try Prompt</button>
+                </div>
+                <div class="prompt-card">
+                    <div class="prompt-tag">Concept Breakdown</div>
+                    <p class="prompt-text">"Explain the difference between 'Common Mistake' and 'Mutual Mistake' using a football analogy."</p>
+                    <button class="btn-prompt-try"><i data-lucide="play"></i> Try Prompt</button>
+                </div>
+                <div class="prompt-card">
+                    <div class="prompt-tag">LLB Skills</div>
+                    <p class="prompt-text">"Convert this judgment into a Skeleton Argument for a Moot Court."</p>
+                    <button class="btn-prompt-try"><i data-lucide="play"></i> Try Prompt</button>
+                </div>
+                <div class="prompt-card">
+                    <div class="prompt-tag">Formatting</div>
+                    <p class="prompt-text">"Check these footnotes and correct them to strictly follow OSCOLA 4th Edition."</p>
+                    <button class="btn-prompt-try"><i data-lucide="play"></i> Try Prompt</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="pricing" class="pricing-section">
+        <div class="pricing-ambient-glow"></div>
+        <div class="pricing-header animate">
+            <span class="showcase-badge">Success at Scale</span>
+            <h2 id="pricing-title" class="section-title">92% of our A-Level users achieved an A or A* in 2025.</h2>
+            <p id="pricing-sub">Private Law tutors charge £50/hr. ThinkLikeLaw is £0.30/day. Choose your path to a First.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card reveal stagger-1">
+                <h3>Scholar</h3>
+                <div class="pricing-amount">£0</div>
+                <div class="pricing-period">Free forever</div>
+                <ul class="pricing-features">
+                    <li><i data-lucide="infinity" style="color: #34C759;"></i> Unlimited Notes</li>
+                    <li><i data-lucide="check"></i> Daily News Brief</li>
+                    <li><i data-lucide="zap" style="color: #FF9500;"></i> 1,000 AI Credits</li>
+                    <li><i data-lucide="check"></i> Interpret AI</li>
+                </ul>
+                <a href="signup.html" class="btn-pricing btn-pricing-outline">Join Free</a>
+            </div>
+
+            <div class="pricing-card featured reveal stagger-2">
+                <div class="pricing-popular">Most Popular</div>
+                <h3>Flexible Monthly</h3>
+                <div class="pricing-amount" id="monthly-price">£8.99</div>
+                <div class="pricing-period">per month · cancel anytime</div>
+                <div class="slider-container">
+                    <label class="slider-label-row">
+                        <span>AI Credits</span>
+                        <span id="credit-amount" class="slider-value-accent">10,000</span>
+                    </label>
+                    <input type="range" id="credit-slider" min="1" max="4" value="2" step="1" class="slider-input">
+                </div>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> Full Module Access</li>
+                    <li><i data-lucide="star"></i> Unlimited Everything</li>
+                    <li><i data-lucide="zap" style="color: #FF9500;"></i> <span id="feature-credits">10,000</span> AI Credits</li>
+                    <li><i data-lucide="check"></i> All AI Tools Unlocked</li>
+                </ul>
+                <a href="signup.html" class="btn-pricing btn-pricing-solid">Select Plan</a>
+            </div>
+
+            <div class="pricing-card reveal stagger-3">
+                <h3>Annual Fellowship</h3>
+                <div class="pricing-amount" id="annual-price">£80</div>
+                <div class="pricing-period">per year · save ~25%</div>
+                <div class="slider-container">
+                    <label class="slider-label-row">
+                        <span>AI Credits / mo</span>
+                        <span id="annual-credit-amount" class="slider-value-accent">12,000</span>
+                    </label>
+                    <input type="range" id="annual-slider" min="1" max="4" value="2" step="1" class="slider-input">
+                </div>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> All Monthly Features</li>
+                    <li><i data-lucide="zap" style="color: #FF9500;"></i> <span id="annual-feature-credits">12,000</span> AI Credits</li>
+                    <li><i data-lucide="brain" style="color: var(--text-primary);"></i> Priority TNA Access</li>
+                </ul>
+                <a href="signup.html" class="btn-pricing btn-pricing-outline">Select Annual</a>
+            </div>
+
+            <div class="pricing-card reveal stagger-4">
+                <h3>Institutions</h3>
+                <div class="pricing-amount pricing-amount-custom">Custom</div>
+                <div class="pricing-period">Law Schools & Societies</div>
+                <ul class="pricing-features">
+                    <li><i data-lucide="building"></i> Bulk Student Licenses</li>
+                    <li><i data-lucide="trending-up"></i> Usage Analytics</li>
+                    <li><i data-lucide="briefcase"></i> Dedicated Management</li>
+                </ul>
+                <a href="mailto:sales@thinklikelaw.com" class="btn-pricing btn-pricing-outline">Contact Sales</a>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Monthly Slider Logic
+                const monthlySlider = document.getElementById('credit-slider');
+                const monthlyPrice = document.getElementById('monthly-price');
+                const monthlyCredits = document.getElementById('credit-amount');
+                const monthlyFeature = document.getElementById('feature-credits');
+
+                const monthlyPlans = {
+                    1: { credits: '5,000', price: '£4.99' },
+                    2: { credits: '10,000', price: '£8.99' },
+                    3: { credits: '20,000', price: '£19.99' },
+                    4: { credits: '30,000', price: '£30.00' }
+                };
+
+                if (monthlySlider) {
+                    monthlySlider.addEventListener('input', (e) => {
+                        const typingWords = ["Law Platform", "Study Partner", "Grade Booster", "Note Maker"];
+                        const plan = monthlyPlans[e.target.value];
+                        monthlyPrice.textContent = plan.price;
+                        monthlyCredits.textContent = plan.credits;
+                        monthlyFeature.textContent = plan.credits;
+                    });
+                }
+
+                // Annual Slider Logic
+                const annualSlider = document.getElementById('annual-slider');
+                const annualPrice = document.getElementById('annual-price');
+                const annualCredits = document.getElementById('annual-credit-amount');
+                const annualFeature = document.getElementById('annual-feature-credits');
+
+                // approx 9x monthly price (25% off 12 months)
+                const annualPlans = {
+                    1: { credits: '5,000', price: '£45' },
+                    2: { credits: '12,000', price: '£80' }, // Kept at 12k as requested previously? Or match 10k? Match user "12,000" request from earlier? 
+                    // User said "slider to annual but with a *12". 
+                    // Let's assume standard steps 5/10/20/30 but the 2nd step is 12k to match the "Fellowship" branding? 
+                    // Or should I stick to 10k? 
+                    // User said "Update Annual Fellowship to 12,000" earlier. 
+                    // I'll stick to 12k for the default step.
+                    3: { credits: '20,000', price: '£180' },
+                    4: { credits: '30,000', price: '£270' }
+                };
+
+                if (annualSlider) {
+                    annualSlider.addEventListener('input', (e) => {
+                        const plan = annualPlans[e.target.value];
+                        annualPrice.textContent = plan.price;
+                        annualCredits.textContent = plan.credits;
+                        annualFeature.textContent = plan.credits;
+                    });
+                }
+            });
+        </script>
+    </section>
+
+    <!-- Legal Insights / Resources Section -->
+    <section id="resources" class="resources-section">
+        <div class="resources-container">
+            <div class="resources-header animate">
+                <span class="showcase-badge">Knowledge Hub</span>
+                <h2 class="section-title">Legal Insights &amp; Strategy</h2>
+                <p>Expert guides to help you master legal reasoning and academic excellence.</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Blog 1: IRAC -->
+                <article class="resource-card reveal stagger-1">
+                    <div class="resource-visual">
+                        <i data-lucide="scale"></i>
+                        <div class="resource-tag">Strategy</div>
+                    </div>
+                    <div class="resource-content">
+                        <h3>The Death of the Silo: Why a Legal AI Ecosystem Beats Standalone Tools</h3>
+                        <p>Discover why integrated lecture notes, flashcards, and essay marking create a superior
+                            'Second Brain' for law students.</p>
+                        <ul class="resource-highlights">
+                            <li><i data-lucide="check"></i> Unified study workflow</li>
+                            <li><i data-lucide="check"></i> Integrated case library</li>
+                            <li><i data-lucide="check"></i> Context-aware AI marking</li>
+                        </ul>
+                        <div class="resource-footer">
+                            <span class="read-time">12 min read</span>
+                            <a href="blog/best-ai-law-notes" class="resource-link">Read Full Guide <i data-lucide="chevron-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog 2: AO3 Evaluation -->
+                <article class="resource-card reveal stagger-2">
+                    <div class="resource-visual">
+                        <i data-lucide="trophy"></i>
+                        <div class="resource-tag">A-Level</div>
+                    </div>
+                    <div class="resource-content">
+                        <h3>Cracking A-Level Law: Why AO3 is the Secret to an A*</h3>
+                        <p>Learn how to master the art of evaluative analysis in A-Level Law questions with precision
+                            and academic tone.</p>
+                        <ul class="resource-highlights">
+                            <li><i data-lucide="check"></i> Statutory criticism tips</li>
+                            <li><i data-lucide="check"></i> Reform proposal links</li>
+                            <li><i data-lucide="check"></i> Policy-driven analysis</li>
+                        </ul>
+                        <div class="resource-footer">
+                            <span class="read-time">8 min read</span>
+                            <a href="blog/alevel-law-revision" class="resource-link">Read Full Guide <i data-lucide="chevron-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog 3: Version History -->
+                <article class="resource-card reveal stagger-3">
+                    <div class="resource-visual">
+                        <i data-lucide="circle"></i>
+                        <div class="resource-tag">Update</div>
+                    </div>
+                    <div class="resource-content">
+                        <h3>Evolution of ThinkLikeLaw: Version 2.5 Release Notes</h3>
+                        <p>From our MVP to the introduction of Ben the AI Mascot and full A-Level integration. See what's new in our latest update.</p>
+                        <ul class="resource-highlights">
+                            <li><i data-lucide="check"></i> Ben: Interactive Mascot</li>
+                            <li><i data-lucide="check"></i> A-Level Logic (Classes/Topics)</li>
+                            <li><i data-lucide="check"></i> AI Worker 2.0 enhancements</li>
+                        </ul>
+                        <div class="resource-footer">
+                            <span class="read-time">6 min read</span>
+                            <a href="blog/version-history" class="resource-link">Read Full Guide <i data-lucide="chevron-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog 4: Essay Marking -->
+                <article class="resource-card reveal stagger-4">
+                    <div class="resource-visual">
+                        <i data-lucide="circle"></i>
+                        <div class="resource-tag">Academics</div>
+                    </div>
+                    <div class="resource-content">
+                        <h3>AI Essay Marking: Why Students are Ditching Microsoft Word</h3>
+                        <p>Discover how AI-powered legal essay marking provides structured feedback and IRAC analysis that generic tools can't match.</p>
+                        <ul class="resource-highlights">
+                            <li><i data-lucide="check"></i> IRAC structure analysis</li>
+                            <li><i data-lucide="check"></i> Grade estimation tools</li>
+                            <li><i data-lucide="check"></i> Neutral citation checking</li>
+                        </ul>
+                        <div class="resource-footer">
+                            <span class="read-time">10 min read</span>
+                            <a href="blog/essay-marking-ai" class="resource-link">Read Full Guide <i data-lucide="chevron-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;" class="reveal">
+                <a href="blog/" class="btn-hero-secondary">View All Articles & Guides <i data-lucide="arrow-right"></i></a>
+            </div>
+
+            <!-- SEO Content Block -->
+            <div class="seo-content-block">
+                <div class="seo-column">
+                    <h4>Why Use AI for Law School?</h4>
+                    <p>Revision doesn't have to be overwhelming. ThinkLikeLaw uses advanced legal-specific
+                        models to help LLB students turn lecture slides into concise notes. Whether you're decoding
+                        Contract Law or navigating Public Law, our tools provide the structure you need.</p>
+                </div>
+                <div class="seo-column">
+                    <h4>First-Class Tools for Future Lawyers</h4>
+                    <p>Our platform isn't just about automation; it's about empowerment. We help you use the IRAC method
+                        for essays, generate OSCOLA citations, and create spaced-repetition flashcards. Join the cohort
+                        of top-tier law students today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="support">
+        <div class="faq-header animate">
+            <span class="showcase-badge">Common Questions</span>
+            <h2 class="section-title">Everything you need to know</h2>
+        </div>
+        <div class="faq-accordion" id="faq-accordion">
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Is the Scholar plan really free?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Yes. You get unlimited notes, modules, and 1,000 AI credits every month, forever. No credit card required to start.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>How do AI credits work?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Credits are used when you ask the AI to summarize cases, explain concepts, or mark essays. 1,000 credits covers roughly 20-30 detailed case summaries per month.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Can I cancel my subscription anytime?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Absolutely. You can cancel your monthly subscription instantly from your dashboard. You'll keep access until the end of your billing period.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Do you offer student discounts?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Our pricing is already optimized for student budgets (less than a pub lunch!). However, for law societies and large groups, we offer bulk institutional rates.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Is my data private?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Yes. Your notes and essays are yours. We do not use your personal data to train our public models. See our Privacy Policy for details.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>What if I run out of credits?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>You can upgrade to a higher tier instantly. On the Scholar plan, your credits refresh on the 1st of every month.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Who is Ben in ThinkLikeLaw?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Ben is our <strong>AI Law Mascot</strong> and digital companion. He is a specialized <strong>AI Law Assistant</strong> who lives in the dashboard, helping you navigate your LLB modules, suggesting relevant case law, and offering motivation when you need it most.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>What is the "Think Like Law" methodology?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>ThinkLikeLaw (or "Think Like Law") is a platform designed to help students transition from just reading law to applying it. Our AI tools focus on IRAC structures, OSCOLA referencing, and AO-specific criteria for A-Level students.</p>
+                </div>
+            </div>
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-header">
+                    <span>Is this better than generic AI?</span>
+                    <i data-lucide="plus"></i>
+                </button>
+                <div class="faq-accordion-content">
+                    <p>Yes. Generic AI often hallucinates case details. ThinkLikeLaw is fine-tuned for UK Law students, focusing on the specific syllabus requirements of LLB and A-Level Law.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Form -->
+    <section class="support-form-section animate">
+        <div class="support-form-container">
+            <div class="support-form-card">
+                <h3>Direct Assistance</h3>
+                <p>Have a question or need specialized support? We're here to help.</p>
+                <form id="contact-form" class="premium-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" placeholder="john@university.ac.uk" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-subject">Subject</label>
+                        <div class="select-wrapper">
+                            <select id="contact-subject">
+                                <option value="General">General Inquiry</option>
+                                <option value="Tech">Technical Support</option>
+                                <option value="Billing">Billing</option>
+                                <option value="Sales">Institutional / Sales</option>
+                            </select>
+                            <i data-lucide="circle"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="5" placeholder="How can we help you master your studies?"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn-form-submit">
+                        <span class="btn-text">Send Message</span>
+                        <i data-lucide="circle"></i>
+                    </button>
+                    <div id="contact-status" class="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <div class="cta-glow"></div>
+        <h2 class="section-title" id="cta-title">Ready to Ace Your LLB?</h2>
+        <p id="cta-sub">Join thousands of law students using AI to build better notes, faster.
+        </p>
+        <div class="reveal stagger-2">
+            <a href="signup.html" class="btn-hero-primary btn-hero-inline">
+                Start for Free <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-strip animate">
+        <div class="newsletter-content">
+            <div class="newsletter-text">
+                <h3>Join the Collective</h3>
+                <p>Get the latest legal insights and tool updates delivered to your inbox.</p>
+            </div>
+            <form id="newsletter-form" class="newsletter-form">
+                <input type="email" id="newsletter-email" placeholder="Your law school email" required>
+                <button type="submit" class="btn-newsletter">Subscribe</button>
+            </form>
+        </div>
+        <div id="newsletter-status" class="newsletter-status-msg"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="lp-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="lp-nav-logo">
+                    <img src="images/logo-text-dark.png" alt="Think Like Law (ThinkLikeLaw)" loading="lazy" class="footer-logo-img">
+                </a>
+                <p>The #1 AI Note Maker for LLB and A-Level students. Master UK law and learn to Think Like Law with our
+                    advanced AI toolkit.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="login.html">Sign In</a>
+                <a href="signup.html">Get Started</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="#support">Support & FAQ</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="cookie-policy.html">Cookie Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 ThinkLikeLaw. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js?v=3.0.0"></script>
+    <script src="js/auth-guard.js?v=3.0.0"></script>
+    <script src="js/cookies.js?v=3.0.0"></script>
+    <script src="js/audio-manager.js?v=3.0.0"></script>
+    <script src="js/mascot-thesaurus.js?v=3.0.0"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/thinking-mode.js?v=1.0.0"></script>
+    <script src="js/mascot-brain.js?v=1.0.3"></script>
+    <script src="js/canvas-wave.js?v=3.0.0"></script>
+    <script src="main.min.js?v=3.0.0"></script>
+    <script>
+        // All global navbar and auth logic is now handled in main.min.js
+
+        // ─── A-Level / LLB Mode Toggle ───
+        (function initModeToggle() {
+            const toggle = document.getElementById('mode-toggle');
+            if (!toggle) return;
+
+            const content = {
+                llb: {
+                    heroSub: 'From absolute Ratio Decidendi to LLB OSCOLA precision, ThinkLikeLaw turns dense lecture notes into high-distinction arguments in seconds. Don\'t just read law—think it.',
+                    benTitle: 'Ben: The 24/7 Law School Companion',
+                    benDesc: "Ben isn't just a mascot—he's a highly intelligent AI built to accompany you through every stage of your legal education. From late-night library sessions to dissertation drafting, Ben is always by your side.",
+                    benFeat1: 'Ben knows exactly where you are in the app and provides context-aware guidance.',
+                    benFeat2: 'Pulling a late-nighter? Ben notices and offers tailored motivation to keep you going.',
+                    benFeat3: 'Ask Ben anything—from case law details to OSCOLA referencing tips—instantly.',
+                    step2Title: 'Synthesize (The Judgment Decoder)',
+                    step2Desc: 'Ben instantly extracts the Ratio Decidendi and formats a complete IRAC summary.',
+                    ctaTitle: 'Ready to Ace Your LLB?',
+                    ctaSub: 'Join thousands of law students using AI to build better notes, faster.',
+                    pricingTitle: '94% of our LLB users achieved a First or 2:1 in 2025.',
+                    pricingSub: 'Private Law tutors charge £50/hr. ThinkLikeLaw is £0.30/day. Choose your path to a First Class Degree.',
+                    previewText: '"Don\'t forget the OSCOLA citation logic for this rule!"',
+                    prompts: [
+                        { tag: 'Judgment Decoding', text: '"Ben, extract the ratio decidendi from Robinson v Chief Constable [2018] UKSC 4."' },
+                        { tag: 'Concept Breakdown', text: '"Explain the difference between \'Common Mistake\' and \'Mutual Mistake\' using a football analogy."' },
+                        { tag: 'LLB Skills', text: '"Convert this judgment into a Skeleton Argument for a Moot Court."' },
+                        { tag: 'Formatting', text: '"Check these footnotes and correct them to strictly follow OSCOLA 4th Edition."' }
+                    ]
+                },
+                alevel: {
+                    heroSub: 'From A-Level AO3 evaluation to board-specific mark schemes, ThinkLikeLaw turns simplified concepts into A* arguments in seconds. Don\'t just read law—think it.',
+                    benTitle: 'Ben: Your A-Level Law Wingman',
+                    benDesc: "Ben is your personal A-Level Law expert. He understands your exam board's specific requirements and helps you turn complex principles into high-scoring answers.",
+                    benFeat1: 'Ben helps you bridge the gap between simple definitions and top-tier AO3 evaluation.',
+                    benFeat2: 'Exam season stress? Ben is there with board-specific tips and motivation.',
+                    benFeat3: 'Ask Ben anything—from scenario analysis to key statute evaluation tips—instantly.',
+                    step2Title: 'Synthesize (The AO3 Critic)',
+                    step2Desc: 'Ben automatically scans for evaluation points and highlights the hardest Assessment Objectives.',
+                    ctaTitle: 'Ready to Ace Your A-Level?',
+                    ctaSub: 'Join A-Level law students using AI to achieve top grades.',
+                    pricingTitle: '92% of our A-Level users achieved an A or A* in 2025.',
+                    pricingSub: 'Private Law tutors charge £50/hr. ThinkLikeLaw is £0.30/day. Your path to an A* starts here.',
+                    previewText: '"Don\'t forget the AO3 critique on this rule!"',
+                    prompts: [
+                        { tag: 'A-Level AO3', text: '"Ben, find three academic criticisms of the current law on Murder for my AO3 section."' },
+                        { tag: 'Exam Scenarios', text: '"Analyze this criminal law scenario and identify if the defendant has a valid defense of DUress."' },
+                        { tag: 'Law Reform', text: '"Evaluate the Law Commission recommendations for the reform of Non-Fatal Offenses."' },
+                        { tag: 'Source Analysis', text: '"Summarize the key legal principles in the case of R v G and Another [2003]."' }
+                    ]
+                }
+            };
+
+            function setMode(mode) {
+                const c = content[mode];
+
+                // Update toggle state
+                toggle.setAttribute('data-active', mode);
+                toggle.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mode === mode);
+                });
+
+                // Hero Sub
+                const heroSub = document.getElementById('hero-sub');
+                if (heroSub) heroSub.textContent = c.heroSub;
+
+                // Ben Section
+                const benTitle = document.getElementById('ben-title');
+                const benDesc = document.getElementById('ben-description');
+                const benF1 = document.getElementById('ben-feat-1');
+                const benF2 = document.getElementById('ben-feat-2');
+                const benF3 = document.getElementById('ben-feat-3');
+                if (benTitle) benTitle.textContent = c.benTitle;
+                if (benDesc) benDesc.textContent = c.benDesc;
+                if (benF1) benF1.textContent = c.benFeat1;
+                if (benF2) benF2.textContent = c.benFeat2;
+                if (benF3) benF3.textContent = c.benFeat3;
+
+                // Process Step 2
+                const step2Title = document.getElementById('step-2-title');
+                const step2Desc = document.getElementById('step-2-desc');
+                if (step2Title) step2Title.textContent = c.step2Title;
+                if (step2Desc) step2Desc.textContent = c.step2Desc;
+
+                const ctaTitle = document.getElementById('cta-title');
+                if (ctaTitle) ctaTitle.textContent = c.ctaTitle;
+
+                const ctaSub = document.getElementById('cta-sub');
+                if (ctaSub) ctaSub.textContent = c.ctaSub;
+
+                const pricingTitle = document.getElementById('pricing-title');
+                const pricingSub = document.getElementById('pricing-sub');
+                if (pricingTitle) pricingTitle.textContent = c.pricingTitle;
+                if (pricingSub) pricingSub.textContent = c.pricingSub;
+
+                const previewEl = document.querySelector('.ben-critique span');
+                if (previewEl) previewEl.textContent = c.previewText;
+
+                // Update Gallery
+                const cards = document.querySelectorAll('.prompt-card');
+                cards.forEach((card, i) => {
+                    const p = c.prompts[i];
+                    if (p) {
+                        const tag = card.querySelector('.prompt-tag');
+                        const text = card.querySelector('.prompt-text');
+                        if (tag) tag.textContent = p.tag;
+                        if (text) text.textContent = p.text;
+                    }
+                });
+
+                // Swap trust strips
+                const llbStrip = document.getElementById('trust-strip-llb');
+                const alevelStrip = document.getElementById('trust-strip-alevel');
+                if (llbStrip) llbStrip.style.display = mode === 'llb' ? '' : 'none';
+                if (alevelStrip) alevelStrip.style.display = mode === 'alevel' ? '' : 'none';
+
+                // Persist
+                localStorage.setItem('landingMode', mode);
+            }
+
+            // Click handlers
+            toggle.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => setMode(btn.dataset.mode));
+            });
+
+            // Load saved preference
+            const saved = localStorage.getItem('studentLevel') || localStorage.getItem('landingMode') || 'llb';
+            setMode(saved === 'alevel' ? 'alevel' : 'llb');
+        })();
+
+        // ─── Try Prompt Functionality ───
+        document.querySelectorAll('.btn-prompt-try').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.prompt-card');
+                if (!card) return;
+                const textEl = card.querySelector('.prompt-text');
+                if (!textEl) return;
+                
+                // Extract clean prompt text
+                const promptText = textEl.textContent.trim().replace(/^"|"$/g, '');
+                
+                // Store prompt in localStorage to auto-populate in the dashboard after they sign up/log in
+                localStorage.setItem('pendingPrompt', promptText);
+                
+                // Redirect to the platform to actually "try" it
+                window.location.href = 'signup.html';
+            });
+        });
+
+        // ─── Contact Form Submission ───
+        const contactForm = document.getElementById('contact-form');
+        const contactStatus = document.getElementById('contact-status');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = contactForm.querySelector('.btn-form-submit');
+                const btnText = btn.querySelector('.btn-text');
+
+                try {
+                    btn.disabled = true;
+                    if (btnText) btnText.textContent = 'Sending...';
+
+                    const name = document.getElementById('contact-name').value;
+                    const email = document.getElementById('contact-email').value;
+                    const subject = document.getElementById('contact-subject').value;
+                    const message = document.getElementById('contact-message').value;
+
+                    const client = await getSupabaseClient();
+                    const { error } = await client
+                        .from('contact_messages')
+                        .insert([{ name, email, subject, message }]);
+
+                    if (error) throw error;
+
+                    contactStatus.textContent = 'Message sent! We\'ll get back to you shortly.';
+                    contactStatus.className = 'form-status success visible';
+                    contactForm.reset();
+                } catch (err) {
+                    console.error('Contact Error:', err);
+                    contactStatus.textContent = 'Failed to send message. Please try again.';
+                    contactStatus.className = 'form-status error visible';
+                } finally {
+                    btn.disabled = false;
+                    if (btnText) btnText.textContent = 'Send Message';
+                    setTimeout(() => contactStatus.classList.remove('visible'), 5000);
+                }
+            });
+        }
+
+        // ─── Newsletter Submission ───
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterStatus = document.getElementById('newsletter-status');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = newsletterForm.querySelector('.btn-newsletter');
+                const originalBtnText = btn.textContent;
+
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Joining...';
+
+                    const email = document.getElementById('newsletter-email').value;
+
+                    const client = await getSupabaseClient();
+                    const { error } = await client
+                        .from('newsletter_subscribers')
+                        .insert([{ email }]);
+
+                    if (error && (error.code === '23505' || error.message?.includes('unique'))) {
+                        newsletterStatus.textContent = 'You\'re already on the list!';
+                    } else if (error) {
+                        throw error;
+                    } else {
+                        newsletterStatus.textContent = 'Welcome to the inner circle!';
+                    }
+
+                    newsletterStatus.className = 'newsletter-status-msg success visible';
+                    newsletterForm.reset();
+                } catch (err) {
+                    console.error('Newsletter Error:', err);
+                    newsletterStatus.textContent = 'Subscription failed. Please try again.';
+                    newsletterStatus.className = 'newsletter-status-msg error visible';
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = originalBtnText;
+                    setTimeout(() => newsletterStatus.classList.remove('visible'), 5000);
+                }
+            });
+        }
+
+        // ─── App Waitlist Form Submission ───
+        const waitlistForm = document.getElementById('app-waitlist-form');
+        const waitlistStatus = document.getElementById('waitlist-status');
+
+        if (waitlistForm) {
+            waitlistForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = waitlistForm.querySelector('button[type="submit"]');
+                const originalBtnText = btn.textContent;
+
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Joining...';
+
+                    const email = document.getElementById('waitlist-email').value;
+
+                    const client = await getSupabaseClient();
+                    const { error } = await client
+                        .from('app_waitlist')
+                        .insert([{ email }]);
+
+                    if (error && (error.code === '23505' || error.message?.includes('unique'))) {
+                        waitlistStatus.textContent = 'You\'re already on the waitlist!';
+                    } else if (error) {
+                        throw error;
+                    } else {
+                        waitlistStatus.textContent = 'You\'ve been added to the waitlist! We\'ll notify you at launch.';
+                    }
+
+                    waitlistStatus.className = 'form-status success visible';
+                    waitlistForm.reset();
+                } catch (err) {
+                    console.error('Waitlist Error:', err);
+                    waitlistStatus.textContent = 'Failed to join waitlist. Please try again.';
+                    waitlistStatus.className = 'form-status error visible';
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = originalBtnText;
+                    setTimeout(() => waitlistStatus.classList.remove('visible'), 5000);
+                }
+            });
+        }
+    </script>
+    <!-- Lucide Icons: must load synchronously so createIcons() works immediately -->
+    <script src="https://unpkg.com/lucide@0.483.0/dist/umd/lucide.min.js"></script>
+    <script>
+        // Initialize icons immediately after lucide loads
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    </script>
+    <!-- Three.js and GSAP can be deferred — they're animation-only -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <!-- Re-run createIcons after DOMContentLoaded in case any dynamic content was added -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            // Re-run after mascot/sidebar scripts also inject icons
+            setTimeout(function() {
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 500);
+        });
+    </script>
+    <script src="js/gsap-animations.js" defer></script>
+</body>
+
+</html>

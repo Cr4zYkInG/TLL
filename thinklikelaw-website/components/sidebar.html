@@ -1,0 +1,114 @@
+<aside class="sidebar" id="app-sidebar">
+    <!-- Sidebar Header (Sticky Top) -->
+    <div class="sidebar-header">
+        <a href="dashboard.html" class="sidebar-logo">
+            <img src="images/logo-text-final.png" alt="ThinkLikeLaw" class="logo-main">
+        </a>
+    </div>
+    
+    <div class="sidebar-nav">
+    <div class="nav-section">
+        <a href="dashboard.html" class="nav-item" data-page="dashboard">
+            <i class="fas fa-th-large"></i> Dashboard
+        </a>
+        <a href="community.html" class="nav-item" data-page="community">
+            <i class="fas fa-users"></i> Community Hub
+        </a>
+        <a href="news.html" class="nav-item" data-page="news">
+            <i class="fas fa-newspaper"></i> Legal News
+        </a>
+    </div>
+    <div class="nav-section">
+        <div class="nav-section-title">Legal Tools</div>
+        <a href="modules.html" class="nav-item" data-page="modules">
+            <i class="fas fa-book"></i> My Modules
+        </a>
+        <a href="lecture-notes.html" class="nav-item" data-page="lecture-notes">
+            <i class="fas fa-file-alt"></i> Lecture Notes
+        </a>
+    </div>
+    <div class="nav-section">
+        <div class="nav-section-title">AI Powered</div>
+        <a href="flashcards.html" class="nav-item" data-page="flashcards">
+            <i class="fas fa-layer-group"></i> Revision Cards
+        </a>
+        <a href="exam-test.html" class="nav-item" data-page="exam-test">
+            <i class="fas fa-pen-fancy"></i> Exam Simulator <span class="pro-badge">NEW</span>
+        </a>
+        <a href="issue-spotter.html" class="nav-item" data-page="issue-spotter">
+            <i class="fas fa-search-plus"></i> Issue Spotter
+        </a>
+    </div>
+    <div class="nav-section">
+        <div class="nav-section-title">Support & References</div>
+        <a href="interpret.html" class="nav-item" data-page="interpret">
+            <i class="fas fa-brain"></i> Interpret AI <span class="pro-badge">PRO</span>
+        </a>
+        <a href="essay-marking.html" class="nav-item" data-page="essay-marking">
+            <i class="fas fa-check-circle"></i> Essay Marking <span class="pro-badge">PRO</span>
+        </a>
+        <a href="oscola-assistant.html" class="nav-item" data-page="oscola-assistant">
+            <i class="fas fa-quote-right"></i> OSCOLA Assistant <span class="pro-badge">PRO</span>
+        </a>
+    </div>
+    </div> <!-- End sidebar-nav -->
+
+    <!-- Sidebar Footer (Sticky Bottom) -->
+    <div class="sidebar-footer">
+        <div class="nav-section-title">Personal</div>
+        <!-- Compact Profile Dropdown -->
+        <div class="sidebar-profile-compact">
+            <div class="profile-compact-info" onclick="toggleProfileDropdown(event)">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-text">
+                    <div class="profile-name-wrapper">
+                        <div class="profile-name" id="user-name">Guest User</div>
+                        <span id="user-level-tag" class="level-tag"></span>
+                    </div>
+                    <div class="profile-tier" id="user-tier">Free Tier</div>
+                </div>
+                <i class="fas fa-ellipsis-vertical profile-menu-icon" aria-hidden="true"></i>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="profile-dropdown" id="profile-dropdown">
+                <div class="dropdown-item" onclick="openSettingsModal()">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" onclick="handleSignOut(event)">
+                    <i class="fas fa-right-from-bracket"></i> Sign Out
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits Card -->
+        <div class="sidebar-credits-card">
+            <div class="credits-header">
+                <span class="credits-label"><i class="fas fa-coins"></i> AI Credits</span>
+                <span class="credits-value" data-credits-display>—</span>
+            </div>
+            <div class="credits-progress-container">
+                <div class="credits-progress-bar" data-credits-bar style="width: 100%;"></div>
+            </div>
+            <div class="credits-footer" style="display:flex; justify-content:space-between; align-items:center;">
+                <span id="credits-tier-label">Free Plan</span>
+                <span data-roll-over-status
+                    style="display:none; font-size:0.75rem; color:#4CAF50; font-weight:600; background:rgba(76,175,80,0.1); padding:2px 6px; border-radius:4px;">Roll-over</span>
+            </div>
+        </div>
+
+        <!-- Theme Toggle Switch (always visible) -->
+        <div class="theme-toggle-bar" id="theme-toggle-bar" onclick="toggleTheme(event)">
+            <div class="theme-toggle-label">
+                <i class="fas fa-sun" id="theme-icon"></i>
+                <span id="theme-text">Light Mode (Modern)</span>
+            </div>
+            <div class="theme-switch" id="theme-switch">
+                <div class="theme-switch-knob"></div>
+            </div>
+        </div>
+    </div>
+</aside>

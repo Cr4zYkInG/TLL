@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Spotter | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            background: var(--bg-color);
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            width: calc(100% - 260px);
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Upload Area */
+        .upload-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 550px;
+        }
+
+        .upload-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .upload-zone {
+            flex: 1;
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            background: var(--surface-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: pointer;
+            transition: var(--spring);
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-zone.active {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .upload-zone i {
+            font-size: 3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .upload-zone h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-zone p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+
+        .upload-or {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0.5rem 0;
+        }
+
+        .scenario-textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 1.25rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .scenario-textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .word-count {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .btn-analyze {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--spring);
+        }
+
+        .btn-analyze:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-analyze:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .results-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .results-empty i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .issue-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .issue-card h4 {
+            margin: 0 0 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .issue-card .issue-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .issue-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+
+        .issue-card .cases {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .issue-card .cases h5 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-card .cases ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .issue-card .cases li {
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .issue-card .cases li i {
+            color: var(--accent-color);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 1200px) {
+            .upload-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="serif">Issue Spotter</h1>
+            <p>Upload or paste a legal scenario to identify potential issues, relevant cases, and applicable law.</p>
+        </div>
+
+        <div class="upload-container">
+            <div class="upload-panel">
+                <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                    <input type="file" id="file-input" accept=".txt,.pdf,.doc,.docx" onchange="handleFileUpload(event)">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Scenario</h3>
+                    <p>Click to browse or drag and drop<br>PDF, DOC, DOCX, or TXT files accepted</p>
+                </div>
+
+                <div class="upload-or">OR</div>
+
+                <textarea class="scenario-textarea" id="scenario-text"
+                    placeholder="Paste or type your legal scenario here..."></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="word-count" id="word-count">0 words</span>
+                    <button class="btn-modern" id="btn-analyze" onclick="analyzeScenario()">
+                        <i class="fas fa-search"></i> Analyze Scenario <span
+                            style="font-size:0.8em;opacity:0.6;font-weight:400;background:rgba(0,0,0,0.1);padding:2px 8px;border-radius:100px;margin-left:5px">20
+                            credits</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-panel" id="results-panel">
+                <div class="results-empty" id="results-empty">
+                    <i class="fas fa-clipboard-question"></i>
+                    <h3>Legal Issues will appear here</h3>
+                    <p>Upload or paste a scenario to identify potential legal issues, relevant cases, and applicable
+                        statutes.</p>
+                </div>
+                <div id="results-content" style="display: none;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="main.min.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/settings-logic.js"></script>
+    <script src="js/credits-manager.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/cloud-data.js"></script>
+    <script>
+        // ── Drag & Drop ──
+        const uploadZone = document.getElementById('upload-zone');
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('active');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('active');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('active');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload({ target: { files } });
+            }
+        });
+
+        // ── File Upload ──
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('scenario-text').value = e.target.result;
+                updateWordCount();
+            };
+            reader.readAsText(file);
+        }
+
+        // ── Word Count ──
+        document.getElementById('scenario-text').addEventListener('input', updateWordCount);
+
+        function updateWordCount() {
+            const text = document.getElementById('scenario-text').value.trim();
+            const words = text.split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('word-count').textContent = `${words} word${words !== 1 ? 's' : ''}`;
+        }
+
+        // ── Analyze Scenario ──
+        async function analyzeScenario() {
+            const text = document.getElementById('scenario-text').value.trim();
+
+            if (!text || text.split(/\s+/).length < 10) {
+                document.getElementById('scenario-text').style.borderColor = '#ff5555';
+                setTimeout(() => {
+                    document.getElementById('scenario-text').style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            const btn = document.getElementById('btn-analyze');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing Scenario...';
+
+            // Clear previous results
+            const content = document.getElementById('results-content');
+            content.style.display = 'none';
+            document.getElementById('results-empty').style.display = 'block';
+
+            try {
+                // Check Credits First
+                if (typeof creditsManager !== 'undefined' && !creditsManager.canAfford('issueSpotter')) {
+                    creditsManager.showSubscriptionCTA();
+                    throw new Error("Insufficient credits to analyze scenario.");
+                }
+                const systemPrompt = `You are an expert UK Law Tutor. Your task is to identify legal issues in a given scenario.
+For each issue, provide:
+1. Issue Name
+2. Area of Law
+3. Explanation (Concise apply to facts)
+4. Leading Cases (OSCOLA citations) - CRITICAL: You MUST use the standard, universally recognised short case name used in UK law schools (e.g., use "North Ocean Shipping Co Ltd v Hyundai Construction Co Ltd [1979] QB 705" or "The Atlantic Baron [1979] QB 705", DO NOT use the obscure full vessel owner names. Never hallucinate cases).
+5. Relevant Statutes (UK)
+
+Return strictly a JSON object with this structure:
+{
+  "issues": [
+    {
+      "name": "...",
+      "area": "...",
+      "explanation": "...",
+      "cases": ["Case 1", "Case 2"],
+      "statutes": ["Statute 1"]
+    }
+  ]
+}`;
+                const userPrompt = `Analyze this scenario:\n\n${text}`;
+
+                // Pass 1: Analysis
+                const initialResult = await aiService.generateCompletion(userPrompt, systemPrompt);
+                if (initialResult.error) throw new Error(initialResult.error);
+
+                // Pass 2: Verification (The Double Layer)
+                btn.innerHTML = '<i class="fas fa-shield-halved fa-spin"></i> Audit & Verify...';
+                const verificationPrompt = `Verify the following legal analysis for citation accuracy. 
+                Focus on correcting hallucinated case names or obscure vessel owners (like "The Atlasnavios Navegação Ltda"). 
+                Only use standard UK law school leading case names. 
+                
+                Content:
+                ${initialResult.text}
+                
+                Return the result strictly as a JSON object in the same structure.`;
+
+                const result = await aiService.generateCompletion(verificationPrompt, "You are a Senior Legal Fact-Checker. You detect and fix AI hallucinations in UK law case titles.");
+
+                // Handle AI Service Error
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                let parsedData;
+                try {
+                    const text = result.text;
+                    // Robust JSON Extraction: Find the first { and last }
+                    const jsonMatch = text.match(/\{[\s\S]*\}/);
+
+                    if (!jsonMatch) {
+                        throw new Error("AI response did not contain valid JSON structure.");
+                    }
+
+                    const jsonText = jsonMatch[0];
+                    console.log("Extracted JSON:", jsonText);
+                    parsedData = JSON.parse(jsonText);
+                } catch (e) {
+                    console.error("Issue Spotter Parsing Error:", e);
+                    console.log("Raw AI Output:", result.text);
+                    throw new Error("The AI response was not in the correct format. Please try again.");
+                }
+
+                displayIssues(parsedData);
+
+                // Cloud Save
+                if (window.CloudData && window.CloudData.saveIssueSpotterResult) {
+                    window.CloudData.saveIssueSpotterResult({
+                        text: text,
+                        issues: parsedData.issues
+                    });
+                }
+
+                // Deduct credits on success
+                if (typeof creditsManager !== 'undefined') {
+                    creditsManager.deduct('issueSpotter');
+                }
+
+            } catch (err) {
+                console.error('Analysis error:', err);
+                const resultsContainer = document.getElementById('results-content');
+                resultsContainer.style.display = 'block';
+                document.getElementById('results-empty').style.display = 'none';
+                resultsContainer.innerHTML = `
+                    <div style="color: #ff5555; text-align: center; padding: 2rem; border: 1px solid #ff5555; border-radius: 8px;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>Analysis failed. Please try again or check your API key.</p>
+                        <small>${err.message}</small>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-search"></i> Analyze Scenario';
+            }
+        }
+
+        function generateMockIssues(text) {
+            // Mock issues for demonstration
+            return {
+                issues: [
+                    {
+                        name: 'Breach of Contract',
+                        area: 'Contract Law',
+                        explanation: 'The scenario suggests a failure to perform contractual obligations. The breach appears to be a breach of condition rather than warranty, potentially allowing the innocent party to terminate the contract and claim damages.',
+                        cases: ['Hadley v Baxendale (1854)', 'Victoria Laundry v Newman Industries (1949)', 'The Heron II (1969)'],
+                        statutes: ['Sale of Goods Act 1979 s.14', 'Unfair Contract Terms Act 1977']
+                    },
+                    {
+                        name: 'Negligence',
+                        area: 'Tort Law',
+                        explanation: 'There is a potential duty of care owed by one party to another. The facts suggest this duty may have been breached, causing foreseeable harm. Causation and remoteness of damage will be key considerations.',
+                        cases: ['Donoghue v Stevenson (1932)', 'Caparo Industries v Dickman (1990)', 'Wagon Mound (No 1) (1961)'],
+                        statutes: []
+                    },
+                    {
+                        name: 'Misrepresentation',
+                        area: 'Contract Law / Equity',
+                        explanation: 'The scenario indicates a false statement of fact that induced entry into the contract. The nature of the misrepresentation (fraudulent, negligent, or innocent) will determine available remedies.',
+                        cases: ['Redgrave v Hurd (1881)', 'Hedley Byrne v Heller (1964)', 'Derry v Peek (1889)'],
+                        statutes: ['Misrepresentation Act 1967']
+                    }
+                ]
+            };
+        }
+
+        function displayIssues(data) {
+            document.getElementById('results-empty').style.display = 'none';
+            const content = document.getElementById('results-content');
+            content.style.display = 'block';
+
+            content.innerHTML = '';
+
+            const issues = data.issues || [];
+
+            if (issues.length === 0) {
+                content.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">No clear legal issues identified. Please refine your scenario.</p>';
+                return;
+            }
+
+            issues.forEach(issue => {
+                const card = document.createElement('div');
+                card.className = 'issue-card';
+
+                const casesHTML = issue.cases && issue.cases.length > 0
+                    ? `<div class="cases">
+                           <h5>Leading Cases</h5>
+                           <ul>
+                               ${issue.cases.map(c => `<li><i class="fas fa-gavel"></i> ${c}</li>`).join('')}
+                           </ul>
+                       </div>`
+                    : '';
+
+                const statutesHTML = issue.statutes && issue.statutes.length > 0
+                    ? `<div class="cases">
+                           <h5>Relevant Statutes</h5>
+                           <ul>
+                               ${issue.statutes.map(s => `<li><i class="fas fa-book"></i> ${s}</li>`).join('')}
+                           </ul>
+                       </div>`
+                    : '';
+
+                card.innerHTML = `
+                    <h4>
+                        ${issue.name}
+                        <span class="issue-type"><i class="fas fa-tag"></i> ${issue.area}</span>
+                    </h4>
+                    <p>${issue.explanation}</p>
+                    ${casesHTML}
+                    ${statutesHTML}
+                `;
+
+                content.appendChild(card);
+            });
+
+            // Add the AI Warning Disclaimer
+            const warningAlert = document.createElement('div');
+            warningAlert.style.marginTop = '2rem';
+            warningAlert.style.padding = '1.25rem';
+            warningAlert.style.background = 'rgba(255, 193, 7, 0.1)';
+            warningAlert.style.border = '1px solid rgba(255, 193, 7, 0.3)';
+            warningAlert.style.borderRadius = '8px';
+            warningAlert.style.color = 'var(--text-secondary)';
+            warningAlert.style.fontSize = '0.9rem';
+            warningAlert.style.lineHeight = '1.6';
+            warningAlert.style.display = 'flex';
+            warningAlert.style.gap = '1rem';
+            warningAlert.innerHTML = `
+                <i class="fas fa-exclamation-triangle" style="color: #FFC107; font-size: 1.25rem; margin-top: 0.1rem;"></i>
+                <div>
+                    <h5 style="color: #FFC107; margin: 0 0 0.25rem 0; font-size: 0.95rem;">Always Verify AI Citations</h5>
+                    AI models can occasionally hallucinate or use obscure case names (e.g., citing vessel owners instead of the standard leading case name). Always double-check case citations and dates before referencing them in your exams or essays.
+                </div>
+            `;
+            content.appendChild(warningAlert);
+        }
+    </script>
+    <script src="js/mascot-brain.js?v=1.0.2"></script>
+</body>
+
+</html>

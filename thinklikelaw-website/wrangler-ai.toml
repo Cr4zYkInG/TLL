@@ -1,0 +1,6 @@
+name = "thinklikelaw-ai"
+main = "workers/ai-worker.js"
+compatibility_date = "2023-10-01"
+
+# MISTRAL_API_KEY is stored as a Cloudflare Secret.
+# To set it, run: wrangler secret put MISTRAL_API_KEY

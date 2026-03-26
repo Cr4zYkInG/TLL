@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Editor | ThinkLikeLaw</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-43RLRE405P"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Default consent mode v2
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        });
+
+        gtag('js', new Date());
+        gtag('config', 'G-43RLRE405P');
+    </script>
+    <link rel="icon" type="image/x-icon" href="images/logo-icon-final.png">
+    <link rel="stylesheet" href="style.min.css?v=3.0.0">
+    <link rel="stylesheet" href="mascot.css?v=2.6.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ─── Note Editor — Premium Minimalist ─── */
+
+        .note-editor-container {
+            margin-left: 260px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at top right, #0a0a0c, #000000);
+            /* Deep Workspace */
+            position: relative;
+        }
+
+        body.dark-mode .note-editor-container {
+            background: radial-gradient(circle at top right, #0a0a0c, #000000);
+        }
+
+        /* Breadcrumb Bar */
+        .editor-breadcrumbs {
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.light-mode .editor-breadcrumbs {
+            background: #FAFAFA;
+            color: #888;
+        }
+
+        .editor-breadcrumbs a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .editor-breadcrumbs a:hover {
+            color: #333;
+        }
+
+        .bc-separator {
+            font-size: 0.55rem;
+            margin: 0 0.5rem;
+            color: #CCC;
+        }
+
+        .bc-active {
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* ─── Editor Header ─── */
+        .editor-header {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: var(--blur-amount);
+            -webkit-backdrop-filter: var(--blur-amount);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            /* Taller for premium feel */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .header-center {
+            display: flex;
+            justify-content: center;
+            flex: 2;
+            overflow: visible;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .btn-reviewed {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .btn-reviewed:hover {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-reviewed:disabled {
+            background: transparent;
+            color: #AAA;
+            border-color: #EEE;
+            cursor: default;
+        }
+
+        .btn-listen {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--spring);
+        }
+
+        .btn-listen:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .btn-listen.active {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+            box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.6rem;
+            border-radius: 10px;
+            transition: var(--spring);
+            display: flex;
+            align-items: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        /* Note Title Input */
+        .note-title-input {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            font-weight: 600;
+            outline: none;
+            max-width: 180px;
+            text-overflow: ellipsis;
+            opacity: 0.9;
+        }
+
+        .note-title-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Edit Icon */
+        .title-edit-icon {
+            color: #CCC;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .title-edit-icon:hover {
+            color: #666;
+        }
+
+        /* Credits Badge */
+        .credits-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .credits-badge i {
+            color: #F5A623;
+            font-size: 0.8rem;
+        }
+
+        /* ─── Liquid Glass Pill Toolbar ─── */
+        .pill-toolbar {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: visible;
+        }
+
+        body.light-mode .pill-toolbar {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .pill-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pill-btn:hover {
+            color: var(--text-primary);
+            background: rgba(0, 0, 0, 0.04);
+            transform: translateY(-1px);
+        }
+
+        .pill-btn.active {
+            color: var(--accent-color);
+            background: rgba(43, 108, 176, 0.1);
+        }
+
+        .pill-btn.text-size {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* ─── Custom Dropdown System ─── */
+        .custom-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #1A1A1E !important;
+            backdrop-filter: var(--blur-amount) !important;
+            -webkit-backdrop-filter: var(--blur-amount) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            border-radius: var(--radius-lg) !important;
+            padding: 1.25rem !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9) !important;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 5000;
+            min-width: 160px;
+        }
+
+        .custom-dropdown-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+        }
+
+        .color-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--spring);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .color-swatch.selected::after {
+            content: '✓';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .pill-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 0.35rem;
+        }
+
+        /* Color Picker — gradient dot */
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: conic-gradient(#F5A623, #E74C3C, #9B59B6, #3498DB, #2ECC71, #F5A623);
+            cursor: pointer;
+            border: 2px solid #333;
+            transition: transform 0.2s;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+
+        /* ─── Header Right Buttons ─── */
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.45rem;
+            border-radius: 8px;
+            transition: var(--spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background: #F0F0F0;
+            color: #333;
+        }
+
+        .icon-btn.checkmark {
+            color: #333;
+        }
+
+        .icon-btn.checkmark.saved {
+            color: #2ECC71 !important;
+        }
+
+        /* Stats Bar */
+        .editor-stats {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #F0F0F0;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2ECC71;
+            font-weight: 500;
+            transition: var(--spring);
+        }
+
+        .sync-status.saving {
+            color: #F5A623;
+        }
+
+        .sync-status.offline {
+            color: #E74C3C;
+        }
+
+        .stats-sep {
+            opacity: 0.3;
+        }
+
+        body.dark-mode .editor-stats {
+            border-top-color: #222;
+        }
+
+        /* Header button separator */
+        .header-sep {
+            width: 1px;
+            height: 20px;
+            background: #E8E8E8;
+            margin: 0 0.15rem;
+        }
+
+        /* ─── Editor Content ─── */
+        .editor-content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .editor-centered {
+            max-width: 850px; /* Wider for premium feel */
+            margin: 0 auto;
+        }
+
+        .note-title-large {
+            width: 100%;
+            border: none;
+            background: none;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            outline: none;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .note-title-large::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .editor-body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            min-height: 60vh;
+            outline: none;
+            letter-spacing: -0.01em;
+        }
+
+        .editor-body:empty:before {
+            content: attr(data-placeholder);
+            color: #CCC;
+            pointer-events: none;
+        }
+
+        .editor-body p {
+            margin-bottom: 0.75rem;
+        }
+
+        .editor-body h1,
+        .editor-body h2,
+        .editor-body h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .editor-body blockquote {
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        /* ─── Premium Legal UI Elements ─── */
+        .legal-case-wrapper {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-amount);
+            -webkit-backdrop-filter: var(--blur-amount);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 12px;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: var(--spring);
+            box-shadow: var(--card-shadow);
+            color: var(--text-primary);
+        }
+
+        .legal-case-wrapper:hover {
+            border-color: rgba(43, 108, 176, 0.2);
+            transform: translateX(4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .case-header {
+            background: var(--surface-color);
+            padding: 0.75rem 1.25rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .case-section {
+            padding: 1.25rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .case-section:last-child {
+            border-bottom: none;
+        }
+
+        .case-section-title {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-section-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            outline: none;
+        }
+
+        .ai-generating-placeholder {
+            padding: 1.5rem;
+            background: rgba(var(--accent-color-rgb, 74, 144, 226), 0.05);
+            border: 1px dashed var(--accent-color);
+            border-radius: 8px;
+            color: var(--accent-color);
+            text-align: center;
+            font-style: italic;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ─── RemNote-Inspired Blocks ─── */
+        .callout {
+            padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            position: relative;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            color: var(--text-secondary);
+            transition: var(--spring);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .callout:hover {
+            border-color: var(--accent-color);
+            transform: translateX(2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .callout::before {
+            content: '💡';
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .callout.info {
+            background: #EAF2FB;
+            border-color: #4A90E2;
+        }
+
+        .callout.info::before {
+            content: 'ℹ️';
+        }
+
+        .callout.success {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+        }
+
+        .callout.success::before {
+            content: '✅';
+        }
+
+        .callout.warning {
+            background: #FFF8E1;
+            border-color: #FFC107;
+        }
+
+        .callout.warning::before {
+            content: '⚠️';
+        }
+
+        .callout.danger {
+            background: #FFEBEE;
+            border-color: #F44336;
+        }
+
+        .callout.danger::before {
+            content: '🚨';
+        }
+
+        .callout-content {
+            outline: none;
+            min-height: 1.5em;
+        }
+
+        .note-toggle {
+            margin: 1.5rem 0;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--spring);
+        }
+
+        .note-toggle:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .note-toggle summary {
+            font-weight: 600;
+            color: #333;
+            outline: none;
+            list-style: none;
+            /* Hide default arrow in some browsers */
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .note-toggle summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .note-toggle summary::before {
+            content: '\25B6';
+            font-size: 0.8em;
+            color: #888;
+            transition: transform 0.2s;
+        }
+
+        .note-toggle[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .note-toggle .toggle-content {
+            margin-top: 0.5rem;
+            padding-left: 1.2rem;
+            border-left: 2px solid #EEE;
+            outline: none;
+            min-height: 1.5em;
+            color: #444;
+            cursor: text;
+        }
+
+        .ai-generated .case-header {
+            background: linear-gradient(90deg, #F0F4FF, #FFF);
+            color: var(--accent-color);
+        }
+
+        body.dark-mode .legal-case-wrapper {
+            background: #1A1A1A;
+            border-color: #333;
+            color: #EEE;
+        }
+
+        body.dark-mode .case-header {
+            background: #222;
+            color: #AAA;
+        }
+
+        body.dark-mode .case-section-content {
+            color: #CCC;
+        }
+
+        /* ─── Floating Context Menu ─── */
+        .floating-menu {
+            position: fixed;
+            z-index: 2000;
+            background: #1A1A1A;
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: var(--card-shadow-hover);
+            display: none;
+            flex-direction: column;
+            min-width: 160px;
+        }
+
+        .floating-row {
+            padding: 0.55rem 0.85rem;
+            color: #DDD;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: background 0.15s;
+        }
+
+        .floating-row:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFF;
+        }
+
+        .floating-row .shortcut {
+            margin-left: auto;
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .floating-row i {
+            font-size: 0.85rem;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Color Palette Row */
+        .color-palette-row {
+            display: none;
+            padding: 0.5rem 0.85rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .color-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .bg-yellow {
+            background: #FFF3BF;
+        }
+
+        .bg-blue {
+            background: #D0EBFF;
+        }
+
+        .bg-red {
+            background: #FFD6D6;
+        }
+
+        .bg-green {
+            background: #D3F9D8;
+        }
+
+        .bg-orange {
+            background: #FFE0B2;
+        }
+
+        .bg-purple {
+            background: #E8D5F5;
+        }
+
+        /* Quick Color Row */
+        #quick-color-row {
+            padding: 0.5rem 0.85rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .quick-color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .quick-color-dot:hover {
+            transform: scale(1.2);
+            border-color: #FFF;
+        }
+
+        .quick-color-dot.clear {
+            background: transparent;
+            border: 1px dashed #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-color-dot.clear i {
+            font-size: 0.6rem;
+            color: #888;
+        }
+
+        .quick-color-dot.clear:hover {
+            border-color: #FF5555;
+        }
+
+        .quick-color-dot.clear:hover i {
+            color: #FF5555;
+        }
+
+        /* ─── AI Sidebar ─── */
+        .ai-interpret-sidebar {
+            position: fixed;
+            right: -380px;
+            top: 0;
+            width: 380px;
+            height: 100vh;
+            background: #FFFFFF;
+            border-left: 1px solid #F0F0F0;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ai-interpret-sidebar.active {
+            right: 0;
+        }
+
+        .ai-sidebar-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-sidebar-header h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1A1A1A;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-sidebar-header h3 i {
+            color: #666;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .close-sidebar:hover {
+            background: #F0F0F0;
+            color: #333;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .ai-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #E0E0E0;
+            border-top-color: #333;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ai-response-text {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* ─── Slash Command Menu ─── */
+        .slash-menu {
+            position: fixed;
+            z-index: 2000;
+            background: #FFFFFF;
+            border: 1px solid #F0F0F0;
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: var(--card-shadow-hover);
+            display: none;
+            min-width: 220px;
+        }
+
+        .slash-item {
+            padding: 0.65rem 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .slash-item:hover {
+            background: #F5F5F5;
+        }
+
+        .slash-item i {
+            font-size: 0.9rem;
+            color: #888;
+            width: 20px;
+            text-align: center;
+        }
+
+        .slash-item-info span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            display: block;
+        }
+
+        .slash-item-info small {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* ─── Upload Modal ─── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            backdrop-filter: var(--blur-amount);
+        }
+
+        .modal-content {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            color: #1A1A1A;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .upload-area {
+            border: 2px dashed #E0E0E0;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: #999;
+            background: #FAFAFA;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: #CCC;
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .upload-area span {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #333;
+            border-radius: 4px;
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel {
+            background: none;
+            border: 1px solid #E0E0E0;
+            color: #666;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            border-color: #999;
+            color: #333;
+        }
+
+        .btn-upload {
+            background: #1A1A1A;
+            color: #FFF;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-upload:hover {
+            background: #333;
+        }
+
+        .btn-upload:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ─── Legal Case Wrapper ─── */
+        .legal-case-wrapper {
+            background: #FAFAFA;
+            border: 1px solid #F0F0F0;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .case-header {
+            background: #F5F5F5;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .case-section {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .case-section:last-child {
+            border-bottom: none;
+        }
+
+        .case-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .case-section-content {
+            font-size: 0.9rem;
+            color: #333;
+            min-height: 1.5em;
+            outline: none;
+        }
+
+        .case-section-content:empty:before {
+            content: attr(placeholder);
+            color: #CCC;
+        }
+
+        /* ─── Editor Table ─── */
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .editor-table th,
+        .editor-table td {
+            border: 1px solid #E8E8E8;
+            padding: 0.65rem 0.85rem;
+            text-align: left;
+        }
+
+        .editor-table th {
+            background: #F5F5F5;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .editor-table td {
+            color: #333;
+        }
+
+        /* Table Controls */
+        .table-controls {
+            position: fixed;
+            z-index: 1500;
+            display: flex;
+            gap: 0.35rem;
+            background: #1A1A1A;
+            padding: 0.35rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .table-control-btn {
+            background: none;
+            border: none;
+            color: #999;
+            padding: 0.35rem 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .table-control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+        }
+
+        .table-control-btn.delete:hover {
+            color: #FF5555;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1024px) {
+            .header-center {
+                display: none;
+            }
+
+            .note-editor-container {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .editor-content-wrapper {
+                padding: 2rem 1rem;
+            }
+
+            .note-title-large {
+                font-size: 1.6rem;
+            }
+
+            .editor-header {
+                padding: 0 1rem;
+            }
+        }
+
+        /* ─── DARK MODE Overrides ─── */
+        body.dark-mode .note-editor-container {
+            background: var(--bg-color);
+        }
+
+        body.dark-mode .editor-breadcrumbs {
+            background: #0A0A0A;
+            border-bottom-color: #222;
+            color: var(--text-secondary);
+        }
+
+        body.dark-mode .editor-breadcrumbs a {
+            color: var(--text-secondary);
+        }
+
+        body.dark-mode .bc-active {
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .editor-header {
+            background: #0A0A0A;
+            border-bottom-color: #222;
+        }
+
+        body.dark-mode .note-title-input,
+        body.dark-mode .note-title-large,
+        body.dark-mode .editor-body {
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .note-title-large::placeholder,
+        body.dark-mode .editor-body:empty:before {
+            color: #444;
+        }
+
+        body.dark-mode .pill-toolbar {
+            background: #222;
+        }
+
+        body.dark-mode .callout {
+            background: #1E1E1E;
+            color: #EEE;
+        }
+
+        body.dark-mode .callout.info {
+            background: rgba(74, 144, 226, 0.15);
+        }
+
+        body.dark-mode .callout.success {
+            background: rgba(76, 175, 80, 0.15);
+        }
+
+        body.dark-mode .callout.warning {
+            background: rgba(255, 193, 7, 0.15);
+        }
+
+        body.dark-mode .callout.danger {
+            background: rgba(244, 67, 54, 0.15);
+        }
+
+        body.dark-mode .note-toggle {
+            background: #1A1A1A;
+            border-color: #333;
+        }
+
+        body.dark-mode .note-toggle summary {
+            color: #EEE;
+        }
+
+        body.dark-mode .note-toggle .toggle-content {
+            color: #CCC;
+            border-color: #333;
+        }
+
+        body.dark-mode .ai-interpret-sidebar {
+            background: #0A0A0A;
+            border-left-color: #222;
+        }
+
+        body.dark-mode .credits-badge {
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .back-btn {
+            color: var(--text-secondary);
+        }
+
+        body.dark-mode .modal-content,
+        body.dark-mode .slash-menu {
+            background: #1A1A1A;
+            border-color: #333;
+            color: #FFF;
+        }
+
+        body.dark-mode .slash-item {
+            color: #CCC;
+        }
+
+        body.dark-mode .slash-item:hover,
+        body.dark-mode .slash-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: #FFF;
+        }
+
+        body.dark-mode .ai-sidebar-header {
+            border-bottom-color: #222;
+        }
+
+        body.dark-mode .ai-sidebar-header h3 {
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .ai-response-text {
+            color: var(--text-primary);
+        }
+
+        body.dark-mode .ai-response-text h1,
+        body.dark-mode .ai-response-text h2,
+        body.dark-mode .ai-response-text h3 {
+            color: #FFF;
+        }
+
+        body.dark-mode .editor-stats {
+            color: #666;
+            border-top-color: #222;
+        }
+
+        body.dark-mode .stats-sep {
+            opacity: 0.2;
+        }
+
+        body.dark-mode .upload-area {
+            border-color: #444;
+            background: #111;
+        }
+
+        body.dark-mode .floating-menu {
+            background: #1A1A1A;
+            border-color: #333;
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        body.dark-mode .floating-row {
+            color: #CCC;
+        }
+
+        body.dark-mode .floating-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #FFF;
+        }
+
+        body.dark-mode .toolbar-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .table-control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ─── Audit Dark Mode ─── */
+        body.dark-mode .audit-header {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #222;
+        }
+
+        body.dark-mode #audit-score-text {
+            color: #FFF;
+        }
+
+        body.dark-mode .btn-premium-action {
+            background: #FFF;
+            color: #000 !important;
+        }
+
+        body.dark-mode .btn-premium-action:hover {
+            background: #EEE;
+        }
+
+        body.dark-mode .rule-flag {
+            background: #111;
+            border-color: #222;
+        }
+
+        body.dark-mode .audit-score-gauge circle:first-child {
+            stroke: #222;
+        }
+
+        body.dark-mode .slash-divider {
+            background: #222;
+        }
+
+        /* ─── AI Sidebar Tabs ─── */
+        .sidebar-tabs {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .s-tab {
+            background: none;
+            border: none;
+            padding: 0.5rem 0.25rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #999;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .s-tab i {
+            font-size: 0.75rem;
+        }
+
+        .s-tab.active {
+            color: var(--accent-color);
+        }
+
+        .s-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        /* Audit View */
+        .audit-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(0, 0, 0, 0.02);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .audit-score-gauge {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #audit-score-text {
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .audit-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .a-stat {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-premium-action {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-premium-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .rule-flag {
+            background: #FFF;
+            border: 1px solid #EEE;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .rule-name {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .rule-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .slash-divider {
+            height: 1px;
+            background: #EEE;
+            margin: 4px 0;
+        }
+
+        /* ─── AI History Nav ─── */
+        .nav-arrow {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .nav-arrow:hover {
+            color: var(--accent-color);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        body.dark-mode .nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+        }
+
+        /* ─── Preview Modal ─── */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .preview-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: #FFF;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        .preview-container {
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-caption {
+            color: #AAA;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Focus Music Menu */
+        .focus-music-wrapper {
+            position: relative;
+        }
+
+        .focus-music-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem;
+            width: 180px;
+            box-shadow: var(--card-shadow-hover);
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            z-index: 2000;
+            margin-top: 0.5rem;
+        }
+
+        .focus-music-menu.active {
+            display: flex;
+        }
+
+        .music-option {
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .music-option:hover {
+            background: var(--progress-bg);
+            color: var(--text-primary);
+        }
+
+        .music-option.stop {
+            border-top: 1px solid var(--border-color);
+            margin-top: 0.25rem;
+            color: #ff5555;
+        }
+
+        /* ─── Focus Mode ─── */
+        .editor-body.focus-mode>* {
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .editor-body.focus-mode>.focus-active,
+        .editor-body.focus-mode>*:hover {
+            opacity: 1;
+        }
+
+        .icon-btn.active-focus {
+            color: var(--accent-color, #4A90E2);
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        /* ─── Table of Contents ─── */
+        .float-toc-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            color: #555;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .float-toc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .toc-sidebar {
+            position: fixed;
+            top: 80px;
+            right: 0;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: #FFFFFF;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.05);
+            border-left: 1px solid #F0F0F0;
+            z-index: 1100;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toc-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .toc-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toc-header h3 {
+            font-size: 1.1rem;
+            color: #1A1A1A;
+            margin: 0;
+        }
+
+        .toc-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .toc-item {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            padding: 0.4rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .toc-item:hover,
+        .toc-item.active {
+            background: #F5F5F5;
+            color: var(--accent-color, #4A90E2);
+        }
+
+        .toc-item.h1 {
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .toc-item.h2 {
+            margin-left: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .toc-item.h3 {
+            margin-left: 2rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .toc-empty {
+            color: #999;
+            text-align: center;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* TOC Dark mode */
+        body.dark-mode .float-toc-btn {
+            background: #222;
+            border-color: #333;
+            color: #CCC;
+        }
+
+        body.dark-mode .toc-sidebar {
+            background: #1A1A1A;
+            border-left-color: #333;
+        }
+
+        body.dark-mode .toc-header {
+            border-bottom-color: #333;
+        }
+
+        body.dark-mode .toc-header h3 {
+            color: #EEE;
+        }
+
+        body.dark-mode .toc-item {
+            color: #BBB;
+        }
+
+        body.dark-mode .toc-item:hover,
+        body.dark-mode .toc-item.active {
+            background: #2A2A2A;
+            color: #4A90E2;
+        }
+
+        /* ─── Word Count Goal ─── */
+        .word-goal-container {
+            position: relative;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .word-goal-container:hover {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .word-goal-container.goal-met .word-goal-progress {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .word-goal-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: rgba(74, 144, 226, 0.2);
+            transition: width 0.3s ease;
+        }
+
+        body.dark-mode .word-goal-container {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark-mode .word-goal-container:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ─── Shortcuts Modal ─── */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #EEE;
+        }
+
+        .shortcut-row:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-row span {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .kbd-group kbd {
+            background: #F0F0F0;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            color: #333;
+            margin-left: 0.25rem;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .shortcut-row {
+            border-bottom-color: #333;
+        }
+
+        body.dark-mode .shortcut-row span {
+            color: #CCC;
+        }
+
+        body.dark-mode .kbd-group kbd {
+            background: #222;
+            border-color: #444;
+            color: #EEE;
+        }
+    </style>
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="preview-modal">
+        <span class="preview-close" id="close-preview">&times;</span>
+        <div class="preview-container" id="preview-container">
+            <!-- Content injected via JS -->
+        </div>
+        <div class="preview-caption" id="preview-caption"></div>
+    </div>
+
+        <script src="js/site-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/site-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/3.0.0/hint.min.css">
+</head>
+
+<body>
+    <!-- Sidebar loaded via sidebar.js -->
+
+    <div class="note-editor-container">
+
+        <!-- Header -->
+        <div class="editor-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="history.back()"><i class="fas fa-chevron-left"></i></button>
+                <div style="display:flex;align-items:center;gap:0.4rem;">
+                    <i class="fas fa-file-alt" style="color:#CCC;font-size:0.85rem"></i>
+                    <input type="text" id="note-title" class="note-title-input" placeholder="Note Title">
+                    <i class="fas fa-pen title-edit-icon" id="edit-title-btn"></i>
+                </div>
+                <div style="width:1px;height:20px;background:#E8E8E8;margin:0 0.25rem"></div>
+                <div class="credits-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span data-credits-display>500</span>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <div class="pill-toolbar">
+                    <div class="formatting-group"
+                        style="display:flex; align-items:center; background: var(--surface-light); border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; margin-right: 0.25rem;">
+                        <button class="pill-btn" id="decrease-size-btn" title="Decrease Size"
+                            style="border-radius: 0; border: none; padding: 0.4rem 0.6rem; background: transparent;"><span
+                                style="font-size: 0.85em; font-weight: 600;">A</span></button>
+                        <div style="width: 1px; height: 16px; background: rgba(0,0,0,0.1);"></div>
+                        <span id="current-text-size"
+                            style="font-size: 0.85rem; font-weight: 500; min-width: 24px; text-align: center; color: var(--text-light); padding: 0 0.5rem; user-select: none;">16</span>
+                        <div style="width: 1px; height: 16px; background: rgba(0,0,0,0.1);"></div>
+                        <button class="pill-btn" id="increase-size-btn" title="Increase Size"
+                            style="border-radius: 0; border: none; padding: 0.4rem 0.6rem; background: transparent;"><span
+                                style="font-size: 1.15em; font-weight: 600;">A</span></button>
+                    </div>
+
+                    <button class="pill-btn" data-command="bold" title="Bold (Cmd+B)"><b>B</b></button>
+                    <button class="pill-btn" data-command="italic" title="Italic (Cmd+I)"><i>I</i></button>
+                    <button class="pill-btn" data-command="underline" title="Underline (Cmd+U)"><u>U</u></button>
+                    <div class="pill-divider"></div>
+                    <button class="pill-btn" data-command="justifyLeft" title="Align Left"><i
+                            class="fas fa-align-left"></i></button>
+                    <button class="pill-btn" data-command="justifyCenter" title="Align Center"><i
+                            class="fas fa-align-center"></i></button>
+                    <button class="pill-btn" data-command="justifyRight" title="Align Right"><i
+                            class="fas fa-align-right"></i></button>
+                    <button class="pill-btn" data-command="insertUnorderedList" title="Bullet List"><i
+                            class="fas fa-list-ul"></i></button>
+                    <div class="pill-divider"></div>
+
+                    <div class="custom-dropdown-btn" id="text-color-btn" title="Text Color" style="position: relative;">
+                        <button class="pill-btn" style="cursor:pointer">
+                            <div class="color-dot" id="active-color-dot" style="background-color: #FFFFFF">
+                            </div>
+                        </button>
+                        <div class="custom-dropdown-menu" id="text-color-menu" style="right: 0; min-width: 160px;">
+                            <div class="color-grid">
+                                <div class="color-swatch selected" data-color="#FFFFFF" style="background:#FFFFFF"
+                                    title="Onyx White"></div>
+                                <div class="color-swatch" data-color="#000000"
+                                    style="background:#000000; border: 1px solid rgba(255,255,255,0.2);"
+                                    title="Onyx Deep"></div>
+                                <div class="color-swatch" data-color="#475569" style="background:#475569"
+                                    title="Slate Gray"></div>
+                                <div class="color-swatch" data-color="#1E40AF" style="background:#1E40AF"
+                                    title="Royal Blue"></div>
+                                <div class="color-swatch" data-color="#991B1B" style="background:#991B1B"
+                                    title="Executive Red"></div>
+                                <div class="color-swatch" data-color="#065F46" style="background:#065F46"
+                                    title="Emerald Green"></div>
+                                <div class="color-swatch" data-color="#92400E" style="background:#92400E"
+                                    title="Goldenrod"></div>
+                                <div class="color-swatch" data-color="#8B5CF6" style="background:#8B5CF6"
+                                    title="Majestic Purple"></div>
+                                <div class="color-swatch" data-color="#EC4899" style="background:#EC4899" title="Pink">
+                                </div>
+                                <div class="color-swatch" data-color="#F59E0B" style="background:#F59E0B" title="Amber">
+                                </div>
+                                <div class="color-swatch" data-color="#06B6D4" style="background:#06B6D4" title="Cyan">
+                                </div>
+                                <div class="color-swatch" data-color="#EF4444" style="background:#EF4444" title="Red">
+                                </div>
+                            </div>
+                            <div
+                                style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <label
+                                    style="font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; display: block; margin-bottom: 0.35rem;">Custom</label>
+                                <input type="color" id="custom-color-input" value="#4A90E2"
+                                    style="width: 100%; height: 30px; border: none; border-radius: 6px; cursor: pointer; background: transparent;"
+                                    title="Pick any colour">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Group 1: Primary Actions -->
+                <button class="btn-listen" id="read-aloud-btn" title="Read Aloud">
+                    <i class="fas fa-volume-up"></i> Read Aloud
+                </button>
+                
+                <div class="focus-music-wrapper">
+                    <button class="icon-btn" id="focus-music-btn" title="Focus Music">
+                        <i class="fas fa-music"></i>
+                    </button>
+                    <div class="focus-music-menu" id="focus-music-menu">
+                        <div class="music-option" onclick="window.toggleAmbient('lofi')"><i class="fas fa-compact-disc"></i> Lo-Fi Beats</div>
+                        <div class="music-option" onclick="window.toggleAmbient('brown')"><i class="fas fa-wind"></i> Deep Brown Noise</div>
+                        <div class="music-option" onclick="window.toggleAmbient('stop')"><i class="fas fa-stop"></i> Stop Music</div>
+                    </div>
+                </div>
+
+                <div class="header-sep"></div>
+
+                <!-- Group 2: Liquid Glass Formatting -->
+                <div class="pill-toolbar">
+                    <button class="pill-btn" data-command="bold" title="Bold (Cmd+B)"><i class="fas fa-bold"></i></button>
+                    <button class="pill-btn" data-command="italic" title="Italic (Cmd+I)"><i class="fas fa-italic"></i></button>
+                    <button class="pill-btn" data-command="underline" title="Underline (Cmd+U)"><i class="fas fa-underline"></i></button>
+                    <div class="pill-divider"></div>
+                    <button class="pill-btn" data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                    <div class="pill-divider"></div>
+                    <button class="pill-btn" id="text-color-btn" title="Text Color">
+                        <div class="color-dot" id="active-color-dot"></div>
+                    </button>
+                </div>
+
+                <div class="header-sep"></div>
+
+                <!-- Group 3: Secondary Tools -->
+                <button class="icon-btn" id="undo-btn" title="Undo"><i class="fas fa-undo"></i></button>
+                <button class="icon-btn" id="image-btn" title="Insert Image"><i class="fas fa-image"></i></button>
+                <button class="icon-btn" id="attach-btn" title="Attach File"><i class="fas fa-paperclip"></i></button>
+                <button class="icon-btn" id="lock-btn" title="Lock Note"><i class="fas fa-lock-open"></i></button>
+                <button class="icon-btn" id="download-btn" title="Download PDF"><i class="fas fa-download"></i></button>
+                <button class="icon-btn" id="focus-btn" title="Toggle Focus Mode"><i class="fas fa-eye"></i></button>
+
+                <div class="header-sep"></div>
+
+                <!-- Group 4: Performance & AI -->
+                <button class="btn-reviewed" id="btn-mark-reviewed" title="Boost your retention score">
+                    <i class="fas fa-brain"></i> Mark Reviewed
+                </button>
+                <button class="icon-btn" id="toggle-sidebar-btn" title="AI Sidebar"><i class="fas fa-brain"></i></button>
+                <button class="icon-btn checkmark" id="save-btn" title="Save" onclick="if(window.saveNote) window.saveNote()"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
+
+        <!-- Breadcrumb Bar -->
+        <div class="editor-breadcrumbs">
+            <a href="dashboard">Home</a>
+            <i class="fas fa-chevron-right separator"></i>
+            <a href="modules">My Modules</a>
+            <span class="bc-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="bc-module" id="bc-module-name">Criminal Law</span>
+            <span class="bc-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="bc-active" id="bc-lecture-title">Note</span>
+        </div>
+
+        <!-- Floating Context Menu -->
+        <div id="floating-menu" class="floating-menu" style="display: none;">
+            <div class="floating-row" id="ctx-interpret">
+                <i class="fas fa-brain" style="color: #4A90E2;"></i>
+                <span>Interpret with AI <span style="font-size:0.8em;opacity:0.8;margin-left:5px">(15
+                        credits)</span></span>
+                <span class="shortcut">Cmd+J</span>
+            </div>
+            <div class="floating-row" id="ctx-critique">
+                <i class="fas fa-gavel" style="color: #9B51E0;"></i>
+                <span>Academic Critique <span style="font-size:0.8em;opacity:0.8;margin-left:5px">(20
+                        credits)</span></span>
+            </div>
+            <div class="floating-row" id="ctx-optimise">
+                <i class="fas fa-sparkles" style="color: #4CAF50;"></i>
+                <span>Quick Optimise <span style="font-size:0.8em;opacity:0.8;margin-left:5px">(10
+                        credits)</span></span>
+            </div>
+
+            <!-- Quick Colors Container -->
+            <div class="floating-row"
+                style="padding: 0.2rem 0.85rem; cursor: default; background: transparent; min-height: 36px;"
+                id="quick-color-row">
+                <!-- Populated by JS -->
+            </div>
+            <div class="floating-row" id="ctx-table">
+                <i class="fas fa-table"></i>
+                <span>Insert Table</span>
+            </div>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="editor-content-wrapper">
+            <div class="editor-centered">
+                <textarea id="note-title-header" class="note-title-large" placeholder="Note Title"></textarea>
+                <div id="editor" class="editor-body" contenteditable="true"
+                    data-placeholder="Start typing your legal notes here... Use / for commands."></div>
+
+                <div class="editor-stats">
+                    <div class="word-goal-container" id="word-goal-container" title="Click to set word goal">
+                        <div class="word-goal-progress" id="word-goal-progress" style="width: 0%"></div>
+                        <span id="word-count" style="position: relative; z-index: 1;">0 words</span>
+                    </div>
+                    <span class="stats-sep">•</span>
+                    <span id="char-count">0 characters</span>
+                    <span class="stats-sep">•</span>
+                    <span id="reading-time">0 min read</span>
+                    <div style="flex-grow: 1;"></div>
+                    <div id="sync-status" class="sync-status">
+                        <i class="fas fa-cloud"></i>
+                        <span>Cloud Synced</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating TOC Button -->
+        <button class="float-toc-btn" id="toggle-toc-btn" title="Table of Contents">
+            <i class="fas fa-list-ul"></i>
+        </button>
+
+        <!-- TOC Sidebar -->
+        <div class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-header">
+                <h3>Outline</h3>
+                <button class="close-sidebar" id="close-toc-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="toc-content" id="toc-content">
+                <div class="toc-empty">Add headings to see document outline</div>
+            </div>
+        </div>
+
+        <!-- AI Sidebar -->
+        <div class="ai-interpret-sidebar" id="ai-sidebar">
+            <div class="ai-sidebar-header">
+                <div class="sidebar-tabs">
+                    <button class="s-tab active" data-tab="interpret"><i class="fas fa-brain"></i> Interpret</button>
+                    <button class="s-tab" data-tab="critique"><i class="fas fa-gavel"></i> Critique</button>
+                    <button class="s-tab" data-tab="audit"><i class="fas fa-search"></i> Audit</button>
+                </div>
+                <button class="close-sidebar" id="close-ai-sidebar"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="sidebar-content">
+                <!-- AI History Nav (Only for Interpret tab) -->
+                <div class="ai-history-nav" id="ai-history-nav"
+                    style="display: none; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                    <button class="nav-arrow" id="ai-prev" title="Previous Perspective"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <span id="ai-history-count"
+                        style="font-size: 0.75rem; color: #999; min-width: 30px; text-align: center;">1/1</span>
+                    <button class="nav-arrow" id="ai-next" title="Next Perspective"><i
+                            class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <div id="ai-loading" class="ai-loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing legal context...</p>
+                </div>
+
+                <div id="ai-response-container">
+                    <div id="ai-response" class="ai-response-text">
+                        Select text and click "Interpret" to see AI analysis.
+                    </div>
+                </div>
+
+                <!-- Audit View (Initially Hidden) -->
+                <div id="ai-audit-view" style="display: none; padding: 1rem;">
+                    <div class="audit-header">
+                        <div class="audit-score-gauge">
+                            <svg width="60" height="60" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="54" fill="none" stroke="#F0F0F0" stroke-width="8" />
+                                <circle id="audit-progress" cx="60" cy="60" r="54" fill="none"
+                                    stroke="var(--accent-color)" stroke-width="8" stroke-dasharray="339.29"
+                                    stroke-dashoffset="339.29" stroke-linecap="round"
+                                    style="transition: stroke-dashoffset 1s ease;" />
+                            </svg>
+                            <span id="audit-score-text">0</span>
+                        </div>
+                        <div class="audit-stats">
+                            <div class="a-stat"><strong>Citations:</strong> <span id="audit-count">0</span></div>
+                            <div class="a-stat"><strong>Errors:</strong> <span id="audit-errors"
+                                    style="color:#FF5555">0</span></div>
+                        </div>
+                    </div>
+                    <button class="pill-btn hint--bottom" aria-label="Check your document for OSCOLA citation errors"
+                        id="run-oscola-audit" style="background:#F0F1F5;color:#4A5568;border:none;">
+                        <i class="fas fa-chart-line"></i> Run OSCOLA Audit
+                    </button>
+                    <div id="audit-results" style="margin-top: 1.5rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slash Command Menu -->
+    <div class="slash-menu" id="slash-menu" style="display: none;">
+        <!-- TEXT BLOCKS -->
+        <div class="slash-item" data-command="h1">
+            <i class="fas fa-heading"></i>
+            <div class="slash-item-info">
+                <span>Heading 1</span>
+                <small>Large section heading</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="h2">
+            <i class="fas fa-heading" style="font-size: 0.8rem;"></i>
+            <div class="slash-item-info">
+                <span>Heading 2</span>
+                <small>Medium heading</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="h3">
+            <i class="fas fa-heading" style="font-size: 0.7rem;"></i>
+            <div class="slash-item-info">
+                <span>Heading 3</span>
+                <small>Small heading</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="bullet">
+            <i class="fas fa-list-ul"></i>
+            <div class="slash-item-info">
+                <span>Bullet List</span>
+                <small>Create a simple list</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="numbered">
+            <i class="fas fa-list-ol"></i>
+            <div class="slash-item-info">
+                <span>Numbered List</span>
+                <small>Create a numbered list</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="quote">
+            <i class="fas fa-quote-right"></i>
+            <div class="slash-item-info">
+                <span>Quote</span>
+                <small>Insert a blockquote</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="divider">
+            <i class="fas fa-minus"></i>
+            <div class="slash-item-info">
+                <span>Divider</span>
+                <small>Insert horizontal rule</small>
+            </div>
+        </div>
+
+        <!-- RICH BLOCKS -->
+        <div class="slash-item" data-command="callout">
+            <i class="fas fa-lightbulb" style="color: #FFC107;"></i>
+            <div class="slash-item-info">
+                <span>Callout Box</span>
+                <small>Highlight important information</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="toggle">
+            <i class="fas fa-chevron-right"></i>
+            <div class="slash-item-info">
+                <span>Toggle List</span>
+                <small>Collapsible content section</small>
+            </div>
+        </div>
+
+        <div class="slash-divider"></div>
+
+        <!-- TEMPLATES & AI -->
+        <div class="slash-item" data-command="legal-template">
+            <i class="fas fa-balance-scale" style="color: #4A90E2;"></i>
+            <div class="slash-item-info">
+                <span>Case Analysis</span>
+                <small>Manual Facts, Issue, Held...</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="ai-case-brief">
+            <i class="fas fa-magic" style="color: #F5A623;"></i>
+            <div class="slash-item-info">
+                <span>AI Case Brief <span class="credit-cost-badge"><i class="fas fa-bolt"></i> 10</span></span>
+                <small>Auto-generate brief for a case</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="ai-outline">
+            <i class="fas fa-list-ol" style="color: #4CAF50;"></i>
+            <div class="slash-item-info">
+                <span>Generate Outline <span class="credit-cost-badge"><i class="fas fa-bolt"></i> 15</span></span>
+                <small>AI summary of current notes</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="create-flashcard">
+            <i class="fas fa-clone" style="color: #9B51E0;"></i>
+            <div class="slash-item-info">
+                <span>Create Flashcard <span class="credit-cost-badge"><i class="fas fa-bolt"></i> 5</span></span>
+                <small>Turn selection into study card</small>
+            </div>
+        </div>
+        <div class="slash-divider"></div>
+        <div class="slash-item" data-command="attach-file">
+            <i class="fas fa-file-pdf"></i>
+            <div class="slash-item-info">
+                <span>Attach File</span>
+                <small>PDF, Word, PPT</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="attach-image">
+            <i class="fas fa-image"></i>
+            <div class="slash-item-info">
+                <span>Insert Image</span>
+                <small>Upload or drag an image</small>
+            </div>
+        </div>
+        <div class="slash-item" data-command="insert-table">
+            <i class="fas fa-table"></i>
+            <div class="slash-item-info">
+                <span>Insert Table</span>
+                <small>Add a new data table</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="upload-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Files</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <p style="color: #999; margin-bottom: 2rem;">Upload documents (PDF, Word, PPT). They will be converted to
+                PDF.</p>
+
+            <div class="upload-area" id="drop-zone">
+                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <p>Drag and drop files here</p>
+                <span>or click to browse</span>
+                <input type="file" id="file-input" hidden multiple>
+            </div>
+
+            <div id="upload-progress-container" style="display: none; margin-top: 2rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                    <span id="progress-text" style="font-size:0.85rem;color:#666">Converting...</span>
+                    <span id="progress-percent" style="font-size:0.85rem;font-weight:700;color:#333">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel">Cancel</button>
+                <button class="btn-upload" id="start-upload" disabled>Start Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Modals -->
+    <div class="custom-modal-overlay" id="ai-case-brief-modal">
+        <div class="custom-modal">
+            <h3><i class="fas fa-balance-scale"></i> Generate AI Case Brief</h3>
+            <p style="color: #888; font-size: 0.9rem; margin-top: -0.5rem; margin-bottom: 1rem;">Cost: 10 AI Credits</p>
+            <input type="text" id="ai-case-name-input" placeholder="e.g. Donoghue v Stevenson" autocomplete="off">
+            <div class="modal-actions">
+                <button class="btn-cancel"
+                    onclick="document.getElementById('ai-case-brief-modal').classList.remove('active')">Cancel</button>
+                <button class="btn-submit" id="submit-ai-case-brief">Generate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.min.js?v=3.0.0"></script>
+    <script src="js/sidebar.js?v=3.0.0"></script>
+    <script src="js/credits-manager.js?v=3.0.0"></script>
+    <script src="js/ai-service.js?v=3.0.0"></script>
+    <script src="js/cloud-data.js?v=3.0.0"></script>
+    <script src="js/utils.js?v=3.0.0"></script>
+    <script src="js/settings-logic.js?v=3.0.0"></script>
+    <script src="js/payment-modal.js?v=3.0.0"></script>
+    <script src="js/audio-manager.js?v=3.0.0"></script>
+    <script src="js/mascot-thesaurus.js?v=3.0.0"></script>
+    <script src="js/note-editor.js?v=3.0.0"></script>
+    <script src="js/mascot-brain.js?v=2.6.0"></script>
+    <script src="js/pdf-export.js?v=3.0.0"></script>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="modal-overlay" id="shortcuts-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>Keyboard Shortcuts</h2>
+                <button class="close-modal" onclick="document.getElementById('shortcuts-modal').style.display='none'"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <div class="shortcuts-grid">
+                <div class="shortcut-row">
+                    <span><strong>General</strong></span>
+                </div>
+                <div class="shortcut-row">
+                    <span>Show Shortcuts</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>/</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Save Note</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>S</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Make Flashcard</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>K</kbd></div>
+                </div>
+
+                <div class="shortcut-row" style="margin-top: 0.5rem;">
+                    <span><strong>Formatting & Blocks</strong></span>
+                </div>
+                <div class="shortcut-row">
+                    <span>Bold / Italic / Underline</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>B/I/U</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Highlight Text</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>H</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Heading 1 / 2 / 3</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>1/2/3</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Bullet List</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>L</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Numbered List</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>O</kbd></div>
+                </div>
+                <div class="shortcut-row">
+                    <span>Quote Block</span>
+                    <div class="kbd-group"><kbd>Cmd</kbd><kbd>Shift</kbd><kbd>Q</kbd></div>
+                </div>
+            </div>
+
+            <p style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 1rem;">
+                <em>Replace Cmd with Ctrl on Windows/Linux</em>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

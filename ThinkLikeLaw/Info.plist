@@ -41,5 +41,7 @@
 	<string>ThinkLikeLaw needs access to your calendar to sync your exam deadlines and study schedule.</string>
 	<key>GIDClientID</key>
 	<string>570660098690-2ckekj89n4cbho5mh1iod0pfp5k82ioc.apps.googleusercontent.com</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.education</string>
 </dict>
 </plist>

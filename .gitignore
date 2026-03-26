@@ -25,9 +25,8 @@ xcuserdata/
 DerivedData/
 *.hmap
 *.ipa
-*.xcuserstate
-**/*.xcworkspace/*
-!**/xcshareddata/swiftpm/Package.resolved
+**/*.xcworkspace/xcuserdata/
+**/*.xcuserstate
 
 # Swift Package Manager
 .build/
